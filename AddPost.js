@@ -95,10 +95,6 @@ const password = document.getElementById('passwordlOGIN').value;
 
         axios.post("https://oneaksour.onrender.com/login", {
         email:email,
-        password: password,
-},   
-{
-   
 })
 
 
