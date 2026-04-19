@@ -50,7 +50,7 @@ ButtonRegster.addEventListener('click', async () => {
     
      const file = document.getElementById("avatarInput").files[0];
   formData.append("avatar", file);
-    axios.post('http://localhost:3000/register', formData)
+    axios.post('https://oneaksour.onrender.com/register', formData)
         .then(res => {
             console.log(res.data);
             ShowAltert("تم إنشاء الحساب بنجاح");

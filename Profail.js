@@ -50,7 +50,7 @@ const logoutE = document.getElementById('Buttonlogout')
  document.getElementById('Buttonlogout').addEventListener("click" , function(){
    
 
-        axios.post('http://localhost:3000/logout' , {
+        axios.post('https://oneaksour.onrender.com/logout' , {
 
            Headers :{
             Authorization:  `Bearer ${localStorage.getItem('token')}`
@@ -134,7 +134,7 @@ TokenCheking()
 function getuserpostId(){////////////////////  الحساب الدي مسجل دخولو //////////////////////////////////
  
   const Token = localStorage.getItem('token')
-axios.get("http://localhost:3000/posts/", {
+axios.get("https://oneaksour.onrender.com/posts/", {
   headers: {
     Authorization: `Bearer ${Token}`
   }
@@ -368,7 +368,7 @@ w()
  // ///////////////////////////////////  
 
 function GetOnepost(id){////////////////// الحساب الدي ليس مسجل دخولو ///////////////////////////////////////////////////////////////
-   axios.get(`http://localhost:3000/user/${id}/posts`)
+   axios.get(`https://oneaksour.onrender.com/user/${id}/posts`)
  
  
    .then(response => { 
@@ -417,7 +417,7 @@ function GetOnepost(id){////////////////// الحساب الدي ليس مسجل
                      <h6> ${element.createdAt}</h6>
                    </div>
                    <div class="ImageUserM">
-                    <img src="http://localhost:3000/uploads/${element.userId?.avatar || 'default.png'}">
+                    <img src="https://oneaksour.onrender.com/uploads/${element.userId?.avatar || 'default.png'}">
                    </div>
                    </div> 
                    </div>
@@ -426,7 +426,7 @@ function GetOnepost(id){////////////////// الحساب الدي ليس مسجل
                   
                    </div>
                   <div class="ImagePost">
-                    <img src="http://localhost:3000/uploads/${element.userId?.avatar || 'default.png'}">
+                    <img src="https://oneaksour.onrender.com/uploads/${element.userId?.avatar || 'default.png'}">
                   </div>
                   <div class="CommentAndLikesAndshir">
                      <div class="sharing">
@@ -803,7 +803,7 @@ function SendMessage(id){
  const ResultText = ParentInputPlace.querySelector('.ComentsInput').value
 
  
-   axios.post(`http://localhost:3000/posts/${id}/comments`,
+   axios.post(`https://oneaksour.onrender.com/posts/${id}/comments`,
     {
       text: ResultText
 
@@ -820,7 +820,7 @@ function GetComments(id) {
   const Token = localStorage.getItem('token');
  
   
-  axios.get(`http://localhost:3000/posts/${id}/comments`, {
+  axios.get(`https://oneaksour.onrender.com/posts/${id}/comments`, {
     headers: { Authorization: `Bearer ${Token}` }
   })
   .then(response => {
@@ -969,7 +969,7 @@ const token = localStorage.getItem("token");
 
 if(token){
 
-axios.get("http://localhost:3000/profile",{
+axios.get("https://oneaksour.onrender.com/profile",{
  headers:{
    Authorization:`Bearer ${token}`
  }
@@ -1043,7 +1043,7 @@ function FunctionDelete(id){
  
   ButtonDelete.addEventListener('click'  , ()=>{
  
-  axios.delete(`http://localhost:3000/posts/${id}`, {
+  axios.delete(`https://oneaksour.onrender.com/posts/${id}`, {
      
      headers: {  Authorization: `Bearer ${Token}`} ,
 
