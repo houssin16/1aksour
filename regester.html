@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Regster</title>
+    <link rel="stylesheet" href="css.css">
+       <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #F8FAFC;">
+    
+        <div class="Regster">
+              
+             <div class="input"  style="display: flex; justify-content:end;">
+                   <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                   <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                      <div class="TitleDeIcon">
+                           <input type="file" id="avatarInput">
+                        <i class="fa-solid fa-user-plus" style="width: 100px; background-color: #9e99998a; height: 100px; display: flex;
+                        justify-content: center; align-items: center; border-radius: 50%; color: #3B82F6; font-size: 25px;"></i>
+                        <h1 style="font-weight: bold; font-size: 35px; font-family:'Cairo' , sans-serif;"> انضم الي<span style="color: #3B82F6; font-family: 'Cairo' , sans-serif;"> مجتمعاتنا</span></h1>
+                        <h3 style="margin-top: -10px; color: rgb(128, 128, 133); font-family: 'Cairo' , sans-serif;" >أنشئ  حسابك الجديد في  خطوات بسيطة</h3>
+                     </div>
+                     <!--//////////////////////////////////-->  
+                     <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                     
+                     <div class="IconeInput">
+                   
+                      <label for="Name">الاسم الكامل</label>
+                       <input type="text" id="Name" placeholder="ادخل اسمك الكامل" > 
+                     <i class="fa-regular fa-user AksourHoucine"></i>
+                     </div>
+                     <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                    <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                     
+                     <div  class="IconeInput">
+                      <label for="username">البريد الإلكتروني</label>
+                         <input type="email" placeholder="name@example.com" id="email" required> 
+                         <i class="fa-chisel fa-regular fa-envelope AksourHoucine"></i>
+                     </div>
+                  <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                   <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                     
+                     <div class="IconeInput">
+                      <label  for="password">كلمة المرور</label>
+                      <input  type="password" placeholder="* * * * * * * *" id="password">
+                    <i class="fa-solid fa-lock AksourHoucine"></i>
+                     <i class="fa-duotone fa-solid fa-eye" id="IconesA"  style="position: absolute; left: 45px;top:30px; color:rgba(0, 0, 0, 0.452); font-size: 20px; cursor: pointer;"></i>
+                      </div>
+                      <!--//////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                    
+                     <div class="IconeInput">
+                       <label  for="ConfirmPassword">تاكيد كلمة السر</label>
+                         <input  type="password" placeholder="* * * * * * * *" id="ConfirmPassword">
+                        <i class="fas fa-check-circle AksourHoucine"></i>
+                     </div>
+                     
+                     <!--  <label for="image">Image</label> -->
+
+                       <!--   <input type="file" id="file"  style=" width: fit-content; border: none ; background-color: rgba(255, 255, 255, 0.603);
+                        margin-left: 100px; "> -->
+                        <div style="width: 100%; display: flex; flex-direction: column;
+                        align-items: center; justify-content: center;">
+                              <button type="button" id="ButtonRegster">إنشاء حساب جديد</button> 
+                              <P style="color: #383737; font-family: 'Cairo' , sans-serif; font-size: 18px;">   لديك حساب بفعل?  <span id="buttonlogin" style="cursor: pointer; margin-right: 5px; color: #3B82F6; font-weight:500;  font-family: 'Cairo' , sans-serif; font-size: 16px;">تسجبل الدخول </span></P>  
+                        </div>
+         <!--    /////////////  ////////////////////////////////////////////////////////////////////////////////-->
+                         <div id="StrenghtText"></div>
+                                               <div id="StrenghtBar" style="width: 100%;
+                                               height: 6px;
+                                               background: #ddd;
+                                               border-radius: 4px;
+                                               margin-top: 5px;
+                                               ">
+                                               <div id="StrenghtFill"
+                                                style="width: 0%;
+                                                height: 100%;
+                                                background-color: red;
+                                                border-radius: 4px;
+                                                transition: 0.5s;   " >
+                
+                                               </div>
+                                               </div>
+                    </div>
+         
+        <div id="Alert"></div>
+       
+
+        </div>
+</body>
+
+<script src="rejester.js"></script>
+
+</html>

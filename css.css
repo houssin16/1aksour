@@ -1,0 +1,1326 @@
+html, body {
+  overflow-x: hidden;
+}
+
+
+*{
+
+   font-family: Verdana, sans-serif;
+}
+/* /////////////////////////////////////////////////////////////Profaile.html////////////////////////////////////////////////////////////////////////////////////////// */
+#Homepage{
+position: absolute ; margin-top:3px; left: 600px;
+
+}
+/* /////////////////////////////////////////////////////////////Profaile.html////////////////////////////////////////////////////////////////////////////////////////// */
+.container{
+  width: 100%;
+  height: 100%;
+
+}
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+.container .login{
+    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, auto)); 
+  justify-content: space-around;
+  padding: 10px;
+  background: rgba(106, 4, 165, 0.685);
+min-height: 60px;
+align-items: center;
+}
+@media(max-width:704px){
+
+    .container .login{
+  
+    row-gap: 20px;
+     display: grid;
+    
+  grid-template-columns: repeat(auto-fit, minmax(20px, auto)); 
+  column-gap: 50px;
+}
+}
+
+@media(max-width:1232px){
+
+    .container .login{
+    background-color: #6a04a5af;
+    row-gap: 20px;
+}
+
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+.login .forms{
+
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;margin-right: 100PX;
+    align-items: center;
+   
+}
+input ,label{
+ 
+     margin-top: 15px;
+    margin-left: 10px; 
+    outline: none;
+     visibility: visible;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+label{
+  color: rgb(25, 24, 26);
+    position: relative;
+    left: 250px; 
+ 
+}
+input{
+     border: 1px solid  #02122c79;
+}
+#button {
+  
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    background-color: #3B82F6;
+    padding: 3px;
+    color: rgba(255, 255, 255, 0.788);
+    transition: 0.5s;
+    width: 100%;
+    height: 35PX;
+    margin-top: 50PX;
+}
+ #buttonRigster{
+
+
+}
+#button:hover{
+ color: rgba(241, 240, 241, 0.788);
+   background-color:#4e9ef3;
+   cursor: pointer;
+}
+ #buttonRigster:hover{
+ color: rgba(90, 4, 107, 0.788);
+    background-color: rgb(241, 241, 241);
+    cursor: pointer;
+   
+}
+
+.main {
+  width: 60%;
+  height: 400px;
+  background-color: rgba(118, 33, 197, 0.815);
+  margin: 100px auto;
+  border-radius: 7px;
+ 
+}
+
+.main .photo {
+  width: 90%;
+  height: 400px;
+  background:rgba(123, 101, 143, 0);
+  margin: 100px auto; 
+  display: block;
+
+}
+.photo img{
+    width:100%;
+    height: 380PX;
+    margin: 10px auto;
+    border-radius: 7px;
+}
+
+
+
+.alert{
+    position: fixed;
+    color: rgb(255, 255, 255);
+    border: 1px solid #3B82F6 ;
+    font-size: 12px;
+    width: 200px;
+    bottom: 30px;
+    left: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cairo' , sans-serif;
+    background-color: #3b83f6b2;
+}
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+#Buttonlogout{
+  
+
+  background-color: #ffffff;
+  outline: none;
+  color: rgb(255, 255, 255);
+  padding: 3px;
+  border: none;
+  width: 80px;
+  font-size: 12px;
+  border-radius: 5px;
+  height: 35px;
+  padding: 5px;
+ 
+ 
+}
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+#Buttonlogout:hover{
+color: rgba(90, 4, 107, 0.788);
+  background-color: rgb(181, 140, 187);
+    cursor: pointer;
+    
+}
+.Regster {
+    background-color: #F8FAFC;
+    width: 100%;
+    height: 100%;
+}
+.Regster .input{
+
+    border: 1px solid rgb(231, 216, 229);
+    width: 40%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   border-radius: 7px;
+   background-color: #F8FAFC;
+   margin: 30px auto;
+   position: relative;
+  text-align: center;
+  box-shadow: #dddddd  3px 0px 4px 4px;
+ 
+  
+}
+.Regster .input input::placeholder{
+  color: #a39a9a;
+  padding-right: 15px;
+  font-size: 18px;
+
+}
+.Regster .input .IconeInput input {
+  direction: rtl;
+  text-align: right;
+  padding-right: 35px; /* 👈 هنا التحكم الحقيقي */
+  box-sizing: border-box;
+  height: 50px;
+  
+
+}
+  
+
+.Regster .input .TitleDeIcon {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+direction: rtl;
+}
+.input #ButtonRegster {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-top: 15px;
+    padding: 4.5px;
+    width: 90%;
+    background-color: #3B82F6;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 50PX;
+    height: 40PX;
+    font-family: 'Cairo' , sans-serif;;
+}
+.input input{
+
+    width: 90%;
+    text-align: center;
+    height:40px;
+    border-radius: 7px;
+    direction: rtl;
+    text-align: right;
+    
+}
+
+.input input:focus{
+
+   /*  width: 260px;
+    transition: 0.3s; */
+}
+ #Dachbord b {
+    
+    color: #ffffff;
+    
+
+}
+#Dachbord{
+
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+     background-color: rgb(24, 3, 53);
+   border-radius: 5px;
+   
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+#DachbordeNew{
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(34, 5, 73);
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 50px;
+  align-items: center;
+  width: 100%;
+
+}
+@media(max-width:704px){
+#DachbordeNew{
+  
+    display: flex;
+    gap: 0.5px;
+}
+
+
+}
+#inputAndButtonProfail{
+  display: flex;                      /* كل div يأخذ مساحة متساوية */
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: space-between;
+  background-color: rgb(34, 5, 73);;
+  
+}
+
+
+#inputAndButtonProfail i{
+        position: relative;
+        right:60px;
+        bottom: -18px;
+        font-size: 18px;
+        color: rgba(6, 110, 214, 0.788);
+   
+}
+@media(max-width:704px){
+
+    #inputAndButtonProfail i{
+          position: relative;
+        right: -80px;
+        bottom: 30px;
+        font-size: 18px;
+        color: rgba(149, 152, 155, 0.788);
+   
+}
+@media (max-width:915px){
+ #inputAndButtonProfail i{
+            position: relative;
+        right: -64px;
+        bottom: 30px;
+        font-size: 18px;
+        color: rgba(149, 152, 155, 0.788);
+    }
+
+}
+#inputAndButtonProfail{
+
+  gap: 10px;                    /* كل div يأخذ مساحة متساوية */
+  display: flex;
+  flex-direction: column;
+
+}
+}
+@media (min-width:704px){
+
+
+}
+
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+.login h2{
+    position: absolute;
+    top: 2px; margin-left: 30px;
+     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(105, 10, 117);
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+#Profail{
+   
+    height: 47px;
+    width: 80px;
+     border-radius: 5px;
+    font-size: 18px;
+    font-size: 15px;
+    background-color: #ffffff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-family: sans-serif; transition: 0.3s;
+}
+
+#Homepage{
+   height: 47px;
+    width: 80px;
+    position: absolute;
+     border-radius: 5px;
+    background-color: #ffffff;
+    font-family: sans-serif; transition: 0.3s;
+     left: 13px;
+
+}
+
+
+#inputText{
+    
+    left: 160px;
+    height: 27px;
+    bottom: 2.9PX;
+    border-radius: 7px;
+   /*  background-color: rgb(255, 255, 255); */
+    color: rgb(0, 0, 0);
+    outline: none;
+    border: none;
+    width: 50%;
+    
+
+}
+
+.login h2{
+    display: none;
+     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(69, 2, 78);
+}
+
+
+
+
+.login #Profail span{
+color: rgb(79, 5, 148);  
+}
+/* //////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+#Profail:hover{
+  color: rgba(90, 4, 107, 0.788);
+  background-color: rgb(181, 140, 187);
+
+}
+.Cont{
+
+width: 58%;
+margin: 150px auto;
+ display: flex;
+  flex-direction: column;
+  gap: 40PX;
+
+
+}
+
+.Cont .content img{
+    height: 800px;
+    width: 100%; 
+    border-radius: 7PX;
+    border: 1px inset rgb(38, 177, 158);
+}
+.Cont .content .user-image{
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   margin-bottom: 35px;
+   justify-content: space-between;
+ 
+  
+}
+@media(max-width:1255px){
+
+.Cont .content .user-image{
+ display: flex;
+ flex-direction: column;
+  
+}
+
+}
+
+.Cont .content .user-image button{
+
+    background-color: blue;
+}
+   /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */ 
+
+
+.content .user-image b{
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-family: sans-serif;
+     
+}
+@media (max-width:1255px){
+.content .user-image b{
+   text-transform: uppercase;
+
+}
+}
+.content .user-image img{
+
+    width: 40px ;
+    height: 40px;
+    border-radius: 50%;
+}
+@media (max-width:1255px){
+    .content .user-image img{
+
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgb(255, 255, 255);
+    
+}
+}
+   /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */ 
+
+.Post{
+    display: flex;
+     flex-direction: column;
+    width: 30%;
+    background-color: hsla(278, 96%, 44%, 0.904);
+    border-radius: 8px;
+    display: none;
+    transition: 0.5s;
+    z-index: 9999;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -70%);
+    border: 3px solid rgb(194, 165, 165); margin: 100px auto;
+    height:450px;
+ 
+    
+}
+@media (max-width:1120px){
+ /*   .container .Post{
+  
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -100%);
+} */
+
+}
+ .Post .inp {
+margin: 10PX auto;
+display: flex;
+flex-direction:column;
+text-align: center;
+color: white;
+font-family: sans-serif;
+font-weight: bold;
+transition: 0.5s;
+height: 100%;
+
+}
+@media (max-width:1120px){
+  .Post .inp{
+width: 80%;
+display: flex;
+flex-direction: column;
+
+}
+
+}
+#title{
+    color: #3a0869a1;
+}
+ .Post .inp  input{
+margin-right: 15px;
+margin-bottom: 7px;
+height: 35px;
+}
+
+
+ .Post .inp  button{
+  
+ width: 80%;
+ margin: 20px auto;
+ cursor:pointer;
+ height: 35px;
+ width: 30%;
+}
+.container .header {
+    width: 100%;
+    height: 100%;
+    margin: 50px auto;
+    border-radius: 15px;
+    border-radius: 10px;
+    position: relative;
+  
+    
+}
+.container .header .oneheader{
+    
+    width: 100%;
+    height: 100%; 
+}
+.container .header .oneheader .pro{
+
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: end;
+gap: 30px;
+position: relative;
+bottom:30PX;
+right: 20PX;
+
+}
+@media (max-width:1248px){
+    .container .header .oneheader .pro{
+
+ position: relative;
+bottom:30PX;
+right: 0PX;
+     display:flex;
+     justify-content:center;
+     flex-direction: column-reverse;
+  
+}
+}
+#Homepage{
+background-color: #ffffff;
+  outline: none;
+  color: rgb(41, 33, 33);
+  padding: 3px;
+  border: none;
+  width: 100px;
+  font-size: 13.99px;
+  border-radius: 5px;
+  height: 44px;
+
+}
+#Homepage:hover{
+
+color: rgba(90, 4, 107, 0.788);
+  background-color: rgb(181, 140, 187);
+    cursor: pointer;
+}
+
+.container .AksourPosts{
+
+ background-color: rgb(55, 4, 85);
+display: none;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) 
+
+}
+.container .AksourPosts .inp {
+
+    width: 80%;
+margin: 10PX auto;
+display: flex;
+flex-direction: column;
+text-align: center;
+color: white;
+font-family: sans-serif;
+font-weight: bold;
+
+
+}
+.container .AksourPosts .inp input {
+    margin-right: 15px;
+   margin-bottom: 7px;
+    height: 35px;
+}
+.container .AksourPosts .inp button{
+     width: 30%;
+   height: 35px;
+   position: relative;
+   left: 150px;
+   margin-bottom: 11px;
+}
+.container .header .oneheader .pro img{
+ width: 120px;
+ height: 120px;
+ border-radius: 50%;
+ border: 3PX solid rgba(128, 128, 128, 0.26);
+flex-shrink: 0;
+ position:relative;
+ bottom: 20PX;
+ 
+}
+.x{
+transition: 0.6s;
+scroll-behavior: smooth;
+display: none;
+}
+.m{
+background-color: red;
+color: red;
+display: none;
+}
+.dispaly{
+opacity: 3;
+user-select: none;
+
+}
+#delete{
+background-color: rgb(9, 155, 65);
+padding: 5px;
+width: 80px;
+color: white;
+border-radius: 7px;
+cursor: pointer;
+border: none;
+outline: none ;
+font-size: 20px;
+position: relative;
+
+}
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+#update{
+padding: 5px;
+width: 80px;
+color: white;
+border-radius: 7px;
+cursor: pointer;
+background-color: rgb(172, 19, 26);
+border: none;
+font-size: 20px;
+position: relative;
+
+}
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.deleteupdate{
+display: flex;
+position: absolute;
+right: 370px;
+gap: 20px;
+background-color: blue;
+}
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+.B{
+    display: block;
+}
+.C{
+    display: none;
+}
+.buttonConfirm{
+    cursor: pointer;
+    width:100px;
+    height: 35px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 17px;
+}          
+.Confirm{
+    border-radius: 5px;
+    position: fixed;
+    left: 650px;
+    top: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s 
+ease, visibility 0.5s 
+ease;
+    width: 400px;
+    height: 150px;
+    background-color: #bbb0c4;
+    border: 1px solid rgb(143, 123, 197);
+    left: 455px;
+    top: 415px;
+    position: absolute;
+
+
+}
+#Ok{
+  background-color: rgb(7, 143, 59);
+}
+#Canel{
+background-color: rgb(230, 31, 41);
+}
+
+.ConfimVisible{
+
+     visibility: visible;
+     opacity: 1;
+     transition: opacity 0.3s ease, visibility 0.5s ease;
+
+}
+.CanelConfirm{
+    visibility: hidden;
+    opacity: 0;
+    transition:opacity 1s ease ,visibility 1s ease ;
+} 
+.oneheader .pro .username {
+
+    font-size: 35px;
+    position: relative;
+    font-family: sans-serif;
+    color: #000000;
+     left: 7px;
+    user-select: none;
+    text-transform: capitalize;
+    margin-top: px;
+    
+}
+@media (max-width:1248px){
+
+    .oneheader .pro .username {
+
+    margin-top: -20px;
+   
+    margin-right: 20px;
+}
+}
+#comments-123{
+
+  
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  
+}
+#comments-123 input{
+    width: 90%;
+    margin-bottom:4px;
+    height: 22px;
+    border-radius: 7px;
+    padding: 5px;
+   
+}
+#comments-123 button{
+    height: 35px;
+    margin-left: 5px;
+    margin-top: 15px;
+    width: 60px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+   cursor: pointer;
+ font-size: 17px;
+}
+.commentsS .CommentsContainer{
+
+background-color: rgba(92, 124, 146, 0.747);
+ color: #eee;
+ border: 1px solid rgba(41, 8, 129, 0.842);
+ padding: 5px;
+border-radius: 10px;
+width: max-content;
+margin-left:10px;
+}
+
+.UsernameAndImage{
+ display: flex;
+align-items: center;
+  gap: 15px;
+  margin-left: 10px;
+  margin-top: -20px;
+ 
+}
+.UsernameAndImage h3{
+    font-weight: bold;
+    font-size: 21px;
+    color:rgb(255, 255, 255);
+    font-family: sans-serif;
+}
+.Hiddene{
+display: none;
+ background-color:rgba(129, 125, 131, 0.521);
+ width: 100%;
+ margin-top: 28px;
+ border-radius: 10px;
+ position: relative;
+ right: 10px;
+ top: 18px;
+}
+.ShowComment{
+  height: 35px;
+    margin-left: 5px;
+    margin-top: 15px;
+    font-size: 17px;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+   cursor: pointer;
+   background-color: rgb(7, 143, 59);
+   color: white;
+   transition:1s;
+  
+
+}
+.ShowComment:hover{
+
+    background-color: rgb(10, 238, 67);
+    color: #000000;
+}
+#NoComments{
+
+   width: 100%;
+   text-align: center;
+   font-size: 20px;
+   color: #000000;
+   background-color: #bbb0c4;
+   border-radius: 15px;
+
+}
+#ButtonUpdateDemete{
+width: 20%;
+display: flex;
+justify-content: space-between;
+
+
+}
+#UsernameAndImge{
+
+ 
+    display: flex;
+    align-items: center;
+    width: 18%;
+    justify-content: space-between;
+    text-transform:uppercase;
+}
+@media (max-width:1429px){
+#UsernameAndImge{
+
+ width:20%;
+ 
+}
+#ButtonUpdateDemete{
+
+
+  width: 25%;  
+}
+}
+
+@media (max-width:1197px){
+#UsernameAndImge{
+
+ width:25%;
+ 
+}
+#ButtonUpdateDemete{
+
+
+  width: 26%;  
+}
+}
+
+@media (max-width:1252px){
+#UsernameAndImge{
+
+ width:25%;
+ 
+}
+#ButtonUpdateDemete{
+
+
+  width: 30%;  
+}
+}
+@media (max-width:1129px){
+#UsernameAndImge{
+
+ width:30%;
+ 
+}
+#ButtonUpdateDemete{
+
+
+  width: 32%;  
+}
+}
+@media (max-width:974px){
+#UsernameAndImge{
+ width: 50%;
+}
+#ButtonUpdateDemete{
+  width: 100%; 
+  display: grid;
+  row-gap: 20px;
+}
+.ShowComment{
+width: 100%;
+  
+
+}
+}
+@media (max-width:915px){
+#UsernameAndImge{
+ width: 100%;
+}
+#ButtonUpdateDemete{
+  width: 100%; 
+  display: grid;
+  row-gap: 20px;
+}
+.ShowComment{
+width: 100%;
+  
+
+}
+}
+.loginProfaile{
+  
+} 
+#inputAndButtonPro{
+    background-color:rgb(45, 6, 95);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+  
+
+   
+}
+
+#inputAndButtonPro .Tow_Button{
+    display: flex;
+    width: 15%;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+  
+}
+@media (max-width:900px){
+#inputAndButtonPro .Tow_Button{
+    visibility: hidden;
+   
+}
+
+}
+#IconeAndInput{
+   
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+   
+ 
+} 
+#Icone{
+
+    color: rgb(65, 64, 64);
+    position: relative;
+    right: 25px;
+ }
+#IconeAndInput input{
+
+ width: 50%;
+ height: 27px;
+ margin-bottom: 15px;
+}
+
+#AksourHeader{
+
+
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+.oneheader  #ImageProfaileBig{
+ transform-origin: bottom; /* نقطة التمدد من الأعلى */
+  transform: scaleY(1.17); 
+  border-radius: 1px;
+  border: 2px solid rgba(128, 128, 128, 0.411);
+}
+#Profail{
+    height: 35px;
+    font-size: 12px;
+     font-family: bold;
+}
+#Profail span{
+font-size: 12px; 
+font-family: bold;
+
+}
+#IconeProfile {
+
+    font-size: 25px;
+    color: gray;
+    cursor: pointer;
+    position: relative;
+    margin-left: 50px;
+    visibility: hidden;
+}
+@media (max-width:900px){
+#IconeProfile {
+
+    visibility: visible;
+}
+
+}
+#UlLi{
+    position: absolute;
+      margin-top: 2px; 
+      z-index: 111; 
+      color: aliceblue;
+     background-color: #2d065f;
+      ; padding: 7px;
+      display: flex;
+      width: 15%;
+      border-radius: 4px;
+       opacity: 0;
+  transform: translateY(-20px);
+  /* يمنع الضغط عندما مخفي */
+  transition: 0.4s ease;
+   
+}
+@media (min-width:900px){
+#UlLi{
+  
+       opacity: 0;
+  transition: 0.4s ease;
+    transform: translateY(0);
+}
+}
+#UlLi ul li{
+     
+    margin-bottom: 20px;
+    color: #510375;
+    padding: 5px;
+    border: 1px solid ;
+    cursor: pointer;
+    border-radius: 3px;
+list-style: none;
+ background-color: antiquewhite;
+ font-family: sans-serif;
+ font-weight: 500;
+}
+#UlLi ul{
+    width: 100%;
+    padding: 5px;
+  
+}
+#UlLi.activeee {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* يصبح قابل للضغط */
+}
+.SpanClose{
+  cursor: pointer;
+}
+
+@media (min-width:900px){
+
+ #UlLi{
+
+  visibility: hidden;
+ } 
+}
+
+/* @media( max-width:900px){
+
+ #UlLi{
+
+  visibility: hidden;
+ } 
+} */
+ #preview{
+width: 350px; 
+ height: 80px;
+  margin-top: 10px; 
+  margin-bottom: 10px; 
+  display:none; 
+  border-radius: 7px; 
+  border: 1px solid white;
+  position: absolute;
+  top: 280px;
+ left:25px;
+ 
+
+ }
+
+ #buttonCretenewpost{
+  position: absolute;
+  top: 380px;
+  left: 160px;
+
+ }
+ #ButtonExit{
+   position:absolute;
+   width: fit-content;
+   right: 10px;
+   top: -10px;
+ }
+.CreateAt{
+  color: #5f5e5e;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+#CommentProfile{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.containerx{
+  width: 100%;
+  height: 100%;
+ 
+}
+.containerx .login{
+margin: 100px auto;
+display: flex;
+position: relative;
+bottom: 100px;
+flex-direction: column;
+width:100% ;
+height: 100%;
+}
+.containerx .login .forms{
+position: relative;
+  display: flex;
+  flex-direction: column;
+/*  background-color: rgb(25, 24, 27); */
+  margin: 50px auto;
+  width: 500px;
+}
+.login .forms input{
+width: 90%;
+height: 40px;
+border-radius: 7px;
+ background-color:#3267ad11;
+text-align: right;
+padding-right: 10px;
+color: rgb(254, 254, 255);
+font-family: sans-serif;
+font-weight: bold;
+
+}
+#passwordlOGIN{
+width: 100%;
+height: 40px;
+border-radius: 7px;
+background-color: #3267ad11;
+text-align: right;
+padding-right: 10px;
+color: rgb(254, 254, 255);
+font-family: sans-serif;
+font-weight: bold;
+position: relative;
+right: 14px;
+letter-spacing: 3.5px;
+
+}
+.inputx{
+
+border-radius: 7px;
+/*  background-color: #5f5e5e; */   
+text-align: right;
+padding-right: 10px;
+color: rgb(254, 254, 255);
+font-family: sans-serif;
+font-weight: bold;
+width:90%;
+position: relative;
+left: 5px;
+}
+
+input::placeholder {
+  color: rgba(209, 209, 211, 0.452);
+  opacity: 1;
+}
+.login .forms label{
+  color: black;
+  display: flex;
+  justify-content:right;
+  position: relative;
+  left: 140px; 
+ color:white ;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.login .forms #lastchiled{
+position: relative;
+  left: 195px;
+ font-family: sans-serif;
+}
+#Icones{
+font-size: 20px;
+color: #007bff;
+position: absolute;
+z-index: 9999;
+top: 28px;
+left: 2px;
+cursor: pointer;
+}
+#ForgetPassword{
+  color:#007bff ;
+  position: absolute;
+  top: 0;
+  font-size: 13px;
+}
+.forms #createCounet {
+width:50%;
+margin-left: 100px;
+font-size: 13px;
+margin-top: 20px;
+}
+/* .IconeInput{
+width: 100%;
+background-color: #000000;
+position: relative;
+display: flex;
+flex-direction: column;
+} */
+
+.AksourHoucine{
+   position: absolute;
+   top: 25px; 
+   right: 40px;
+   color: rgba(0, 0, 0, 0.452);
+   font-size: 20px;
+}
+/* .Regster .input .IconeInput label{
+  font-weight:bold ;
+  color: #CBD5E1;
+  font-size: 19px;
+ font-family: 'Cairo' , sans-serif;
+
+} */
+.IconeInput i {
+  color: aliceblue;
+}
+.IconeInput {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.IconeInput label {
+  font-weight: bold;
+  color: #CBD5E1;
+  font-size: 1rem; /* بدل px */
+  font-family: 'Cairo', sans-serif;
+  margin-bottom: 6px;
+  white-space: normal;
+}
+
+.IconeInput input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  box-sizing: border-box;
+}
+
+/* Problem in Element Label .................. */

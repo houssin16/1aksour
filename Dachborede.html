@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dachbored</title>
+   
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+/>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body >
+
+        <div class="container">
+                    
+               <div class="login">
+                <h2 id="Logo">Aksour</h2>
+                      
+                      <div id="inputAndButtonProfail" >
+                        <input type="text" id="inputText"  placeholder="   البحث " title="البحث">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                                <button title="تسجيل الخروج" style="font-family: sans-serif; transition: 0.3s;" id="Buttonlogout"><span style="color: rgb(79, 5, 148);  " >Log Out</span> </button>
+                                <button style="font-family: sans-serif; transition: 0.3s;" id="Profail" onclick="window.location.href='Profaile.html'"><span style="color: rgb(79, 5, 148);  ">Profail</span> </button>
+                     </div>
+                     <div id="Dachbord" class="AksourDH">
+                         
+                          
+                          
+                     </div>
+                     <div id="Alert"></div>
+                
+                
+                    
+        </div> 
+      
+         <div class="Post">
+                       
+                     <div class="inp">
+                     <h1 id="title">Create Post</h1>
+                     <label for="">Body</label>
+                     <input type="text" id="Textbody">
+                     <label for="">Image</label>
+                     <input type="file" id="imageID">
+                     <img id="preview" >
+                    <button type="button" id="buttonCretenewpost">Create Post</button>
+                     <button id="ButtonExit">X</button>
+                     </div>
+                    
+                 </div>
+        <div class="Confirm" >
+                      <div class="buttonConfirm" style="width: 95%; height: 120px; ;
+                        margin:14px auto; display: flex; justify-content: space-around; flex-direction: row;align-items: center;" >
+                          <button class="buttonConfirm" id="Ok" >تاكيد</button>
+                          <button class="buttonConfirm" id="Canel">اغلاق</button>
+                      </div>   
+                </div>
+          <input type="hidden" id="input">
+                <div id="aksour" class="header" style="width: 58%; height: 300px; background-color: rgba(255, 255, 255, 0); position: relative;">
+                    
+                                     
+                 
+              </div>
+               <div id="Comments">
+       
+     </div>  
+            <div class="Cont">
+              <!--  <button type="button" onclick="CreateComments(`${element.id}, event`)" id="submitBtn"> -->
+  Send
+</button>
+            </div>
+
+             
+             
+         </div> 
+         <div id="Createpost" onclick="CreatePost()"  style="cursor: pointer; background-color:rgb(77, 11, 153); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; position: fixed;right:20px; bottom: 25px;">
+                 <h1 style="color: white; ">+</h1>
+              </div>
+      
+       
+        <script src="main.js"></script>
+
+
+</body>
+
+</html>
+
