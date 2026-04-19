@@ -4,7 +4,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+import cors from "cors";
 
 const cors = require("cors");
 /* 
@@ -17,7 +17,13 @@ app.use(cors({
 app.options("/*", cors()); */
 
  app.use(cors());
-app.options('*', cors());
+
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
