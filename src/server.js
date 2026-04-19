@@ -5,7 +5,7 @@ const cors = require("cors");
 const methodOverride = require("method-override");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 
 // middlewares
@@ -22,8 +22,9 @@ app.use("/", Booksrouter);
 // اختبار السيرفر
 
 // تشغيل السيرفر
-app.listen(PORT, () => {
-console.log(`✅ Server running on http://localhost:${PORT}`);
-});
 
+
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
+});
 ///0662164980
