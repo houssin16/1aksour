@@ -19,6 +19,11 @@ app.use((req, res, next) => {
 
   next();
 });
+
+
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 /* const cors = require("cors"); */
 /* 
 app.use(cors({
