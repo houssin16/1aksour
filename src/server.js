@@ -1,15 +1,24 @@
 const express = require("express");
 const Db = require('./db.js')
 const path = require("path");
-const cors = require("cors");
+
 const methodOverride = require("method-override");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require("cors");
 
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://your-netlify-site.netlify.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // middlewares
-app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
