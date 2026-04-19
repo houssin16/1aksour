@@ -4,8 +4,14 @@ const SECRET_KEY = "my_secret_key"; // نفس المفتاح اللي في authC
 
 // middleware للتحقق من التوكن
 const verifyToken = (req, res, next) => {
+
+  // 🔥 حل مشكلة CORS preflight
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // "Bearer TOKEN"
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ success: false, message: "يجب تسجيل الدخول أولاً" });
@@ -13,11 +19,10 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded; // هذا يخلي req.user موجود في كل روت محمي
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(403).json({ success: false, message: "التوكن غير صالح" });
   }
 };
-
 module.exports = { verifyToken };
