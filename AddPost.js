@@ -98,9 +98,7 @@ const password = document.getElementById('passwordlOGIN').value;
         password: password,
 },   
 {
-    headers: {
-        "Content-Type": "application/json"
-    }
+   
 })
 
 
