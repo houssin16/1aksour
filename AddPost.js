@@ -45,7 +45,7 @@ function ProfileClicked(userId){
 
  const res = document.getElementById('Alert')
 
- const Url = "https://http://localhost:3000"
+ const Url = "https://localhost:3000"
 let urlxdown = `${Url}posts`
 const PlaceInComments = document.querySelector(".placeCommentsPost");
 
@@ -98,9 +98,11 @@ fetch("http://localhost:3000/login", {
   headers: {
     "Content-Type": "application/json"
   },
-  body: JSON.stringify({ email, password })
+  body: JSON.stringify({
+    email: email,
+    password: password
+  })
 })
-
 .then((respone)=>{
     
      if (respone) {
