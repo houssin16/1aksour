@@ -1,3 +1,5 @@
+
+console.log("🔥 THIS SERVER IS RUNNING");
 const express = require("express");
 const Db = require('./db.js')
 const path = require("path");
@@ -29,11 +31,12 @@ console.log("__dirname =", __dirname);// routers
 const Booksrouter = require("./Router/BooksRouter.js");
 
 app.use("/", Booksrouter);
-
+app.post("/login", (req, res) => {
+  res.json({ ok: true });
+});
 // اختبار السيرفر
 
 // تشغيل السيرفر
-
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);

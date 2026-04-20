@@ -93,15 +93,9 @@ document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value;
 const password = document.getElementById('passwordlOGIN').value;  
 
-fetch("http://localhost:3000/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    email: email,
-    password: password
-  })
+axios.post("http://localhost:3000/login", {
+  email: email,
+  password: password
 })
 .then((respone)=>{
     
@@ -232,7 +226,6 @@ function GetPostsAll(){
     const containerAll = document.querySelector('.SideBar');
     containerAll.innerHTML = "";
     console.log(posts);
-    
     
     posts.forEach(element => {
       const container = document.createElement('div');
