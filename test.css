@@ -653,7 +653,9 @@ gap: 7px;
 /* ///////////////////////////////////////////////////////////////////////////////////////////////// */
 .BoxComments {
  display: none;
- 
+/*  background-color: red; */
+ padding: 15px;
+
 }
 .InputINCoumments{
  
@@ -747,11 +749,16 @@ z-index: 99999999999999;
   justify-content: right;
   gap: 15px;
   color: rgb(107, 107, 107);
+/*    background-color: blue; */
+  padding: 10px;
+
 }
 .PlaceAksourLikeAndSeconde{
   width: 100%;
- /*  background-color: #2a7cda; */
+ /* background-color: #2a7cda; */
   display: flex;
+  flex-direction: column;
+  position: relative;
   
 }
 .UsernameAndComments{
@@ -790,7 +797,9 @@ overflow-wrap: anywhere;
   display: flex;
   flex-direction: row-reverse;
   gap: 26px;
- 
+  position: relative;
+  /* background-color: red; */
+
 }
 .placeCommentsPost {
   background-color: rgb(5, 5, 177);
@@ -1559,3 +1568,39 @@ margin-right:12px;
    left: 13px;
    border-radius: 50%;
 }
+.Likess {
+
+ cursor: pointer;
+}
+.Reponde{
+cursor: pointer;
+
+}
+.Reponded {
+
+  background-color: red;  
+ z-index: 999999;
+ position: absolute;
+ right: 260px;
+ bottom: -65px;
+display: flex;
+gap: 5px;
+display: none;
+}
+#RepondImg {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+z-index: 9999;
+
+}
+.Repond{
+  width:230px;
+  z-index: 9999;
+  border-radius:15px;
+  outline: none;
+  border: none;
+  border: 1px solid #2a7cda;
+}
+       
+       

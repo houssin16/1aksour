@@ -5,6 +5,8 @@ if (!tokeen) {
 }
  */
 
+
+
 function ProfileClicked(userId){
   /*  const username = localStorage.getItem('username')
    const userid  = JSON.parse(username) */
@@ -45,8 +47,8 @@ function ProfileClicked(userId){
 
  const res = document.getElementById('Alert')
 
- const Url = "https://localhost:3000"
-let urlxdown = `${Url}posts`
+ const Url = "http://localhost:3000"
+let urlxdown = `${Url}/posts`
 const PlaceInComments = document.querySelector(".placeCommentsPost");
 
 
@@ -226,7 +228,7 @@ function GetPostsAll(){
     const containerAll = document.querySelector('.SideBar');
     containerAll.innerHTML = "";
     console.log(posts);
-    
+
     posts.forEach(element => {
       const container = document.createElement('div');
       container.classList.add('content');
@@ -317,9 +319,9 @@ function GetPostsAll(){
   <div class="titleimagenameANDUsernameAndComments">
 
     <div class="titleimagename">
-      <img src="houssin.jpg" alt="user">
+    <img src="houssin.jpg" alt="user">
     </div>
-
+   
     <div class="UsernameAndComments">
       <h3>xxxxxxxxxxxxxxxxxxxxxxx</h3>
 
@@ -328,9 +330,13 @@ function GetPostsAll(){
       </div>
 
       <div class="PlaceAksourLikeAndSeconde">
+             
+          
         <div class="Secondebox">
+       
           <div class="TitleName">
             <span>منذ 30 دقيقة</span>
+           
           </div>
           <span>رد</span>
           <span>إعجاب</span>
@@ -343,12 +349,11 @@ function GetPostsAll(){
 </div>  
                 </div>
                 
-                  
             
 `;
 
 
-       containerAll.appendChild(container);
+       containerAll.prepend(container);
     
       GetComments(element._id)
         
@@ -423,7 +428,7 @@ function UdpatePost(object){
         return;
     }
 
-  urlxdown = `${Url}posts/${Objct._id}`
+  urlxdown = `${Url}/posts/${Objct._id}`
              axios.put(urlxdown , formdata, {headers:headers})
       .then((res) => {
       ShowAltert("✅ تم تعديل  البوست بنجاح");
@@ -458,9 +463,10 @@ function UdpatePost(object){
      } 
     if (Mood == "Create") { 
     
-     urlxdown = `${Url}posts`  
+     urlxdown = `${Url}/posts`  
      axios.post(urlxdown , formdata, {headers:headers})
     .then((res) => {
+      
      ShowAltert("✅ تم نشر البوست بنجاح");
     // 🟢 جلب كل البوستات من السيرفر بعد الحف
     const containerAll = document.querySelector('.Cont');
@@ -522,7 +528,22 @@ function SendComments(postId) {
     console.error(err.response?.data || err);
   });
 }
- 
+ /* ///////////////////////////////////////////////////////////////////////////////Time Comments/////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+function TimeAgo(date){
+
+const Now = new Date()
+const Past = new Date(date)
+const diff = Math.floor((Now - Past) / 1000)
+
+if(diff < 60 ) return `مند ${diff}ثانية`
+if(diff < 3600) return `مند${Math.floor(diff / 60 )}دقيقة`
+if(diff < 86400) return `مند${Math.floor(diff / 3600)}ساعة`
+return `مند ${Math.floor(diff  / 86400)} يوم`
+}
+
+/* ///////////////////////////////////////////////////////////////////////////////Time Comments/////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
 function GetComments(id) {
   const Token = localStorage.getItem('token');
 
@@ -532,7 +553,7 @@ function GetComments(id) {
   .then(response => {
     const comments = response.data
     const PlaceInComments = document.querySelector(`.placeCommentsPost-${id}`);
-    
+    console.log(response);
     
     if (!PlaceInComments) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
@@ -548,16 +569,19 @@ function GetComments(id) {
 
     comments.forEach((comment )=> {
      /*  console.log(comment); ////// Object */
-        
+     
       const div = document.createElement('div');
       div.classList.add('comment');
   
       div.innerHTML = `
-  <div class="titleimagenameANDUsernameAndComments">
+  <div class="titleimagenameANDUsernameAndComments"">
     <div class="titleimagename">
       <img src="http://localhost:3000/uploads/${comment.userId.avatar}">
     </div>
-
+         <div class="Reponded">
+                    <input type ="text" class="Repond" name ="text">
+                    <img id="RepondImg" src = http://localhost:3000/uploads/1760716520848.jpg>
+            </div> 
     <div class="UsernameAndComments">
    <h3 onclick="ClikedPostComents('${comment.userId}')">${comment.userId.name}</h3>
 
@@ -569,10 +593,12 @@ function GetComments(id) {
 
   <div class="PlaceAksourLikeAndSeconde">
     <div class="Secondebox">
-      <span>منذ 30 دقيقة</span>
-      <span>رد</span>
-      <span>إعجاب</span>
+      <span> ${TimeAgo(comment.createdAt)} </span>
+      <span class="Reponde">رد</span>
+      <span class="Likess">إعجاب</span>
+      
     </div>
+    
   </div>
 `;
  
