@@ -93,10 +93,13 @@ document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value;
 const password = document.getElementById('passwordlOGIN').value;  
 
-        axios.post("http://localhost:3000/login", {
-        email:email,
+fetch("http://localhost:3000/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ email, password })
 })
-
 
 .then((respone)=>{
     
