@@ -45,7 +45,7 @@ function ProfileClicked(userId){
 
  const res = document.getElementById('Alert')
 
- const Url = "https://oneaksour.onrender.com/"
+ const Url = "https://http://localhost:3000"
 let urlxdown = `${Url}posts`
 const PlaceInComments = document.querySelector(".placeCommentsPost");
 
@@ -93,7 +93,7 @@ document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value;
 const password = document.getElementById('passwordlOGIN').value;  
 
-        axios.post("https://oneaksour.onrender.com/login", {
+        axios.post("http://localhost:3000/login", {
         email:email,
 })
 
@@ -130,7 +130,7 @@ if (re)
   {
    
   re.onclick = function(){  
-        axios.post('https://oneaksour.onrender.com/logout' , 
+        axios.post('http://localhost:3000/logout' , 
    
           {}, 
      {
@@ -217,7 +217,7 @@ function GetPostsAll(){
 
   
   const token = localStorage.getItem('token');
-  axios.get('https://oneaksour.onrender.com/posts', {
+  axios.get('http://localhost:3000/posts', {
     headers: { Authorization: `Bearer ${token}`}
   })
   .then(response => {
@@ -261,7 +261,7 @@ function GetPostsAll(){
                      <h6>${element.createdAt}</h6>
                    </div>
                    <div class="ImageUser">
-                 <img src="https://oneaksour.onrender.com/uploads/${element.userId?.avatar}"></div>
+                 <img src="http://localhost:3000/uploads/${element.userId?.avatar}"></div>
                    </div> 
                    </div>
                    <div class="Paraghraf">
@@ -269,7 +269,7 @@ function GetPostsAll(){
                   
                    </div>
                   <div class="ImagePost">
-                  <img src="https://oneaksour.onrender.com/uploads/${element.image}">
+                  <img src="http://localhost:3000/uploads/${element.image}">
                   </div>
                   
                  <div class="CommentAndLikesAndshir">
@@ -302,7 +302,7 @@ function GetPostsAll(){
              <div class="BoxComments">
                  <div class="InputINCoumments">
                     <input type ="text" class="ComentsInput" name ="text">
-                    <img src = https://oneaksour.onrender.com/uploads/${result.avatar}>
+                    <img src = http://localhost:3000/uploads/${result.avatar}>
               </div>
                  <div class="ButtonCommentsSend">
                   <div class="Box1Button">
@@ -502,7 +502,7 @@ function SendComments(postId) {
      return
    }
    axios.post(
-    `https://oneaksour.onrender.com/posts/${postId}/comments` ,
+    `http://localhost:3000/posts/${postId}/comments` ,
     {
       text : Result,
     
@@ -528,7 +528,7 @@ function SendComments(postId) {
 function GetComments(id) {
   const Token = localStorage.getItem('token');
 
-  axios.get(`https://oneaksour.onrender.com/posts/${id}/comments`, {
+  axios.get(`http://localhost:3000/posts/${id}/comments`, {
     headers: { Authorization: `Bearer ${Token}` }
   })
   .then(response => {
@@ -557,7 +557,7 @@ function GetComments(id) {
       div.innerHTML = `
   <div class="titleimagenameANDUsernameAndComments">
     <div class="titleimagename">
-      <img src="https://oneaksour.onrender.com/uploads/${comment.userId.avatar}">
+      <img src="http://localhost:3000/uploads/${comment.userId.avatar}">
     </div>
 
     <div class="UsernameAndComments">
@@ -612,7 +612,7 @@ function ClikedPostComents(userid){
      
   })
   ButtonDelete.addEventListener('click'  , ()=>{
-  axios.delete(`https://oneaksour.onrender.com/posts/${id}`, {
+  axios.delete(`http://localhost:3000/posts/${id}`, {
      
      headers: {  Authorization: `Bearer ${Token}`} ,
 
@@ -645,7 +645,7 @@ const token = localStorage.getItem("token");
 
 if (token) {
 
-  axios.get("https://oneaksour.onrender.com/profile",{
+  axios.get("http://localhost:3000/profile",{
   headers: {
     authorization: `Bearer ${token}`
   }
@@ -654,8 +654,8 @@ if (token) {
   const MainBar = document.querySelector('.Mainbar')
   const response = res.data
 
-document.getElementById('ImageHeader').src = `https://oneaksour.onrender.com/uploads/${response.avatar}`
-document.getElementById('IamgePrifilpageprencbal').src = `https://oneaksour.onrender.com/uploads/${response.avatar}`
+document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`
+document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`
 
 })
 }
