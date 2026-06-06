@@ -1,39 +1,28 @@
-/* const tokeen = sessionStorage.getItem('token')
-if (!tokeen) {
-    // إعادة التوجيه قبل أي عملية DOM
-    window.location.replace('index.html')
-}
- */
+console.log("ADDPOST FILE RUNNING");
 
+const InputSearch   = document.querySelector('.InputSearch')
+const ResultSearchQ = document.querySelector('.ResultSearch')
+ const Containerews = document.querySelector('.Parent');
+console.log(Containerews);
 
+ console.log(window.location.href);
 
+const Container     = document.querySelector('.container')
+const ResultSearch  = document.querySelector('.ResultSearch')
+
+const Url = "http://localhost:3000"  
+ 
 function ProfileClicked(userId){
   /*  const username = localStorage.getItem('username')
    const userid  = JSON.parse(username) */
    /* window.location = `Profail.html?userid=${userId}`  */
   window.location =`testProfile.html?userid=${userId}` 
 } 
-/*  const Result = document.querySelector('.ComentsInput')
- const IconeSend = document.querySelector('.fa-paper-plane')
- const ButtonCommentsSend = document.querySelector('.ButtonCommentsSend')
- Result.addEventListener('input' , ()=>{
-
-   if(Result.value.length > 0){
-  console.log("eeeeeeeeferghthbrnjteyuy,kuk;yiu;i;liuk;ki;");
-  
-
- }else{
- console.log("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-
- }
- }) */
-
-
 
  function ShowAltert(Msg){
   const Container = document.getElementById('Alert')
   if(!Container){
-     console.log('Alert Container is not Found')
+    
      return 
      }
      const Div = document.createElement ('div')
@@ -44,16 +33,11 @@ function ProfileClicked(userId){
      Div.remove()
      }, 2500);
 } 
-
  const res = document.getElementById('Alert')
-
- const Url = "http://localhost:3000"
 let urlxdown = `${Url}/posts`
-const PlaceInComments = document.querySelector(".placeCommentsPost");
-
-
- const ButtonCreatet__Post =  document.getElementById('Buttonbox1') 
- const ImageInput = document.getElementById('ImageInput')
+const PlaceInComments = document.querySelector('.placeCommentsPost');
+const ButtonCreatet__Post =  document.getElementById('Buttonbox1') 
+const ImageInput = document.getElementById('ImageInput')
 const Img1 = document.querySelector('.Img1')
 const video = document.querySelector('.video')
 const videoInput = document.getElementById('videoInput')
@@ -88,38 +72,49 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
  
 })
-let buttonlout = document.getElementById('buttonlogin')
 
+/* let buttonlout = document.getElementById('buttonlogin')
+const Object = {
+   Email : "AksourHoucine@gmail.com",
+   password : "0662164980"
+} */
 
 document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
-const email = document.getElementById('username').value;
-const password = document.getElementById('passwordlOGIN').value;  
+const email = document.getElementById('username').value.trim()
+const password = document.getElementById('passwordlOGIN').value.trim()
+console.log(password ,email)
 
-axios.post("http://localhost:3000/login", {
+/* if (Object.Email === email && Object.password === password) {
+        ShowAltert("تم تسجيل الدخول بنجاح");
+       setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
+   
+}else{
+
+console.log('no is password filed');
+
+} */
+ axios.post(`${Url}/login`, {
   email: email,
-  password: password
-})
+  password: password,
+}) 
 .then((respone)=>{
-    
+   console.log(respone);
      if (respone) {
         const res = respone.data.user
-        
-       // localStorage.setItem("token", respone.data.token);
+         localStorage.setItem("imge", JSON.stringify(res.avatar));
         const Token = respone.data.token
         localStorage.setItem('username' ,JSON.stringify(res))
-         localStorage.setItem('user' ,JSON.stringify(res.name))
-        
+        localStorage.setItem('user' ,JSON.stringify(res.name))
         localStorage.setItem("token" , (Token))
-            ShowAltert("تم تسجيل الدخول بنجاح");
-            setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
+        ShowAltert("تم تسجيل الدخول بنجاح");
+       setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
      }
-   
+
    }).catch((e) =>{
-
   ShowAltert(e.response?.data?.message || "حدث خطأ");
+    console.log(e.response?.data?.message || "حدث خطأ");
 
-  
-})
+}) 
  
 });
  }
@@ -145,12 +140,8 @@ if (re)
        ShowAltert('تم التسجيل الخروج بنجاح')
         localStorage.removeItem('username')
            window.location.href = `index.html`
-         
-          
-
       })
      }
-
 } 
 //////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
 
@@ -166,11 +157,7 @@ if (re)
         window.location.replace('index.html')
     }
   } 
-
-  
      /* ************************************************************************ Logout end************************************************************************************************************************************* */
-
-
 Img12.addEventListener('click'  , function(){
   ImageInput2.click()
 })
@@ -205,39 +192,107 @@ PageTextAndImageAndVideo.addEventListener("click" , (e)=>{
   e.stopPropagation()
 })
 IconeX.onclick = function(){
-   CreatePost1.classList.toggle('ClassVisibleContainer')
+    CreatePost1.classList.toggle('ClassVisibleContainer')
 }
 //////////////////////////////////////////////////////////////////////////All Post//////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
+const UsersArayys = JSON.parse(localStorage.getItem('Users'))
+let SetTimeOutX = false
+ document.addEventListener('click' ,(e)=>{
+          if (!e.target.closest('.ResultVoid') && !e.target.closest('.ResultSearch')) {
+            ResultSearch.classList.add('SetTimeOut')
+            
+          }
+         })
+InputSearch.addEventListener('input' , ()=>{
+
+  if(InputSearch.value !== "" ){
+    SetTimeOutX = true
+     axios.get(`http://localhost:3000/SearchUser?search=${InputSearch.value}`,
+
+     ).then((res)=>{
+       
+       ResultSearch.classList.add('blockSearch')
+      
+       const responsestatus = res.data
+      
+       
+       const responeS =  responsestatus.map(e =>{  
+      
+         return `
+        
+               <div class="BoxUsers1">
+                   <div class="Userimge">
+                     <img class="ImgClass" src="http://localhost:3000/uploads/${e.avatar}" alt=""> 
+                   </div>
+                   <div class="NameUser">
+                   <h2 style="font-size:20px;" class="TextUsername" onclick="GetOnepostPage('${e._id}')">${e.name}</h2>
+                     <h4> @ Houcine to Mouhmad</h4>
+                        <h4>50 صديق مشترك</h4>
+                   </div>
+                   <div class="invteFrindes">
+                      <div class="BoxInvIcone">
+                          <i class="fa fa-user-plus"></i><span>اضافة</span>
+                      </div>
+                   </div>
+               </div>
+           
+       `
+    
+       }).join('')
+        ResultSearch.innerHTML = `
+         <div class="ResultUsers">
+            <h2>نتيجة البحث(${responsestatus.length})</h2>
+          </div>
+          ${responeS}
+        ` 
+         
+       if (responsestatus.length === 0) {
+         const DivCreate  = document.createElement('div')
+         DivCreate.className = "ResultVoid"
+         const Createtext = document.createElement('h1')
+         Createtext.textContent = "لا توجد نتائج"
+         DivCreate.append(Createtext)
+         ResultSearch.append(DivCreate)
+       
+       }
+    }) 
+     }else if(InputSearch.value === ""){
+    SetTimeOutX= false
+     }            
+     if (!SetTimeOutX) {
+     ResultSearch.classList.add('SetTimeOut')
+     ResultSearch.innerHTML = ""
+    }else{
+    ResultSearch.classList.remove('SetTimeOut')
+  }      
+     
+})
 
 
-
-
-GetPostsAll()
+   /* ______Stop Function________ */
+GetPostsAll() /* ____________________________________________________________________________________________________________ */
 function GetPostsAll(){
-
-  
-  const token = localStorage.getItem('token');
+   const token = localStorage.getItem('token');
   axios.get('http://localhost:3000/posts', {
     headers: { Authorization: `Bearer ${token}`}
   })
   .then(response => {
-
-   /*  PlaceInComments.style.display = "none" */
-    const posts = response.data
+    if(PlaceInComments) {
+     PlaceInComments.style.display = "none" 
+    }
+     const Likes = response.data
+    const posts = response.data.reverse()
     const containerAll = document.querySelector('.SideBar');
     containerAll.innerHTML = "";
-    console.log(posts);
+    posts.forEach(element => { 
 
-    posts.forEach(element => {
       const container = document.createElement('div');
       container.classList.add('content');
-     
-               
        let result =r() 
        if (result) {
        let ButtonDeUpdate = ""
-  
+        
         if (result) { 
          if (element.userId?._id === result._id){
          ButtonDeUpdate = `
@@ -249,7 +304,6 @@ function GetPostsAll(){
           ButtonDeUpdate =""
         } 
        }
-       
       container.innerHTML = `
    <div class="UsernameAndImageImageUser">
                 <i class="fa-solid fa-ellipsis"></i>
@@ -278,17 +332,17 @@ function GetPostsAll(){
                      </div>
                      <div class="CommentsandLikes"> 
                          <h3>تعبيق<span >${element.CoummentsCount}</span></h3>                         
-                           <h3>اعجاب<span>1200</span></h3>
+                           <h3>اعجاب<span class="LikesCount-${element._id}">${element.likes.length}</span></h3>
                      </div>
                      
                   </div>
                   <div class="IconeLikesComentSharing">
                     <i class="fa-solid fa-share-nodes">مشاركة</i>
-                    <i class="fa-regular fa-message">تعليق</i>
-                    <i class="fa-regular fa-heart">اعجاب</i>
+                    <i onclick="openPost('${element._id}')" class="fa-regular fa-message">تعليق</i>
+                    <i class="fa-regular fa-heart"  data-id =${element._id} data-likes=""  onclick="LikesPost(this)"><span class="LikeSpan">اعجاب</span></i>
                   </div>
                    
-                   <div class="fa-trash">
+                   <div class="fa-trash" data-id=${element._id}>
                   <ul>
                   ${ButtonDeUpdate}
                   <li><i class="fa-solid fa-eye-slash"></i>اخفاء المنشور</li>
@@ -299,78 +353,51 @@ function GetPostsAll(){
            
    
 
-             <div class="BoxComments">
+             <div class="BoxComments" data-box="${element._id}">
                  <div class="InputINCoumments">
                     <input type ="text" class="ComentsInput" name ="text">
                     <img src = http://localhost:3000/uploads/${result.avatar}>
               </div>
                  <div class="ButtonCommentsSend">
                   <div class="Box1Button">
-                 <button class="Send-Comments" data-id="${element._id}">
-                      <i class="fa-regular fa-paper-plane"></i>
-                </button>
-                </div>
-                <div class="OtherIcones">
-                <i class="fa-solid fa-camera-retro"></i>
-                 <i class="fa-regular fa-face-grin"></i>
-                </div>
-                </div>     
+                      <button class="Send-Comments" data-id="${element._id}">
+                         <i class="fa-regular fa-paper-plane"></i>
+                      </button>
+                       </div>
+                    <div class="OtherIcones">
+                          <i class="fa-solid fa-camera-retro"></i>
+                          <i class="fa-regular fa-face-grin"></i>
+                     </div>
+                     </div>
                   <div class="placeCommentsPost-${element._id}">
-  <div class="titleimagenameANDUsernameAndComments">
-
-    <div class="titleimagename">
-    <img src="houssin.jpg" alt="user">
-    </div>
-   
-    <div class="UsernameAndComments">
-      <h3>xxxxxxxxxxxxxxxxxxxxxxx</h3>
-
-      <div class="pico">
-        <p>cccccccccccccccccccccccccc</p>
-      </div>
-
-      <div class="PlaceAksourLikeAndSeconde">
+              </div>  
+         </div>
              
-          
-        <div class="Secondebox">
-       
-          <div class="TitleName">
-            <span>منذ 30 دقيقة</span>
-           
-          </div>
-          <span>رد</span>
-          <span>إعجاب</span>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div>  
-                </div>
-                
+            
             
 `;
-
-
-       containerAll.prepend(container);
     
+  
+       containerAll.appendChild(container);
       GetComments(element._id)
-        
-        
-    }       
-
-
+     
+    }              
    })
+   loadLikedPosts()
   }).catch((e)=>{
-
-    console.log(e);
+  console.log(e);
+  
     
   })
 }
 
 /* ************************************************************************ All Post End ******************************************************************************************************************** */
-
+ async function openPost(id ,e){
+  e.preventDefault()
+  await GetComments(id);
+   loadReplies(); 
+   
+}
 /* ************************************************************************ Place  Comments Start ********************************************************************************* ***********************************/
  document.addEventListener('click', (e) => {
   const famessage = e.target.closest('.fa-message');
@@ -385,6 +412,9 @@ function GetPostsAll(){
 
     
  })
+  const Icone3biont  = document.querySelectorAll('.fa-ellipsis') //// Icone 3 biont
+ //////// list
+let OpenList = false ;
 const Input =  localStorage.getItem('username')
 const Id = JSON.parse(Input)
 const Userid = Id.id
@@ -395,9 +425,26 @@ const Post = IconeUbdate.closest('.content')
 if(!Post) return
 const Fratch  = Post.querySelector('.fa-trash')
 if (!Fratch) return
-Fratch.classList.toggle('visibleIcone')
+const Fratsh1996 = Fratch.dataset.id
+ 
+const AksourOpenList = document.querySelector('.visibleIcone')
+if (AksourOpenList && AksourOpenList !== Fratch) {
+  AksourOpenList.classList.remove('visibleIcone')
+}
+  Fratch.classList.toggle('visibleIcone'); 
 
-}) 
+
+})
+/* _______________________________________________________________________________________________ */
+/* _______________________________________________________________________________________________ */
+document.addEventListener('mousedown' , (e)=>{
+if(e.target.closest('.fa-ellipsis') || e.target.closest('.fa-trash')) {
+ return ;
+}
+document.querySelectorAll('.fa-trash').forEach((e)=>{
+   e.classList.remove("visibleIcone") 
+})
+})
 
 /* ************************************************************************ place Comments End ********************************************************************************* ***************************/
 
@@ -427,7 +474,7 @@ function UdpatePost(object){
       ShowAltert("الرجاء كتابة نص أو اختيار صورة قبل النشر");
         return;
     }
-
+    
   urlxdown = `${Url}/posts/${Objct._id}`
              axios.put(urlxdown , formdata, {headers:headers})
       .then((res) => {
@@ -436,15 +483,30 @@ function UdpatePost(object){
       
       const containerAll = document.querySelector('.Cont');
       containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-       GetPostsAll();  // ← تحديث حقيقي للبوستات من السيرفر
+      /*  GetPostsAll(); */  // ← تحديث حقيقي للبوستات من السيرفر
      }).catch((e)=>{
       console.log(e);
+      
+
       
    })  
     } 
  })
+ 
+/* ______________________________________________________________________________________ */
+} const Token = localStorage.getItem('token');
+axios.get("http://localhost:3000/profile", {
+  headers: {
+    authorization: `Bearer ${Token}`
+  }
+})
+.then(res => {
+  
+})
+.catch(err => {
 
-} 
+});
+
 /* ************************************************************************ Upadte Start ********************************************************************************* **********************************/
 
 /* ************************************************************************ Create Post Start ********************************************************************************* **********************************/
@@ -471,7 +533,7 @@ function UdpatePost(object){
     // 🟢 جلب كل البوستات من السيرفر بعد الحف
     const containerAll = document.querySelector('.Cont');
     containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-    GetPostsAll(); 
+  /*   GetPostsAll();  */
    
     // ← تحديث حقيقي للبوستات من السيرفر
   })
@@ -492,13 +554,10 @@ document.addEventListener("click", (e) => {
   SendComments(PostId)
   
 });
- 
+function SendComments(postId){
 
-
-function SendComments(postId) {
- 
    const Token = localStorage.getItem('token')
-   const Inputtext = document.querySelector(`[data-id="${postId}"]`).closest('.BoxComments')
+   const Inputtext = document.querySelector(`[data-box="${postId}"]`)
    const Result = Inputtext.querySelector('.ComentsInput').value
    const Input = Inputtext.querySelector('.ComentsInput')
    if(!Result) {
@@ -519,7 +578,7 @@ function SendComments(postId) {
     .then(response => {
          
         Input.value = ""
-        GetPostsAll()
+       /*  GetPostsAll() */
        
        
     })
@@ -542,8 +601,10 @@ if(diff < 86400) return `مند${Math.floor(diff / 3600)}ساعة`
 return `مند ${Math.floor(diff  / 86400)} يوم`
 }
 
+
 /* ///////////////////////////////////////////////////////////////////////////////Time Comments/////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 function GetComments(id) {
   const Token = localStorage.getItem('token');
 
@@ -552,64 +613,239 @@ function GetComments(id) {
   })
   .then(response => {
     const comments = response.data
-    const PlaceInComments = document.querySelector(`.placeCommentsPost-${id}`);
-    console.log(response);
+    const PlaceInCommentsq = document.querySelector(`.placeCommentsPost-${id}`);
+    const ImageCommentsReplay = JSON.parse(localStorage.getItem('imge'))
     
-    if (!PlaceInComments) {
+    
+    
+    if (!PlaceInCommentsq) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
       return;
-    }
+    } 
+    PlaceInCommentsq.innerHTML = ""
 
-    PlaceInComments.innerHTML = "";
 
     if (comments.length === 0) {
-      PlaceInComments.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
+      PlaceInCommentsq.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
       return;
     }
-
+   
+    
     comments.forEach((comment )=> {
      /*  console.log(comment); ////// Object */
      
       const div = document.createElement('div');
       div.classList.add('comment');
-  
+      let Us            = r()
+
+      let  DeleteUpdate = ""
+     if (comment.userId._id === Us._id) {
+        DeleteUpdate = `
+         <ul>
+            <li  class="UpdateThisElement" data-Object=${JSON.stringify(comment)}>تعديل<i class="fa-solid fa-pen"></i></li>
+            <li>حدف<i class="fa-regular fa-trash-can"></i></li>
+            <li><i class="fa-regular fa-flag"></i>ابلاغ</li>
+           <ul>
+        `
+    } else {
+      DeleteUpdate = `
+      <ul>
+            <li><i class="fa-regular fa-flag"></i>ابلاغ</li>
+      <ul>
+      
+      `
+     } 
+       
       div.innerHTML = `
-  <div class="titleimagenameANDUsernameAndComments"">
+  <div class="titleimagenameANDUsernameAndComments">
     <div class="titleimagename">
       <img src="http://localhost:3000/uploads/${comment.userId.avatar}">
     </div>
-         <div class="Reponded">
-                    <input type ="text" class="Repond" name ="text">
-                    <img id="RepondImg" src = http://localhost:3000/uploads/1760716520848.jpg>
-            </div> 
+         
     <div class="UsernameAndComments">
-   <h3 onclick="ClikedPostComents('${comment.userId}')">${comment.userId.name}</h3>
+       <h3 onclick="ClikedPostComents('${comment.userId}')">${comment.userId.name}</h3>
 
-     
-    ${comment.text ? `<p>${comment.text}</p>` : ""}
-          
-    </div>
-  </div>
-
-  <div class="PlaceAksourLikeAndSeconde">
-    <div class="Secondebox">
+    ${comment.text ? `<p class="TextIllzi">${comment.text}</p>` : ""}
+      <div class="Secondebox">
       <span> ${TimeAgo(comment.createdAt)} </span>
       <span class="Reponde">رد</span>
       <span class="Likess">إعجاب</span>
-      
+       
     </div>
-    
+    <div class="PlaceAksourLikeAndSeconde" data-comments-id="${comment._id}">
+  
+    <div class="Reponded">
+ 
+                 <button class="Send-CommentsReponded">
+                      <i class="fa-regular fa-paper-plane"></i>
+                </button>
+                <input type ="text" placeholder = "اكتب الرد"  class="Repond" name ="text" style="direction: rtl;">
+                    <img id="RepondImg" placeholder = "اكتب الرد"  src ="http://localhost:3000/uploads/${ImageCommentsReplay}">
+                </div>
+        <div class= "ReplayParghraf">
+         
+         
+               </div>
+        </div>
+     
+    </div> 
+     <i class="fa-solid fa-ellipsis-vertical" id="CommentsDeleteAndUpdate" ></i>
+      <div class="InputSaveValueNew">
+  
+         <input type="text" class="ValueNew">
+         <button onclick="UpdateComments(this)" data-object='${btoa(unescape(encodeURIComponent(JSON.stringify(comment))))}' class="ButtonSavedata">حفض</button>
+         <button class="Buttonexet">العاء</button>
+         
+      </div>
+      <div class="DeleteUpdate Classhidden">
+         ${DeleteUpdate}
+      </div>
   </div>
 `;
  
-      
-      PlaceInComments.appendChild(div);
+      PlaceInCommentsq.appendChild(div);
+  
     });
      
-  });   
+    
+  });  
+  loadReplies(); 
+}
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+const BASE_URL = "http://localhost:3000"
+// ✅ خارج أي دالة — يُسجَّل مرة واحدة فقط
+document.addEventListener('click', (e) => {
 
-}  
+  // فتح / إغلاق الرد
+  const openBtn = e.target.closest('.Reponde');
+  if (openBtn) {
+    const commentContainer = openBtn.closest('.UsernameAndComments');
+    const repondEl = commentContainer.querySelector('.Secondebox');
+   const Reponded = document.querySelector('.PlaceAksourLikeAndSeconde')
+   const ContinerInputANDButtonSen = commentContainer.querySelector('.Reponded')
+    /* ContinerInputANDButtonSen.classList.toggle('active1996') */
+     ContinerInputANDButtonSen.classList.toggle('hidden')
+     
+    /* commentContainer.classList.toggle('replace');  */
+    return;
+  }
+ 
+  // إرسال الرد
+  const sendBtn = e.target.closest('.Send-CommentsReponded');
+ 
+  if (sendBtn) {
+    const commentContainer = sendBtn.closest('.PlaceAksourLikeAndSeconde');
+    const repondEl = commentContainer.querySelector('.Reponded');
+    const input = commentContainer.querySelector('.Repond');
 
+    const commentId = commentContainer.dataset.commentsId
+
+    const text = input.value.trim();
+    if (!text) return alert('لا يمكن إرسال رد فارغ');
+
+    axios.post(
+      `${BASE_URL}/replies`,
+      { text, commentId },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    )
+    .then(({ data }) => {
+      if (!data) return;
+     
+      const ReplayParghraf = commentContainer.querySelector('.ReplayParghraf')
+      // تنظيف
+      input.value = '';
+      repondEl.classList.remove('active1996');
+      commentContainer.classList.remove('replace');
+      const Userid = data.userId
+     
+     
+    })
+    .catch(err => {
+      console.error(err);
+      alert('خطأ في الإرسال');
+    });
+    /*  GetPostsAll() */
+  }
+
+});
+
+/* ----------------------------------------------------__Get response Reply Comments_______________________________-------------------------------------- */
+/* function GetReplyComments (){
+
+  axios.get(`${BASE_URL}/replies`)
+  .then((res)=>{
+
+    console.log(res);
+    
+  })
+} 
+GetReplyComments() 
+
+ */
+ const token = localStorage.getItem('token');
+function loadReplies() {
+
+  axios.get('http://localhost:3000/replies', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(({ data }) => {
+     
+    document.querySelectorAll('.ReplayParghraf').forEach((f)=>{
+
+     f.innerHTML = ""
+    })
+/*     console.log("REPLIES:", data); */
+
+    data.forEach(reply => {
+
+      // 🟢 استخراج ID بشكل صحيح
+      let id = reply.commentId;
+
+      if (typeof id === "object") {
+        id = id._id;
+      }
+
+      // 🟢 البحث عن comment الصحيح
+      const commentContainer =
+        document.querySelector(`[data-comments-id="${id}"]`);
+
+   
+
+      if (!commentContainer) return;
+
+      const box = commentContainer.querySelector('.ReplayParghraf');
+     
+      if (!box) return;
+
+      // 🟢 إضافة الرد
+      const html = `
+        <div class="reply">
+        <div class= "uLIZICom">
+          <img src="http://localhost:3000/uploads/${reply.userId.avatar}">
+           
+            <h4>${reply.userId.name}</h4>
+            </div>
+            <p>${reply.text}</p>
+         
+        </div>
+      `;
+
+      box.insertAdjacentHTML("beforeend", html);
+
+    });
+
+  }).catch(err => {
+    console.error("Error loading replies:", err);
+  });
+ 
+}
+
+/* ______________________________________________________________________________________________________________ */
 function ClikedPostComents(userid){
 
 
@@ -642,7 +878,7 @@ function ClikedPostComents(userid){
 
      })
       .then((respone)=>{
-         GetPostsAll()
+        /*  GetPostsAll() */
          ContainerComnfirm.classList.remove('ShowConfirm')
         this.classList.add('CanelConfirm')
          ShowAltert("تم حدف البوست")
@@ -657,62 +893,57 @@ function ClikedPostComents(userid){
   
 
   }   
+
 /* ************************************************************************ Delete End   ********************************************************************************* **********************************/
 /* ************************************************************************ Profile start   ********************************************************************************* **********************************/
-
-  Profile()
-function Profile(){
-
-
-const token = localStorage.getItem("token");
-
-
-if (token) {
-
-  axios.get("http://localhost:3000/profile",{
-  headers: {
-    authorization: `Bearer ${token}`
+ Profile()
+function Profile() {
+  const token = localStorage.getItem('token');
+  const Window_The_Profile = document.querySelector('.Window_The_Profile')
+    let WindowToProfile      = ""
+  if (token) {
+    axios.get("http://localhost:3000/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+       
+    }).then((res) => {
+      const response = res.data;
+      document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('MouhemdAksourImage').src = `http://localhost:3000/uploads/${response.avatar}`
+      document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
+      
+    }).catch((e) => {
+      console.log(e);
+    
+    });
   }
-}).then((res)=>{
-
-  const MainBar = document.querySelector('.Mainbar')
-  const response = res.data
-
-document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`
-document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`
-
-})
 }
-}
- 
-
-
 /* ************************************************************************ Profile End   ********************************************************************************* **********************************/
 document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
+
 
 })
 document.querySelector('.fa-house').addEventListener('click' , function(){
 
   window.location.href =`testDachbored.html` 
 })
-const ImageHeader = document.getElementById('ImageHeader')
-const ImageHeaderClass = document.querySelector('.ImageHeaderClass')
-ImageHeader.addEventListener('click' , ()=>{
-ImageHeaderClass.classList.toggle('ImageHeaderVisible')
 
-})
 const Result = document.querySelector('.ComentsInput')
 const IconeSend = document.querySelector('.fa-paper-plane')
 const ButtonCommentsSend = document.querySelector('.Send-Comments')
 
 
-document.addEventListener('input' ,(e)=>{
+ document.addEventListener('input' ,(e)=>{
 
    const Input  = e.target
+   if(Input) return ;
    const Parent = Input.closest('.BoxComments') 
    const Button = Parent.querySelector('.Send-Comments')
-   if(e.target.classList.contains('ComentsInput')){
+    if(e.target.classList.contains('ComentsInput'))
+      {
 
        if(e.target.value.trim().length > 0 ){
          
@@ -722,5 +953,196 @@ document.addEventListener('input' ,(e)=>{
         Button.classList.remove('InputNotVid')
         
        }
-   }
+   } 
+}) 
+
+
+
+async function LikesPost(heart) {
+ 
+  if (heart.dataset.loading === "true") return;
+  heart.dataset.loading = "true";
+
+  const postId = heart.dataset.id;
+  const countEl = document.querySelector(`.LikesCount-${postId}`);
+  const isLikedNow = heart.classList.contains('likedee');
+  heart.classList.toggle('likedee'); //// 
+ heart.style.color = !isLikedNow ? "red" : "" ;
+ 
+    
+ try{
+     const response = await axios.post(`http://localhost:3000/posts/${postId}/like` , {} ,{
+
+        headers :{
+
+          Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+     })
+      heart.style.color = response.data.liked ? "red" : "#db4444" 
+    if(countEl) {
+        
+       countEl.textContent = response.data.likes;
+    }
+ }catch(e){
+
+
+
+ }heart.dataset.loading = "false";
+}
+ function r(){
+    let user = null
+    let userid = localStorage.getItem('username')
+    if (userid != null){
+       user = JSON.parse(userid)
+    }
+    return user
+ }
+
+ 
+  let   UserId2 = r()
+  const Xn = UserId2._id
+
+async function loadLikedPosts() {
+  try {
+    const res = await axios.get("http://localhost:3000/posts/likes", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    const likedPosts = res.data;
+
+    likedPosts.forEach(post => {
+      const heart = document.querySelector(`[data-id="${post._id}"]`);
+     
+     
+      if (heart) {
+        heart.classList.add("liked");
+        heart.style.color = "red";
+      }
+    });
+
+  } catch (err) {
+   
+  }
+}
+document.addEventListener('click' , (e)=>{  ///     ايقونة ثلاث نقاط   
+const fa_ellipsis  = e.target.closest('.fa-ellipsis-vertical')
+if (!fa_ellipsis) return
+const titleimagenameANDUsernameAndComments = fa_ellipsis.closest('.titleimagenameANDUsernameAndComments')
+if(!titleimagenameANDUsernameAndComments)return
+const DeleteUpdate = titleimagenameANDUsernameAndComments.querySelector('.DeleteUpdate')
+if(!DeleteUpdate) return
+DeleteUpdate.classList.toggle('displayB')
+}) 
+ document.addEventListener('mousedown' , (e)=>{
+if (e.target.closest('.Classhidden')) {
+  return
+}
+ document.querySelectorAll('.Classhidden').forEach((e)=>{
+e.classList.remove('displayB')
+}) 
+}) 
+  
+document.addEventListener('click', (e)=>{    //////////  زر التعديل
+const element1 = e.target.closest('.UpdateThisElement')
+if(!element1) return
+const DeleteUpdate = e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe') /* ____ نضيف له display None ________*/
+const titleimagenameANDUsernameAndComments   = e.target.closest('.titleimagenameANDUsernameAndComments')
+const Secondebox = titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')  /* ______Display None ________*/
+const InputSaveValueNew = titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock') /*_______Display________*/
+const UpdateThisElement = titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
+const P                 = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi') 
+P.classList.add('DisplayNoNe') 
+
+/* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
+
 })
+
+function UpdateComments(bTn) {
+const objects = JSON.parse(decodeURIComponent(escape(atob(bTn.dataset.object))));
+const Input = bTn.closest('.titleimagenameANDUsernameAndComments').querySelector('.ValueNew')
+const Value = Input.value
+axios.put(`http://localhost:3000/comments/${objects._id}` , {
+ text : Value
+},
+    {
+      headers:{
+       Authorization : `Bearer ${localStorage.getItem('token')}`
+  },
+  
+ 
+}).then(({data}) =>{
+     if(data){
+     const Container = bTn.closest('.titleimagenameANDUsernameAndComments')
+     Container.querySelector('.InputSaveValueNew').classList.add('VisisbltyHidden')
+     }
+
+    Input.value = ""
+        GetPostsAll()
+     }).catch((Error)=>{
+    console.log(Error);
+ })
+}
+const Suggestion = document.querySelector('.suggestion')
+
+
+const Window_The_Profile = document.querySelector('.Window_The_Profile')
+window.addEventListener('scroll' ,()=>{
+    if (window.scrollY > 2) {
+      Suggestion.classList.add('TopL')
+      Window_The_Profile.classList.add('TopL')
+       
+    }else if (window.scrollY === 0){
+      Suggestion.classList.remove('TopL')   
+      Window_The_Profile.classList.remove('TopL')  
+    }
+})
+
+function GetOnepostPage(id){
+ 
+window.location = `http://127.0.0.1:5500/testProfile.html?id=${id}` 
+console.log(id) 
+axios.get(`http://localhost:3000/user/${id}/posts`)
+.then((e)=>{
+
+console.log(e);
+
+})
+}
+
+
+
+
+/* createdAt
+: 
+"2026-04-30T12:30:20.729Z"
+image
+: 
+"1777552220727-1762074942659.jpg"
+likes
+: 
+(3) ['69f350c24bd8f7cacafc2cc7', '69dd6a58cf3d06916a497829', '6a1c4321a2edff16f75e9048']
+text
+: 
+"قلربثقرلقرثقبل"
+userId
+: 
+avatar
+: 
+"1776118360187-code.png"
+email
+: 
+"AksourHoucine@gmail.com"
+name
+: 
+"AksourHoucine"
+password
+: 
+"0662164980+"
+__v
+: 
+0
+_id
+: 
+"69dd6a58cf3d06916a497829" */

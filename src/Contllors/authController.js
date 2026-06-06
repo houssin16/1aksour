@@ -2,8 +2,9 @@
 const User = require("../Models/UsersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const mongoose = require("mongoose");
 const SECRET_KEY = "my_secret_key";
+const Post = require("../Models/PostsModel");
 
 // تسجيل مستخدم جديد
  const registerUser = async (req, res) => {
@@ -28,8 +29,10 @@ const SECRET_KEY = "my_secret_key";
 
 // تسجيل الدخول
 const loginUser = async (req, res) => {
+
   try {
     const { email, password } = req.body;
+    
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "المستخدم غير موجود" });
 
@@ -38,9 +41,12 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "7d" });
     res.json({ success: true, token, user });
+       
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err.message });
   }
+
 };
 
 // جلب بيانات المستخدم الحالي
@@ -52,5 +58,45 @@ const getProfile = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const SearchUsers = async (req  ,  res)=>{
 
-module.exports = { registerUser, loginUser, getProfile, SECRET_KEY };
+  try{
+     const searchUsers = req.query.search
+     if(!searchUsers) return res.json([])
+     const users = await User.find({
+       name : {$regex:searchUsers , $options:"i"}
+     }).limit(20)
+     res.json(users)
+     console.log(users)
+  }catch(e){
+  
+
+  }
+
+}
+
+/* ____________________________________GetUserspage_____________________________________________ */
+const GetUserprofile = async (req, res) => {
+    console.log("وصلنا للدالة");
+
+  try {
+    const { id } = req.params;
+    const user   = await User.findById(id)
+    const IU     = await Post.find({ userId: id })
+    .populate("userId");
+     console.log(JSON.stringify(IU, null, 2));
+    console.log("RESULT:", IU[0]);
+   
+    return res.json({
+      user,
+      IU
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+
+module.exports = { SearchUsers, registerUser, loginUser, getProfile, GetUserprofile, SECRET_KEY };

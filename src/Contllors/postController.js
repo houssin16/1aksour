@@ -24,10 +24,6 @@ const createPost = async (req, res) => {
 
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
-
-
-
-
 const getPosts = async (req, res) => {
  try {
    const Posts = await Post.find()
@@ -46,7 +42,7 @@ const getPosts = async (req, res) => {
    )
   res.json(Result)
  } catch (error) {
-  
+     console.log(error)
  }
 };
 

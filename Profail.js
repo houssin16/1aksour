@@ -1,6 +1,8 @@
 
 
+console.log("PROFILE FILE RUNNING");
 
+ 
 
 document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded'  , () =>{
     console.log("nnn");
     ////////////////// الحساب الدي ليس مسجل دخولو 
  }else if(token){
- getuserpostId()
+/*  getuserpostId() */
   console.log("eeeeee");
  ////////////////////  الحساب الدي مسجل دخولو
  }else{
@@ -131,7 +133,7 @@ function TokenCheking(){
 TokenCheking()
 
 /* getuserpostId() */
-function getuserpostId(){////////////////////  الحساب الدي مسجل دخولو //////////////////////////////////
+/* function getuserpostId(){////////////////////  الحساب الدي مسجل دخولو //////////////////////////////////
  
   const Token = localStorage.getItem('token')
 axios.get("http://localhost:3000/posts/", {
@@ -159,7 +161,7 @@ axios.get("http://localhost:3000/posts/", {
           const Userid = w()
           let ButtonDeleteANDupdate = ""
           if (Userid.id === element.id) {
-           console.log("ezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+           
            
              ButtonDeleteANDupdate = `
           <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')"><i class="fa-solid fa-pen"></i>  تعديل المنشور</li>
@@ -350,7 +352,7 @@ axios.get("http://localhost:3000/posts/", {
     
     })
            
-}  
+}   */
   function w(){
                      
             let user = localStorage.getItem('username')
@@ -365,232 +367,152 @@ w()
 
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- // ///////////////////////////////////  
+const Params = new URLSearchParams(window.location.search)
+const ___Id = Params.get('id')
 
-function GetOnepost(id){////////////////// الحساب الدي ليس مسجل دخولو ///////////////////////////////////////////////////////////////
-   axios.get(`http://localhost:3000/user/${id}/posts`)
- 
- 
-   .then(response => { 
-      
-      
+  axios.get(`http://localhost:3000/user/${___Id}/posts`)
+  .then(response => {
    
-           const Container = document.querySelector('.Parent');
-     
-         
-         const posts = response.data.posts.reverse();
-        // const post =  response.data.posts;
-         
-         
-         Container.innerHTML ="" 
-        for (let i = 0; i < posts.length; i++) {
-                
+  
+    console.log("الطول الحقيقي:", response.data.length);
+    const posts = response.data.IU
+    
+    const Container = document.querySelector('.Parent');
+    const sidebar = document.querySelector('.Sidebar');
+    Container.innerHTML = ""
+    const user = w();
 
-              const element = posts[i];     
-              let ButtonDeletAndUpdate ="";
-              let user = w();
-              let id = user.id;
-              if (user) {
-              if(element.userId  === id){
-                
-                   ButtonDeletAndUpdate = `
-          <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')"><i class="fa-solid fa-pen"></i>  تعديل المنشور</li>
-          <li onclick = "FunctionDelete(${element.id})"> <i class="fa-regular fa-trash-can"></i>حذف المنشور</li>
-         `
-                   
-              }else{
-                  ButtonDeletAndUpdate =""
-              }
-              }  
-              const CreateDivElement = document.createElement('div')
-              CreateDivElement.classList.add('ContanLe')
-
-
-              CreateDivElement.innerHTML = `
-           
-               <div class="UsernameAndImageImage" >
-                <i class="fa-solid fa-ellipsis"></i>
-                <div class="UsernameAndImage2">
-                   <div class="UsernameAndImagE">
-                     <h4 onclick="ProfileClicked(${element.userId})"> ${element.username}</h4>
-                        
-                     <h6> ${element.createdAt}</h6>
-                   </div>
-                   <div class="ImageUserM">
-                    <img src="http://localhost:3000/uploads/${element.userId?.avatar || 'default.png'}">
-                   </div>
-                   </div> 
-                   </div>
-                   <div class="Paraghraf">
-                    <p>${element.text}</p>
-                  
-                   </div>
-                  <div class="ImagePost">
-                    <img src="http://localhost:3000m/uploads/${element.userId?.avatar || 'default.png'}">
-                  </div>
-                  <div class="CommentAndLikesAndshir">
-                     <div class="sharing">
-                        <h3>مشاركة<span>12</span></h3>
-                     </div>
-                     <div class="CommentsandLikes"> 
-                         <h3>تعبيق<span>182</span></h3>                         
-                           <h3>اعجاب<span>1200</span></h3>
-                     </div>
-                     
-                  </div>
-                  <hr>
-                  <div class="IconeLikesComentSharing">
-                    <i class="fa-solid fa-share-nodes">مشاركة</i>
-                    <i class="fa-regular fa-message Coment">تعليق</i>
-                    <i class="fa-regular fa-heart">اعجاب</i>
-                  </div>
-                   
-                   <div class="fa-trash">
-                  <ul>
-                   ${ButtonDeletAndUpdate}
-                  <li><i class="fa-solid fa-eye-slash"></i>اخفاء المنشور</li>
-                  <li><i class="fa-solid fa-flag"></i>ابلاغ</li>
-                                   
-             </ul>
+    posts.forEach((element ,index)=>{
+     console.log("رقم:", index);
+   console.log(element._id);
+    let ButtonDeletAndUpdate = "";
+      // ✅ تحقق أولاً قبل استخدام user.id
+      if (user && element.userId === user.id) {
+        ButtonDeletAndUpdate = `
+          <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')">
+            <i class="fa-solid fa-pen"></i> تعديل المنشور
+          </li>
+          <li onclick="FunctionDelete(${element._id})">
+            <i class="fa-regular fa-trash-can"></i> حذف المنشور
+          </li>
+        `
+      }
+       
+      const CreateDivElement = document.createElement('div')
+      CreateDivElement.classList.add('ContanLe')
+      CreateDivElement.innerHTML = `
+        <div class="UsernameAndImageImage">
+          <i class="fa-solid fa-ellipsis"></i>
+          <div class="UsernameAndImage2">
+            <div class="UsernameAndImagE">
+              <h4 onclick="ProfileClicked(${element.userId})">${element.userId.name}</h4>
+              <h6>${element.createdAt}</h6>
             </div>
-           
-
-
-             <div class="BoxComments">
-                 <div class="InputINCoumments">
-                    <input type ="text" class="ComentsInput" name ="text">
-                    <img src="houssin.jpg">
-              </div>
-                 <div class="ButtonCommentsSend">
-                  <div class="Box1Button">
-                 <button class="Send-Comments" data-id="${element.id}">
-                      <i class="fa-regular fa-paper-plane"></i>
-                </button>
-                </div>
-                <div class="OtherIcones">
-                <i class="fa-solid fa-camera-retro"></i>
-                 <i class="fa-regular fa-face-grin"></i>
-                </div>
-                </div>     
-                  <div class="placeCommentsPost-${element.id}" >
-  <div class="titleimagenameANDUsernameAndComments">
-
-    <div class="titleimagename">
-      <img src="houssin.jpg" alt="user">
-    </div>
-
-    <div class="UsernameAndComments">
-      <h3>xxxxxxxxxxxxxxxxxxxxxxx</h3>
-
-      <div class="pico">
-        <p>cccccccccccccccccccccccccc</p>
-      </div>
-
-      <div class="PlaceAksourLikeAndSeconde">
-        <div class="Secondebox">
-          <div class="TitleName">
-            <span>منذ 30 دقيقة</span>
+            <div class="ImageUserM">
+              <img src="http://localhost:3000/uploads/${element.userId.avatar || 'default.png'}">
+            </div>
           </div>
-          <span>رد</span>
-          <span>إعجاب</span>
         </div>
-      </div>
+        <div class="Paraghraf">
+          <p>${element.text}</p>
+        </div>
+        <div class="ImagePost">
+          <img src="http://localhost:3000/uploads/${element.image || 'default.png'}"> 
+        </div>
+        <div class="CommentAndLikesAndshir">
+          <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
+          <div class="CommentsandLikes">
+            <h3>تعليق<span>182</span></h3>
+            <h3>اعجاب<span>1200</span></h3>
+          </div>
+        </div>
+        <hr>
+        <div class="IconeLikesComentSharing">
+          <i class="fa-solid fa-share-nodes">مشاركة</i>
+          <i class="fa-regular fa-message Coment">تعليق</i>
+          <i class="fa-regular fa-heart">اعجاب</i>
+        </div>
+        <div class="fa-trash">
+          <ul>
+            ${ButtonDeletAndUpdate}
+            <li><i class="fa-solid fa-eye-slash"></i>اخفاء المنشور</li>
+            <li><i class="fa-solid fa-flag"></i>ابلاغ</li>
+          </ul>
+        </div>
+        <div class="BoxComments">
+          <div class="InputINCoumments">
+            <input type="text" class="ComentsInput" name="text">
+            <img src="houssin.jpg">
+          </div>
+          <div class="ButtonCommentsSend">
+            <div class="Box1Button">
+              <button class="Send-Comments" data-id="${element._id}">
+                <i class="fa-regular fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="OtherIcones">
+              <i class="fa-solid fa-camera-retro"></i>
+              <i class="fa-regular fa-face-grin"></i>
+            </div>
+          </div>
+          <div class="placeCommentsPost-${element._id}"></div>
+        </div>
+      `
 
-    </div>
+       Container.appendChild(CreateDivElement) 
+      GetComments(element._id)
+   
+  })
+       const firstPost = response.data
+       console.log(firstPost);
+       
+    if (sidebar && firstPost) {
+      sidebar.innerHTML = `
+        <div class="ImageProfile">
+          <img src="./TTTTTTTt.jpg" alt="">
+        </div>
+        <div class="ImageProfile2">
+          <div class="UsernameAndPhoto">
+            <img src="http://localhost:3000/uploads/${firstPost.user.avatar}" alt="">
+          </div>
+        </div>
+        <div class="Username">
+          <div class="Username1">
+            <h1 id="UserDachbord">${firstPost.user.name}</h1>
+          </div>
+          <div class="information">
+            <span>|مطور برمجيات</span>
+            <span>|💻مهتم بالتقنية والابتكار</span>
+            <span>📸أحب السفر والتصوير</span>
+          </div>
+          <div class="Place">
+            <span>انضم في يناير 2020<i class="fas fa-shopping-bag"></i></span>
+            <span><a href="">www.Aksour.com</a><i class="fas fa-link"></i></span>
+            <span>الرياض، المملكة العربية السعودية<i class="fas fa-map-marker-alt"></i></span>
+          </div>
+          <div class="follow">
+            <div class="Boxing1"><span>127</span><p>منشور</p></div>
+            <div class="Boxing1"><span>2,543</span><p>متابع</p></div>
+            <div class="Boxing1"><span>389</span><p>يتابع</p></div>
+          </div>
+        </div>
+        <div class="ImageansFriends">
+          <div class="Houcine">
+            <div class="Friends1" id="About"><h4>حول</h4><i class="fas fa-circle-info"></i></div>
+            <div class="Friends1" id="Friend"><h4>الاصدقاء</h4><i class="fas fa-user-friends"></i></div>
+            <div class="Friends1" id="Image"><h4>الصور</h4><i class="fas fa-image"></i></div>
+            <div class="Friends1" id="manshorat"><h4>المنشورات</h4><i class="fas fa-image"></i></div>
+          </div>
+        </div>
+      `
+    }
+   }).catch((e) => {
+    console.log(e);
 
-  </div>
-</div>  
-                </div>
-                
-                  
-                  
-             `
-             
-                Container.appendChild(CreateDivElement) 
-                GetComments(element.id)
-     
-      
-                document.querySelector('.Sidebar').innerHTML = ""
+ 
+})
 
-                let profaile2 = `
-                  <div class="ImageProfile">
-                     <img src="./TTTTTTTt.jpg" alt="">
-                 </div>
-                 <div class="ImageProfile2">
-                    <div class="UsernameAndPhoto">
-                         <img src="${element.userImage}" alt="">
-                    </div>
-                    
-                 </div>
-                 <div class="Username">
-                 <div class="Username1">
-                    <h1>${element.username}</h1>
-                    </div>
-                     <div class="information">
-                         <span>|مطور برمجيات</span>
-                         <span> |💻مهتم بالتقنية والابتكار </span>
-                         <span> 📸أحب السفر والتصوير </span>
-                     </div>
-                     <div class="Place">
-                        <span>انضم في يناير 2020<i class="fas fa-shopping-bag"></i></span>
-                        <span><a href="">www.Aksour.com</a><i class="fas fa-link"></i></span>
-                        <span>الرياض، المملكة العربية السعودية<i class="fas fa-map-marker-alt"></i></span>
-                         
-                     </div>
-                     <div class="follow">
-                          <div class="Boxing1">
-                               <span>127</span>
-                               <p>منشور</p>
-                          </div>
-                          <div class="Boxing1">
-                               <span>2,543</span>
-                               <p>متابع</p>
-                          </div>
-                          <div class="Boxing1">
-                                <span>389</span>
-                                <p>يتابع</p>
 
-                          </div>
-                     </div>
-                 </div>  
-                 <div class="ImageansFriends">
-                    <div class="Houcine">
-                       <div class="Friends1" id="About">
-                          <h4>حول</h4>
-                          <i class="fas fa-circle-info"></i>
-                       </div>
-                       <div class="Friends1" id="Friend">
-                        <h4>الاصدقاء</h4>
-                           <i class="fas fa-user-friends"></i>
-                       </div>
-                       <div class="Friends1" id="Image">
-                        <h4>الصور</h4>
-                        <i class="fas fa-image"></i>
-                       </div>
-                       <div class="Friends1" id="manshorat">
-                        <h4>المنشورات</h4>
-                        <i class="fas fa-image"></i>
-                       </div>
-                       </div>
-                 </div> 
-          `
-             
-               let  header =   document.querySelector('.Sidebar')
-                    if (header) {
-                    header.innerHTML = "";
-                   header.innerHTML += profaile2;
-                    }   
-                  /*   GrtComments(element.id)  */
-  
-          } 
-   }).catch((e) =>{
-  console.log(e); 
-  
-   })
-                 ;   
-
-                
-} 
 
 const ImageansFriends = document.querySelectorAll('.Friends1')
 const sidebar = document.querySelector('.Sidebar');
@@ -824,6 +746,7 @@ function GetComments(id) {
     headers: { Authorization: `Bearer ${Token}` }
   })
   .then(response => {
+
     const comments = response.data.reverse();
     const PlaceInComments = document.querySelector(`.placeCommentsPost-${id}`);
  

@@ -3,16 +3,16 @@ const Router = express.Router();
 const path = require("path");
 const multer = require("multer");
 
-                         
-
-
 // Controllers
-const { registerUser, loginUser, getProfile } = require("../Contllors/authController");
+const { registerUser, loginUser, getProfile, SearchUsers ,GetUserprofile } = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
-const { createPost, getPosts, deletePost , UpdatePost } = require("../Contllors/postController");
+const { createPost, getPosts, deletePost, UpdatePost } = require("../Contllors/postController");
 const { addComment, getComments } = require("../Contllors/commentController");
+const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
+const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
+const { UpdateComment } = require('../Contllors/UpdateComments');
 
-//Multer setup
+// Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
@@ -25,29 +25,23 @@ Router.post("/login", loginUser);
 Router.get("/profile", verifyToken, getProfile);
 
 // Posts
-Router.post("/posts", verifyToken, upload.single("image"), createPost)
+Router.post("/posts", verifyToken, upload.single("image"), createPost);
 Router.get("/posts", getPosts);
 Router.delete("/posts/:id", verifyToken, deletePost);
+Router.post('/posts/:id/like', verifyToken, PostLikess);
+Router.get('/posts/likes', verifyToken, Get___Likes);
+Router.put("/posts/:id", verifyToken, upload.single("image"), UpdatePost);
 
 // Comments
 Router.post("/posts/:id/comments", verifyToken, addComment);
 Router.get("/posts/:id/comments", getComments);
+Router.put('/comments/:id', verifyToken, UpdateComment);
 
-Router.put("/posts/:id" ,verifyToken , upload.single("image"), UpdatePost )
-module.exports = Router;
+// Replies
+Router.post("/replies", verifyToken, ReplyComment);
+Router.get('/replies', verifyToken, GetReplyComment);
+Router.get('/user/:id/posts' , GetUserprofile)
+// Search
+Router.get('/SearchUser', SearchUsers);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = Router; // ✅ export واحد فقط

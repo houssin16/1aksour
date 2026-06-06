@@ -57,12 +57,14 @@ if (token) {
 }).then(res => {
   const user = res.data.user;
  
-    document.getElementById('Dachbord').innerHTML = ""
-    
+    const Dachboredw = document.getElementById('Dachbord')
+     if (Dachboredw) {
+     Dachboredw.innerHTML = ""
+    } 
     
     const result = `
          <div  id="DachbordeNew">
-         <b id="buttone" onclick = "ProfileUser(${user.id})" id="username" style=" text-transform: capitalize; color: rgba(255, 255, 255, 1);cursor: pointer;">${user.name}</b>
+         <b id="buttone" onclick = "ProfileUser(${user._id})" id="username" style=" text-transform: capitalize; color: rgba(255, 255, 255, 1);cursor: pointer;">${user.name}</b>
         <img id="image" src=${user.avatar} alt="" style="width: 35px; height: 35PX; border-radius: 50%;">
             </div>           
     `
@@ -97,12 +99,12 @@ if (token) {
    
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-///////////////////////////////
 
-
- document.addEventListener("DOMContentLoaded", GetPostsAll);
-
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  const hedarere = document.getElementById('aksour')
- hedarere.classList.add('m')
+ if (hedarere) {
+  hedarere.classList.add('m')
+ }
+ 
  function ProfileUser(id){
 
  axios.get(`http://localhost:3000/user/${id}/posts`)
@@ -148,12 +150,12 @@ if (token) {
 } 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-x()
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*  function FuntionUpdate(object){
+ /* function FuntionUpdate(object){
   
    const obJ = JSON.parse(decodeURIComponent(object))
    document.getElementById('input').value = obJ.id
@@ -168,29 +170,20 @@ x()
   const preview = document.getElementById('preview');
 
  if (obJ.image) {
-   preview.src = obJ.image; // ← تأكد من المسار الكامل
+   preview.src = obJ.image; 
   preview.style.display = "block";
  }else{
   preview.style.display = "none";
  }
   } */
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- function r(){
-    let user = null
-    let userid = localStorage.getItem('username')
-    if (userid != null){
-       user = JSON.parse(userid)
-    }
-    return user
- }
+
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- const Confirm = document.querySelector('.Confirm')
-
-
   ///////////////////////////////////////////////////////////////
 
 const ButtonExit = document.getElementById('ButtonExit')
 const PostI = document.querySelector('.Post')
+if (ButtonExit) 
 ButtonExit.addEventListener('click'  ,   ()=>{
  PostI.style.display = "none"
 })
@@ -231,7 +224,7 @@ axios.get(`http://localhost:3000/user/${id}/posts`)
                   `
                     document.querySelector('.header').innerHTML += profaile2
              }              
-      /*  window.location = `Profail.html?userid=${id}`  */   
+        window.location = `Profail.html?userid=${id}` 
    }) 
-
+   
   }

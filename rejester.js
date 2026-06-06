@@ -20,8 +20,8 @@ ButtonRegster.addEventListener('click', async () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value.trim();
     const ConfirmPassword = document.getElementById('ConfirmPassword').value.trim()
- 
-  
+   const file = document.getElementById("avatarInput").files[0];
+
     if (!name.trim()) {
         ShowAltert("الاسم فارغ")
         return;
@@ -33,23 +33,28 @@ ButtonRegster.addEventListener('click', async () => {
     if (password.length === 0 ) {
         ShowAltert('كلمة المرور فارغة')
         return;
-    }/* else if(!NvalidtionPassword(password)){ 
+    } else if(!NvalidtionPassword(password)){ 
       ShowAltert("لمة المرور ضعيفة. يجب أن تحتوي على حرف كبير وصغير ورقم ورمز وطول 8 على الأق")
-      return;
-    } */
+    
+    } 
       if (password !== ConfirmPassword) {
         ShowAltert('كلمة السر غير متطابقة')
         return
-    }
-   
+    } 
+      
+/* const AddUser = {
 
+    name: name,
+    avatar : file,
+    email : email,
+    password : password,
+
+} */
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);
     formData.append('password', password);
-    
-     const file = document.getElementById("avatarInput").files[0];
-  formData.append("avatar", file);
+   formData.append("avatar", file);
     axios.post('http://localhost:3000/register', formData)
         .then(res => {
             console.log(res.data);
@@ -60,9 +65,10 @@ ButtonRegster.addEventListener('click', async () => {
           ShowAltert(Er.response.data.message)
           console.log(Er);
           
-        });
+        });  
         
 });
+
 
 function Invaildtion(email){
 
@@ -157,3 +163,20 @@ IconesA.addEventListener('click' , ()=>{
         Input.type = "password"
     }
 })
+
+/* __________________________________________________________________________________________________________________________________ */
+
+/* function AddUsers (AddUser){
+
+  fetch('http://localhost:3000/users' ,{
+   method :'POST',
+   headers:{'Content-Type' : 'application/json'},
+   body : JSON.stringify(AddUser)
+  }).then(ress =>{
+
+    console.log(ress);
+    
+  })
+  console.log("eeeeeeeeeeeee");
+  
+} */
