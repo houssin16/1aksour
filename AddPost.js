@@ -1,25 +1,24 @@
-console.log("ADDPOST FILE RUNNING");
 
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
- const Containerews = document.querySelector('.Parent');
-console.log(Containerews);
+const Containerews = document.querySelector('.Parent');
 
- console.log(window.location.href);
 
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
 
 const Url = "http://localhost:3000"  
  
-function ProfileClicked(userId){
-  /*  const username = localStorage.getItem('username')
-   const userid  = JSON.parse(username) */
-   /* window.location = `Profail.html?userid=${userId}`  */
-  window.location =`testProfile.html?userid=${userId}` 
-} 
+/*  function ProfileClicked(userId){
 
- function ShowAltert(Msg){
+   const username = localStorage.getItem('username')
+   const userid  = JSON.parse(username) 
+    window.location = `Profail.html?userid=${userId}`  
+  window.location =`testProfile.html?id=${userId}` 
+  console.log(userId);
+}  */
+
+   function ShowAltert(Msg){
   const Container = document.getElementById('Alert')
   if(!Container){
     
@@ -33,6 +32,8 @@ function ProfileClicked(userId){
      Div.remove()
      }, 2500);
 } 
+ export default ShowAltert; 
+
  const res = document.getElementById('Alert')
 let urlxdown = `${Url}/posts`
 const PlaceInComments = document.querySelector('.placeCommentsPost');
@@ -98,7 +99,7 @@ console.log('no is password filed');
   password: password,
 }) 
 .then((respone)=>{
-   console.log(respone);
+     
      if (respone) {
         const res = respone.data.user
          localStorage.setItem("imge", JSON.stringify(res.avatar));
@@ -109,7 +110,7 @@ console.log('no is password filed');
         ShowAltert("تم تسجيل الدخول بنجاح");
        setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
      }
-
+  
    }).catch((e) =>{
   ShowAltert(e.response?.data?.message || "حدث خطأ");
     console.log(e.response?.data?.message || "حدث خطأ");
@@ -136,6 +137,7 @@ if (re)
           
 
       }).then((respone) =>{ 
+        localStorage.clear()
         localStorage.removeItem('token') 
        ShowAltert('تم التسجيل الخروج بنجاح')
         localStorage.removeItem('username')
@@ -271,22 +273,25 @@ InputSearch.addEventListener('input' , ()=>{
 
 
    /* ______Stop Function________ */
-GetPostsAll() /* ____________________________________________________________________________________________________________ */
+    GetPostsAll() /* ____________________________________________________________________________________________________________ */
 function GetPostsAll(){
    const token = localStorage.getItem('token');
   axios.get('http://localhost:3000/posts', {
     headers: { Authorization: `Bearer ${token}`}
   })
   .then(response => {
-    if(PlaceInComments) {
-     PlaceInComments.style.display = "none" 
+    if(PlaceInComments){
+           PlaceInComments.style.display = "none" 
+
     }
+   
      const Likes = response.data
     const posts = response.data.reverse()
     const containerAll = document.querySelector('.SideBar');
     containerAll.innerHTML = "";
     posts.forEach(element => { 
-
+     console.log(element);
+     
       const container = document.createElement('div');
       container.classList.add('content');
        let result =r() 
@@ -854,7 +859,7 @@ function ClikedPostComents(userid){
     console.error("userid undefined!");
     return;
   }
-    window.location.href = `testProfile.html?userid=${userid}` 
+     window.location.href = `testProfile.html?userid=${userid}` 
 }
 /* ************************************************************************ Create Comments End ********************************************************************************* **********************************/
 
@@ -908,6 +913,8 @@ function Profile() {
       }
        
     }).then((res) => {
+      console.log(res);
+      
       const response = res.data;
       document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`;
       document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`;
@@ -921,13 +928,10 @@ function Profile() {
   }
 }
 /* ************************************************************************ Profile End   ********************************************************************************* **********************************/
-document.querySelector('.fa-building-user').addEventListener('click' , function(){
+/* document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
-
-
-})
+}) */
 document.querySelector('.fa-house').addEventListener('click' , function(){
-
   window.location.href =`testDachbored.html` 
 })
 
@@ -1099,17 +1103,23 @@ window.addEventListener('scroll' ,()=>{
     }
 })
 
-function GetOnepostPage(id){
- 
+ function GetOnepostPage(id){
+
 window.location = `http://127.0.0.1:5500/testProfile.html?id=${id}` 
 console.log(id) 
-axios.get(`http://localhost:3000/user/${id}/posts`)
-.then((e)=>{
+ } 
 
-console.log(e);
+ function Ape (id){
+const fa_building_user = document.querySelector('.fa-building-user')
+fa_building_user.addEventListener('click'  , function(){
+window.location = `http://127.0.0.1:5500/testProfile.html?userid=${id}` 
+console.log(id);
 
 })
-}
+ }
+ Ape()
+
+
 
 
 

@@ -4,10 +4,10 @@ console.log("PROFILE FILE RUNNING");
 
  
 
-document.querySelector('.fa-building-user').addEventListener('click' , function(){
+/* document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
 
-})
+}) */
 document.querySelector('.fa-house').addEventListener('click' , function(){
 
   window.location.href =`testDachbored.html` 
@@ -27,19 +27,20 @@ function ShowAltert(x ,){
 
    
 }
+const Params = new URLSearchParams(window.location.search)
+const ___Id = Params.get('id')
 let user = w()
 let userID = user.id
 document.addEventListener('DOMContentLoaded'  , () =>{
- const Urlparams = new URLSearchParams(window.location.search)
- const id = Urlparams.get('userid');
  const token = localStorage.getItem('token')
- if (id){
-    GetOnepost(id) 
-    console.log("nnn");
+ if (___Id){ 
+  console.log("yessss");
+  
+ /*  getuserpostIdx(id) */
     ////////////////// الحساب الدي ليس مسجل دخولو 
  }else if(token){
-/*  getuserpostId() */
-  console.log("eeeeee");
+   GetpostUseranyUsers()
+  
  ////////////////////  الحساب الدي مسجل دخولو
  }else{
   window.location = 'index.html'
@@ -70,7 +71,7 @@ const logoutE = document.getElementById('Buttonlogout')
       })
      })   
     }
-/*  function Profile(){
+ function Profile(){
 
 const token = localStorage.getItem("token");
 
@@ -81,6 +82,8 @@ if (token) {
     authorization: `Bearer ${token}`
   }
 }).then(res => {
+  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",res);
+  
   const user = res.data.user;
 
   
@@ -112,8 +115,8 @@ if (token) {
 });
 }
 
-}   */
-/* Profile() */
+} 
+ Profile()
 
 function CreatePostONS(){
   const e = document.querySelector('.AksourPosts')
@@ -132,29 +135,29 @@ function TokenCheking(){
 }
 TokenCheking()
 
-/* getuserpostId() */
-/* function getuserpostId(){////////////////////  الحساب الدي مسجل دخولو //////////////////////////////////
- 
+
+ function getuserpostIdx(){////////////////////  الحساب الدي مسجل دخولو //////////////////////////////////
   const Token = localStorage.getItem('token')
-axios.get("http://localhost:3000/posts/", {
+  console.log(Token);
+  
+axios.get("http://localhost:3000/posts", {
   headers: {
     Authorization: `Bearer ${Token}`
   }
 })
     .then((response) =>{
-
     
-     
-       
+    
       const Data = response.data.reverse()
-       const Header =  document.querySelector('.header')
-    
-       
+      console.log(response.data)
+      const Header =  document.querySelector('.header')
       const Container = document.querySelector('.Parent');
        Container.innerHTML = "";
       
         for (let i = 0; i < Data.length; i++) { 
-          const element = Data[i];
+
+          const element = Data[i]; 
+          console.log(element);
           const DivHtml = document.createElement('div')
           DivHtml.classList.add('ContanLe')
 
@@ -170,7 +173,7 @@ axios.get("http://localhost:3000/posts/", {
           }else{
            ButtonDeleteANDupdate = ""
 
-          }
+          } 
            DivHtml.innerHTML =`
             
           
@@ -179,13 +182,13 @@ axios.get("http://localhost:3000/posts/", {
                 <i class="fa-solid fa-ellipsis"></i>
                 <div class="UsernameAndImage2">
                    <div class="UsernameAndImagE">
-                     <h4 onclick="ProfileClicked(${element.userId})"> ${element.username}  </h4>
+                     <h4 onclick="ProfileClicked(${element.userId})"> ${element.userId.name}</h4>
                           
                  
                      <h6> ${element.createdAt}</h6>
                    </div>
                    <div class="ImageUserM">
-                    <img src=" ${element.userImage}"default.jpg alt="">
+                    <img src="http://localhost:3000/uploads/${element.userId.avatar}"default.jpg alt="">
                    </div>
                    </div> 
                    </div>
@@ -194,7 +197,7 @@ axios.get("http://localhost:3000/posts/", {
                   
                    </div>
                   <div class="ImagePost">
-                    <img src="${element.image}" alt="">
+                    <img src="http://localhost:3000/uploads/${element.image}" alt="">
                   </div>
                   <div class="CommentAndLikesAndshir">
                      <div class="sharing">
@@ -231,7 +234,7 @@ axios.get("http://localhost:3000/posts/", {
               </div>
                  <div class="ButtonCommentsSend">
                   <div class="Box1Button">
-                 <button class="Send-Comments" data-id="${element.id}">
+                 <button class="Send-Comments" data-id="${element._id}">
                       <i class="fa-regular fa-paper-plane"></i>
                 </button>
                 </div>
@@ -240,7 +243,7 @@ axios.get("http://localhost:3000/posts/", {
                  <i class="fa-regular fa-face-grin"></i>
                 </div>
                 </div>     
-                  <div class="placeCommentsPost-${element.id}" >
+                  <div class="placeCommentsPost-${element._id}" >
   <div class="titleimagenameANDUsernameAndComments">
 
     <div class="titleimagename">
@@ -285,7 +288,7 @@ axios.get("http://localhost:3000/posts/", {
                  </div>
                  <div class="ImageProfile2">
                     <div class="UsernameAndPhoto">
-                         <img src="${element.userImage}" alt="">
+                         <img src="http://localhost:3000/uploads/${element.userId.avatar}" alt="">
                     </div>
                     
                  </div>
@@ -352,7 +355,7 @@ axios.get("http://localhost:3000/posts/", {
     
     })
            
-}   */
+}   
   function w(){
                      
             let user = localStorage.getItem('username')
@@ -367,24 +370,19 @@ w()
 
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Params = new URLSearchParams(window.location.search)
-const ___Id = Params.get('id')
+
 
   axios.get(`http://localhost:3000/user/${___Id}/posts`)
   .then(response => {
-   
-  
-    console.log("الطول الحقيقي:", response.data.length);
-    const posts = response.data.IU
     
+     
+    const posts = response.data.IU
     const Container = document.querySelector('.Parent');
     const sidebar = document.querySelector('.Sidebar');
     Container.innerHTML = ""
     const user = w();
 
     posts.forEach((element ,index)=>{
-     console.log("رقم:", index);
-   console.log(element._id);
     let ButtonDeletAndUpdate = "";
       // ✅ تحقق أولاً قبل استخدام user.id
       if (user && element.userId === user.id) {
@@ -405,7 +403,7 @@ const ___Id = Params.get('id')
           <i class="fa-solid fa-ellipsis"></i>
           <div class="UsernameAndImage2">
             <div class="UsernameAndImagE">
-              <h4 onclick="ProfileClicked(${element.userId})">${element.userId.name}</h4>
+              <h4 onclick="ProfileClicked(${element.userId._id})">${element.userId.name}</h4>
               <h6>${element.createdAt}</h6>
             </div>
             <div class="ImageUserM">
@@ -464,10 +462,8 @@ const ___Id = Params.get('id')
    
   })
        const firstPost = response.data
-       console.log(firstPost);
-       
-    if (sidebar && firstPost) {
-      sidebar.innerHTML = `
+       if (sidebar && firstPost) {
+       sidebar.innerHTML = `
         <div class="ImageProfile">
           <img src="./TTTTTTTt.jpg" alt="">
         </div>
@@ -514,6 +510,8 @@ const ___Id = Params.get('id')
 
 
 
+
+
 const ImageansFriends = document.querySelectorAll('.Friends1')
 const sidebar = document.querySelector('.Sidebar');
 const allPosts = document.querySelector('.Parent');
@@ -521,13 +519,10 @@ const allImages = document.querySelector('.AllImages');
 const AROUNDBOX = document.querySelector('.Around1')
 const About = document.getElementById('About')
 const AROUNDBOX2 =document.querySelector(".AROUNDBOX")
-
 const ContanLe = document.querySelector('.ContanLe') 
 const BoxFrindes = document.querySelector('.Frindes')
 
 
-console.log(ImageansFriends);
-console.log(ImageansFriends.length)
 ImageansFriends[3].classList.add('active');
 if(sidebar){
    
@@ -635,7 +630,7 @@ if(sidebar){
  
 }) */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*  function ProfileUser(id){
+ function ProfileUser(id){
    
  axios.get(`http://localhost:3000/user/${id}/posts`)
    .then((response)=>{
@@ -708,13 +703,13 @@ if(sidebar){
                
    })
 
-}  */
+}   
 document.addEventListener('click' , (e)=>{
  const IconrSendCoumment = e.target.closest('.Send-Comments')
 if (!IconrSendCoumment) return ;
 e.preventDefault()
 const PostId = IconrSendCoumment.dataset.id
-console.log(PostId);
+
 SendMessage(PostId)
  
 })
@@ -734,7 +729,7 @@ function SendMessage(id){
      headers : {Authorization : `Bearer ${Token}`}
     }
    ).then((ResponeComents)=>{
-   console.log(ResponeComents);
+  
    
    })
 }
@@ -850,7 +845,7 @@ if (re) {
 
     // إذا لم يوجد → المستخدم دخل نافذة جديدة أو لم يسجل دخول
     if (!sessionToken) {
-        window.location.replace('index.html')
+        window.location.replace('index.html') 
     }
 })
 /* window.addEventListener('load', () => {
@@ -885,8 +880,8 @@ const Img12 = document.querySelector('.Img12')
 let Mood = "Create"
 
 
-Profile()
-function Profile(){
+/* Profile() */
+ function Profile(){
 
 const token = localStorage.getItem("token");
 
@@ -903,7 +898,7 @@ axios.get("http://localhost:3000/profile",{
  const Container = document.querySelector('.Parent');
  const response = res.data.user
  const rescome = res.data.user.id
- console.log(response);
+
  document.getElementById('ImageHeader').src = response.avatar 
  const Div1 = document.createElement('div')
  Div1.classList.add('ContanLe')
@@ -913,7 +908,7 @@ axios.get("http://localhost:3000/profile",{
 
 }
 
-}
+} 
 ////////////////////////////////////////////////////////////////Update ///////////////////////////////////////////
 function UdpatePost(object){  
   Mood = "update"
@@ -972,7 +967,7 @@ function FunctionDelete(id){
 
      })
       .then((respone)=>{
-        console.log(respone);
+      
         
          ContainerComnfirm.classList.remove('ShowConfirm')
         this.classList.add('CanelConfirm')
@@ -987,6 +982,176 @@ function FunctionDelete(id){
   
 
   } 
+document.querySelector('.fa-building-user')
+.addEventListener('click', () => {
 
+  GetpostUseranyUsers();
 
+});
+function GetpostUseranyUsers(){
+const token = localStorage.getItem('token')
+console.log(token);
+
+ axios.get(`http://localhost:3000/My_User_Post`,
+
+   {
+      headers:{
+        Authorization:`Bearer ${token}`
+    } 
+ })
+
+   
+
+   .then((response)=>{
+   
+         
+         
+         
+           
+             const UserPost = response.data 
+             const  Users   =  UserPost.userId 
+            
+            /* window.location = `testProfile.html?userid=${id}`  */
+             /*   const Container =  document.querySelector('.ContanLe') */
+               const Container = document.querySelector('.Parent');
+               const sidebar = document.querySelector('.Sidebar');
+               Container.innerHTML = ""
+               UserPost.forEach((element ,index)=>{
+             
+              
+           let ButtonDeletAndUpdate = "";
+      // ✅ تحقق أولاً قبل استخدام user.id
+           if (user && element.userId === user.id) {
+           ButtonDeletAndUpdate = `
+          <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')">
+            <i class="fa-solid fa-pen"></i> تعديل المنشور
+          </li>
+          <li onclick="FunctionDelete(${element._id})">
+            <i class="fa-regular fa-trash-can"></i> حذف المنشور
+          </li>
+        `
+      }
+       
+      const CreateDivElement = document.createElement('div')
+      CreateDivElement.classList.add('ContanLe')
+      CreateDivElement.innerHTML = `
+        <div class="UsernameAndImageImage">
+          <i class="fa-solid fa-ellipsis"></i>
+          <div class="UsernameAndImage2">
+            <div class="UsernameAndImagE">
+              <h4 onclick="ProfileClicked(${element.userId._id})">${element.userId.name}</h4>
+              <h6>${element.createdAt}</h6>
+            </div>
+            <div class="ImageUserM">
+              <img src="http://localhost:3000/uploads/${element.userId.avatar || 'default.png'}">
+            </div>
+          </div>
+        </div>
+        <div class="Paraghraf">
+          <p>${element.text}</p>
+        </div>
+        <div class="ImagePost">
+          <img src="http://localhost:3000/uploads/${element.image || 'default.png'}"> 
+        </div>
+        <div class="CommentAndLikesAndshir">
+          <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
+          <div class="CommentsandLikes">
+            <h3>تعليق<span>182</span></h3>
+            <h3>اعجاب<span>1200</span></h3>
+          </div>
+        </div>
+        <hr>
+        <div class="IconeLikesComentSharing">
+          <i class="fa-solid fa-share-nodes">مشاركة</i>
+          <i class="fa-regular fa-message Coment">تعليق</i>
+          <i class="fa-regular fa-heart">اعجاب</i>
+        </div>
+        <div class="fa-trash">
+          <ul>
+            ${ButtonDeletAndUpdate}
+            <li><i class="fa-solid fa-eye-slash"></i>اخفاء المنشور</li>
+            <li><i class="fa-solid fa-flag"></i>ابلاغ</li>
+          </ul>
+        </div>
+        <div class="BoxComments">
+          <div class="InputINCoumments">
+            <input type="text" class="ComentsInput" name="text">
+            <img src="houssin.jpg">
+          </div>
+          <div class="ButtonCommentsSend">
+            <div class="Box1Button">
+              <button class="Send-Comments" data-id="${element._id}">
+                <i class="fa-regular fa-paper-plane"></i>
+              </button>
+            </div>
+            <div class="OtherIcones">
+              <i class="fa-solid fa-camera-retro"></i>
+              <i class="fa-regular fa-face-grin"></i>
+            </div>
+          </div>
+          <div class="placeCommentsPost-${element._id}"></div>
+        </div>
+      `
+
+       Container.appendChild(CreateDivElement) 
+      GetComments(element._id)
+   
+  })
+       const firstPost = response.data[0].userId
+ 
+       if (sidebar && firstPost) {
+       
+        
+        
+       sidebar.innerHTML = `
+        <div class="ImageProfile">
+          <img src="./TTTTTTTt.jpg" alt="">
+        </div>
+        <div class="ImageProfile2">
+          <div class="UsernameAndPhoto">
+            <img src="http://localhost:3000/uploads/${firstPost.avatar}" alt="">
+          </div>
+        </div>
+        <div class="Username">
+          <div class="Username1">
+            <h1 id="UserDachbord">${firstPost.name}</h1>
+          </div>
+          <div class="information">
+            <span>|مطور برمجيات</span>
+            <span>|💻مهتم بالتقنية والابتكار</span>
+            <span>📸أحب السفر والتصوير</span>
+          </div>
+          <div class="Place">
+            <span>انضم في يناير 2020<i class="fas fa-shopping-bag"></i></span>
+            <span><a href="">www.Aksour.com</a><i class="fas fa-link"></i></span>
+            <span>الرياض، المملكة العربية السعودية<i class="fas fa-map-marker-alt"></i></span>
+          </div>
+          <div class="follow">
+            <div class="Boxing1"><span>127</span><p>منشور</p></div>
+            <div class="Boxing1"><span>2,543</span><p>متابع</p></div>
+            <div class="Boxing1"><span>389</span><p>يتابع</p></div>
+          </div>
+        </div>
+        <div class="ImageansFriends">
+          <div class="Houcine">
+            <div class="Friends1" id="About"><h4>حول</h4><i class="fas fa-circle-info"></i></div>
+            <div class="Friends1" id="Friend"><h4>الاصدقاء</h4><i class="fas fa-user-friends"></i></div>
+            <div class="Friends1" id="Image"><h4>الصور</h4><i class="fas fa-image"></i></div>
+            <div class="Friends1" id="manshorat"><h4>المنشورات</h4><i class="fas fa-image"></i></div>
+          </div>
+        </div>
+      `
+    }
+   }).catch((e) => {
+    console.log(e);
+
+ 
+})
+
+}  
+const ChengeFhoto = document.getElementById('ChengeFhoto')
+ChengeFhoto.addEventListener('click' ,()=>{
+
+   window.location.href = "UpdateAcount.html"
+})
 

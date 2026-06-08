@@ -40,6 +40,7 @@ const loginUser = async (req, res) => {
     if (!match) return res.status(400).json({ message: "كلمة المرور خاطئة" });
 
     const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "7d" });
+   
     res.json({ success: true, token, user });
        
   } catch (err) {
@@ -67,7 +68,7 @@ const SearchUsers = async (req  ,  res)=>{
        name : {$regex:searchUsers , $options:"i"}
      }).limit(20)
      res.json(users)
-     console.log(users)
+    
   }catch(e){
   
 
@@ -77,26 +78,25 @@ const SearchUsers = async (req  ,  res)=>{
 
 /* ____________________________________GetUserspage_____________________________________________ */
 const GetUserprofile = async (req, res) => {
-    console.log("وصلنا للدالة");
-
   try {
     const { id } = req.params;
-    const user   = await User.findById(id)
-    const IU     = await Post.find({ userId: id })
-    .populate("userId");
-     console.log(JSON.stringify(IU, null, 2));
-    console.log("RESULT:", IU[0]);
-   
-    return res.json({
-      user,
-      IU
-    });
+
+    if (!id || id === "null") {
+      return res.status(400).json({ message: "Invalid user id" });
+    }
+
+    const user = await User.findById(id);
+
+    const IU = await Post.find({ userId: id })
+      .populate("userId");
+
+    return res.json({ user, IU });
 
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
 
-module.exports = { SearchUsers, registerUser, loginUser, getProfile, GetUserprofile, SECRET_KEY };
+module.exports = { SearchUsers, registerUser, loginUser, getProfile, GetUserprofile,  };

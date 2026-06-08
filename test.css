@@ -7,18 +7,18 @@ user-select: none;
 }
 
 body {
- margin: 0;
+ margin: 0; 
  background-color: #dee5ebc4 ;
   font-family: 'Cairo', sans-serif;
-
+ 
 }
 body.no-scroll {
-  position: fixed;
-  width: 100%;
+   position: fixed;
+  width: 100%; 
 }
 .container {
   width: 100%;
-  min-height: 100vh;
+    min-height: 10vh;
    display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
   gap: 15px;
@@ -274,6 +274,7 @@ input[type="file"]{
    border-radius: 7px;
   position: relative;
     margin: -62px auto;
+   
 }
 .SideBar .UsernameAndImageImageUser{
 width: 90%;
@@ -1320,6 +1321,9 @@ height: 100%;/*   background-color: gray; */
   background-color: rgb(16, 16, 17);
   border-radius: 10PX;
   height: 200PX;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* .PlaceImage img {
   width: 100%;
@@ -1967,7 +1971,7 @@ direction: rtl;
   height: 150px;
 }
 .Window_Imgae_Name{
-    /* background-color: #1c2631; */
+  /*   background-color: #1c2631;  */
    direction: rtl;
    width: 100%;
    position: absolute;
@@ -2148,4 +2152,77 @@ cursor: pointer;
 }
 .UserDachbord , #MouhemdAksourImage{
 cursor: pointer;
+}
+.DivButtonChengeFhotoTheProfile{
+  width: 100%;
+  position: relative;
+  height: 300px;
+  background-color: yellowgreen;
+} 
+#ChengeFhoto {
+  background-color: #2f81fce3;
+  position: absolute; 
+  top:310px;
+  left:60px;
+  width:310px;
+  height: 50px;
+  outline: 0;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+ font-family: 'Cairo', sans-serif;
+ cursor: pointer;
+ font-size: 15px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap:15px;
+
+.fa-pen {
+
+  font-size: 18px;
+}
+}
+#ChengeFhoto:hover {
+
+  background-color: #2563eb;
+}
+#ChengeFhoto h3 {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+
+#UploadeFile {
+  background-color: #2a7cda;
+  width: 250px;
+  height: 55px;
+ display: flex;
+ flex-direction: row-reverse;
+ justify-content: center;
+ align-items: center;
+ gap: 20px;
+ border-radius: 10px;
+visibility: hidden;
+opacity: 0;
+transition: 0.2s;
+}
+.classVisibilety {
+ visibility: visible !important;
+ opacity: 1 !important;
+ transition: 0.4s;
+ cursor: pointer !important
+ ;
+}
+#UploadeFile h3 {
+
+  font-size: 20px;
+  font-weight: 500;
+    color: lightskyblue;
+ 
+}
+#UploadeFile .fa-camera {
+
+  color: lightskyblue;
+  font-size: 22px;
 }

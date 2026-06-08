@@ -60,16 +60,21 @@
                 <h1>تعديل ملف الشخصي</h1> 
                 <h3>قم بتحديث معلوماتك الشخصية وصورك ة</h3>
             </div>
+             
             <div class="ImageUpdate">
                 <h3>صورة الغلاق</h3>
                 <div class="PlaceImage">
-               <!--  <img src="./uploads/1760716915068.jpg" alt=""> -->
+                 <!-- <img src="./uploads/1760716915068.jpg" alt="">  -->
+                  <div id="UploadeFile">
+                    <input type="file" id="FileInUploadFhoto" hidden style="display: none;">
+                    <label style="cursor: pointer;" for="FileInUploadFhoto"><h3>FileInUploadFhoto</h3><i class="fa-solid fa-camera"></i></label> 
+                   </div>
                 </div>
             </div>
              <h3 class="Boxtitle1996">الصورة الشخصية</h3>
             <div class="BoxImage">
                
-                <img src="./uploads/1760716520848.jpg" alt="">
+                <img src="./uploads/1760716520848.jpg" alt="" id="ImageProfile">
                  <div class="BoxList">
                 <ul>
                     <li>الحد الاقصي لحجم الملف 5 مجابايت</li>
@@ -115,6 +120,6 @@
           </div>
     </div>
     <script src="AddPost.js"></script>
-    <script src="testing.js"></script>
+    <script type="module" src="testing.js"></script>
 </body>
 </html>
