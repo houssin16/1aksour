@@ -32,23 +32,10 @@ Router.post('/posts/:id/like', verifyToken, PostLikess);
 Router.get('/posts/likes', verifyToken, Get___Likes);
 Router.put("/posts/:id", verifyToken, upload.single("image"), UpdatePost);
 /* Router.put("/ChengeImage", upload.single("avatar"),verifyToken , ChengeImageUser) */
-Router.put(
-  "/ChengeImage",
-  (req, res, next) => {
-    console.log("🔥 STEP 1 ROUTE");
-    next();
-  },
-  upload.single("avatar"),
-  (req, res, next) => {
-    console.log("🔥 STEP 2 MULTER DONE");
-    next();
-  },
-  verifyToken,
-  (req, res, next) => {
-    console.log("🔥 STEP 3 VERIFY DONE");
-    next();
-  },
-  ChengeImageUser
+Router.put("/ChengeImage",
+  upload.single("avatar"),     // ← أولاً: اقرأ الملف
+  verifyToken,                  // ← ثانياً: تحقق من التوكن
+  ChengeImageUser               // ← ثالثاً: نفذ العملية
 );
 // Comments
 Router.post("/posts/:id/comments", verifyToken, addComment);

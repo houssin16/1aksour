@@ -127,69 +127,68 @@ const GetMyPosts = async ( req , res) => {
 
 }
 
-/* const ChengeImageUser = async (req , res)=>{
- 
- try {
-  const File   =  req.file.filename
-  const Userid =  req.user.id 
- console.log(File)
- console.log(Userid);
- 
-  const Users = require('../Models/UsersModel')
-  ;
-  
-  Users.findByIdAndUpdate(Userid , {
-  
-    avatar:File
-  })
-  
-  res.json({
-  message:"Imge Updated Successfully",
-  avatar : File,
 
-    
-  })
- }catch (error) {
-  console.log(error);
-  
-   res.status(500).json({
-    error : error.message
-   })
 
-     
-  
- }
+/* const ChengeImageUser = async (req, res) => {
+    console.log("STEP 4 CONTROLLER");
 
-} */
-const ChengeImageUser = async (req , res)=>{
- 
- try {
-  const File   =  req.file.filename
-  const Userid =  req.user.id
-  const Users = require('../Models/UsersModel')
-  ;
-  
-  await Users.findByIdAndUpdate(Userid , {
-  
-    avatar:File
-  })
-  
-  res.json({
-  message:"Imge Updated Successfully",
-  avatar : File,
-  })
-  console.log(Users);
-  
- } catch (error) {
-  console.log(error)
-   res.status(500).json({
-    error : error.message
-   })
+  try {
 
-     
-  
- }
+    if (!req.file) {
+      return res.status(400).json({
+        message: "لم يتم اختيار صورة"
+      });
+    }
 
-}
+    const File = req.file.filename;
+    const Userid = req.user.id;
+
+    const Users = require('../Models/UsersModel');
+
+    await Users.findByIdAndUpdate(Userid, {
+      avatar: File
+    });
+
+    res.json({
+      message: "Image Updated Successfully",
+      avatar: File
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      error: error.message
+    });
+  }
+}; */
+const ChengeImageUser = async (req, res) => {
+  try {
+
+    if (!req.file) {
+      return res.status(400).json({
+        message: "No image uploaded"
+      });
+    }
+     const Users = require('../Models/UsersModel');
+    const file = req.file.filename;
+    const userId = req.user.id;
+
+    await Users.findByIdAndUpdate(userId, {
+      avatar: file
+    });
+
+    return res.json({
+      message: "Image updated successfully",
+      avatar: file
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: error.message
+    });
+  }
+};
 module.exports = { createPost, getPosts, deletePost , UpdatePost ,GetMyPosts ,ChengeImageUser};
 

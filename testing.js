@@ -1,6 +1,4 @@
 
-   
-
 const ImageHeaderClassAll= document.querySelectorAll('.UlDfd li')
 const Usernameandimage   = document.querySelectorAll('.usernameandimage i')
 const ImageHeader        = document.getElementById('ImageHeader')
@@ -12,12 +10,11 @@ const PlaceImage         = document.querySelector('.PlaceImage')
 const UploadeFile        = document.getElementById('UploadeFile')
 const FileInUploadFhoto  = document.getElementById('FileInUploadFhoto')
 const ImageProfile       = document.getElementById('ImageProfile')
-let   Index              = "false"
-/* ShowAltert("rereg") */
-/* _______________________________________________________________________________________________________ */
-/*  */
-/* _________________________________________________________________________________________________________ */
-ImageHeaderClassAll.forEach((e , index) =>{
+const ButtonSevgred1     = document.getElementById('ButtonSevgred1')
+/* ________________________________________________________________________________________________ */
+
+  
+  ImageHeaderClassAll.forEach((e , index) =>{
  e.addEventListener('mouseover' ,()=>{
     if (e.length === e[index]) {
         e.classList.add('LogOutandIconecez')
@@ -29,6 +26,7 @@ ImageHeaderClassAll.forEach((e , index) =>{
     }
  })  
  e.addEventListener('click' , ()=>{
+  event.stopPropagation();
      if (e.classList.contains('ProfileIcone')){
          window.location = `testProfile.html`
         
@@ -43,7 +41,9 @@ ImageHeaderClassAll.forEach((e , index) =>{
      }
  })
  
-})
+}) 
+
+
 ImageHeader.addEventListener('click' , (e)=>{
 e.stopPropagation()
 if(!ImageHeaderClass) return 
@@ -57,7 +57,9 @@ if(!ImageHeaderClass) return
     if (!ImageHeaderClass.contains(e.target)){
       ImageHeaderClass.classList.remove('ImageHeaderVisible')  
     }
-  }) 
+  })  
+ 
+
 Usernameandimage.forEach((element,index)=> { 
     element.addEventListener('click' , (e)=>{
     
@@ -77,52 +79,115 @@ Usernameandimage.forEach((element,index)=> {
     }
  
     })
-});
+}); 
  PlaceImage.addEventListener('mouseenter' , ()=>{
  UploadeFile.classList.add('classVisibilety') 
 })
 PlaceImage.addEventListener('mouseleave' , ()=>{
 UploadeFile.classList.remove('classVisibilety')
-})
-
-
-function ChengeFhotoInProfile(e){
-e?.preventDefault();
-const ValueFile = document.getElementById('FileInUploadFhoto').files[0]
-const Formdate = new FormData()
-Formdate.append("avatar" , ValueFile)
+}) 
 const token = localStorage.getItem("token");
-axios.put('http://localhost:3000/ChengeImage' ,Formdate,{
-    headers: {
-      Authorization : `Bearer ${token}`
-}
-}).then((r)=>{
-   
-})
-}
+ 
+/* _______________________________________________________________________________________________________________________
+ */
 
-document.getElementById('FileInUploadFhoto').
-addEventListener('change' , ChengeFhotoInProfile)
- const TokenProfile = localStorage.getItem('token')
- const Profilex = async ()=>{
-axios.get("http://localhost:3000/profile", {
-  headers: {
-    authorization: `Bearer ${TokenProfile}`
+async function ChengeFhotoInProfile() {
+  console.log("START UPLOAD");
+
+  const ValueFile = FileInUploadFhoto.files[0];
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    AlertMessage("يجب تسجيل الدخول أولاً ❌");
+    return;
   }
-}).then(res => {
-  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",res);
-  ImageHeader.src  =  `http://localhost:3000/uploads/${res.data.avatar}` 
-  ImageProfile.src =  `http://localhost:3000/uploads/${res.data.avatar}`
 
-});
+  if (!ValueFile) {
+    AlertMessage("اختر صورة أولاً ❌");
+    return;
+  }
+
+  const Formdate = new FormData();
+  Formdate.append("avatar", ValueFile);
+
+  const response = await axios.put(
+    "http://localhost:3000/ChengeImage",
+    Formdate,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+
+  // ← بعد الرفع حدث الصورة مباشرة
+  const newAvatar = response.data.avatar;
+  const newSrc = `http://localhost:3000/uploads/${newAvatar}?t=${Date.now()}`;
+  ImageProfile.src = newSrc;
+  ImageHeader.src = newSrc;
+
+  return response;
 }
-Profilex()
+const alertBox = document.querySelector(".AlertMessage");
 
-  
-/*   FileInUploadFhoto.addEventListener('change' , (e)=>{
-const file  = e.target.files[0]
-const ulr   = URL.createObjectURL(file)
-ImageHeader.src  = ulr
-ImageProfile.src = ulr
-})
-  */
+
+
+/* ____________________________________________________________________________________________________________________________________*/
+async function Profilex() {
+  const TokenProfile = localStorage.getItem('token');
+
+  // ← أضف هذا التحقق
+  if (!TokenProfile) {
+    console.log("لا يوجد توكن، يرجى تسجيل الدخول");
+    return;
+  }
+
+  axios.get("http://localhost:3000/profile", {
+    headers: {
+      authorization: `Bearer ${TokenProfile}`
+    }
+  }).then(res => {
+    console.log(res);
+    ImageHeader.src = `http://localhost:3000/uploads/${res.data.avatar}`
+    ImageProfile.src = `http://localhost:3000/uploads/${res.data.avatar}`
+  });
+}
+  Profilex() 
+
+/* ____________________________________________________________________________________________________________________________________*/
+
+
+ function AlertMessage(ms) {
+    const box = document.querySelector('.AlertMessage');
+    const div = document.createElement('div');
+    div.textContent = ms;
+    div.className = "AlertMessagee";
+    box.appendChild(div)
+    requestAnimationFrame(()=>{
+      div.classList.add('show')
+    })
+    setTimeout(() => {
+        div.classList.add('hide') 
+    }, 2000);
+} 
+ 
+  ButtonSevgred1.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const FileInUploadFhoto = document.getElementById('FileInUploadFhoto');
+  if (!FileInUploadFhoto.files || FileInUploadFhoto.files.length === 0 ) {
+    AlertMessage("لا توجد صورة!")
+    return
+  }else{
+    AlertMessage("تم حفض التغيرات بنجاح")
+  }
+  try {
+    await  ChengeFhotoInProfile()
+    FileInUploadFhoto.value = ""
+    window.scrollX = "0"
+  } catch (err) {
+    console.log(err);
+    AlertMessage("حدث خطأ ");
+  }
+}); 
+/* ____________________________ */
+

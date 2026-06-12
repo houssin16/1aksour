@@ -19,8 +19,8 @@ const Url = "http://localhost:3000"
 }  */
 
    function ShowAltert(Msg){
-  const Container = document.getElementById('Alert')
-  if(!Container){
+   const Container = document.getElementById('Alert')
+    if(!Container){
     
      return 
      }
@@ -32,7 +32,7 @@ const Url = "http://localhost:3000"
      Div.remove()
      }, 2500);
 } 
- export default ShowAltert; 
+
 
  const res = document.getElementById('Alert')
 let urlxdown = `${Url}/posts`
@@ -156,7 +156,7 @@ if (re)
         sessionStorage.removeItem('username')
 
         // توجيه المستخدم للصفحة الرئيسية بدون إمكانية الرجوع
-        window.location.replace('index.html')
+        window.location.replace('index.html') 
     }
   } 
      /* ************************************************************************ Logout end************************************************************************************************************************************* */
