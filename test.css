@@ -70,15 +70,6 @@ margin-left: 50px;
     justify-content: space-between;
    
 }
-/* .UsernameAndImageAndIcone .Icones{
-    background-color: rgb(170, 121, 216);
-    width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    font-size: 20px;
-} */
 .container .InputAndNameWebsite {
  width: 800px;
  height: 60px;
@@ -275,6 +266,7 @@ input[type="file"]{
   position: relative;
     margin: -62px auto;
    
+   
 }
 .SideBar .UsernameAndImageImageUser{
 width: 90%;
@@ -444,7 +436,7 @@ pointer-events: auto;
   z-index: 1111;
 }
 .ClassVisibleContainer {
-  visibility: visible;
+ visibility: visible;
   opacity: 1;
   transition: 0.2s;
 }
@@ -534,11 +526,6 @@ color: #615e5efb;
 #Iconsee  i {
   font-size: 15px;
 }
-/*  .IconsBox1 .Vertical .Videobox1 .UserPlus .Imagebox1 > i {
-  width: 35px;
-  height: 32px;
-  background-color: rgb(182, 13, 13);
-}    */      
 .UsernameANDimageusername {
   direction: rtl;
   /* background-color: red; */
@@ -900,50 +887,63 @@ overflow-wrap: anywhere;
 
 .Sidebar {
   width: 100%;
-  /*  background-color: #2a7cda;  */
-  
+/*    background-color: #2a7cda;  */
+    /* border: 1px solid rgb(9, 8, 82); */
   margin-top: -15px;
 }
 .ImageProfile  {
-background-color: red;
+background-color: rgb(247, 139, 139);
  width: 100%; 
  height: 300px;
-  overflow: hidden
+  overflow:hidden
 }
-.ImageProfile img{
+ .ImageProfile img{
 width: 100%; 
 height: 100%;
-object-fit: cover;     /* تغطي الحاوية بالكامل مع الحفاظ على نسبة الصورة */
-  object-position: center; /* تركز الصورة في منتصف الحاوية */
+object-fit: cover;    
+  object-position: center; 
   display: block;
 }
 .UsernameAndPhoto {
-  background-color: blue;
+  background-color: rgb(11, 11, 12);
  position: relative;
  display: flex;
  justify-content:right;
 }
-.UsernameAndPhoto img {
+
+ .UsernameAndPhoto img {
+ 
   width: 180px;
   height: 180px;
   border-radius: 50%;
   position: absolute;
   transform: translate(-32%, -50%);
   border: 5px solid white;
+  z-index: 9999;
 }
 .Username {
 display: flex;
 width: 90%;
  margin: 60px 0px 0px 120px;
-justify-content: t;
+
 align-items: end;
- /* background-color: #2a7cda;  */
+/*   background-color: #2a7cda;   */
 flex-direction: column;
 
 }
 .Username h1 {
   color:rgb(36, 35, 35) ;
  
+}
+#DivInusername {
+background-color: red;
+width: 350px;
+height: 100px;
+position: absolute !important;
+z-index: 99999;
+}
+.Username .UsernameProfileIntoken {
+  color: #c6d0db;
 }
 .Username1{
 width: 18%;
@@ -1275,8 +1275,6 @@ font-size: 17px;
 .UpdateAcounet {
     width: 100%;
     height: 100%;
-  
-   /*  background-color: red; *//*  */
 }
 .UpdateAcounet .navbar{
 
@@ -1285,7 +1283,6 @@ font-size: 17px;
    justify-content: space-between;
 }
 .UpdateAcounet .navbar .UsernameAndImageAndIcone {
-
 /*   background-color: green;
  */  margin-left: 20px;
   display: flex;
@@ -1325,11 +1322,6 @@ height: 100%;/*   background-color: gray; */
   justify-content: center;
   align-items: center;
 }
-/* .PlaceImage img {
-  width: 100%;
-  height:200px ;
-  border-radius: 10PX;
-} */
 .TitleUpdate1 h1 {
 
 margin-bottom: 0;
@@ -2153,6 +2145,9 @@ cursor: pointer;
 .UserDachbord , #MouhemdAksourImage{
 cursor: pointer;
 }
+.UserDachbord{
+  color: #082649;
+}
 .DivButtonChengeFhotoTheProfile{
   width: 100%;
   position: relative;
@@ -2191,8 +2186,6 @@ cursor: pointer;
     font-weight: 500;
     font-size: 22px;
 }
-
-
 #UploadeFile {
   background-color: #2a7cda;
   width: 250px;
@@ -2240,15 +2233,19 @@ transition: 0.2s;
  border: 1px solid #6899d457 ;
  border-radius: 5px;
  box-shadow: 0px 2px 0px 0px rgb(210, 210, 214);
-
 }
 .AlertMessagee.show{ 
 opacity: 1;
 transform: translateY(0px);
-
 }
 .AlertMessagee.hide{
 opacity: 0;
 transform: translateY(30px);
-
+}
+#ProfileClickede {
+  cursor: pointer;
+}
+.Username h1 {
+  color: #bb270d;
+  margin-right: 50px;
 }

@@ -1,23 +1,15 @@
-
+ const token = localStorage.getItem('token'); 
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
 const Containerews = document.querySelector('.Parent');
-
-
+ const containerAll = document.querySelector('.Cont');
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
 
+
 const Url = "http://localhost:3000"  
- 
-/*  function ProfileClicked(userId){
 
-   const username = localStorage.getItem('username')
-   const userid  = JSON.parse(username) 
-    window.location = `Profail.html?userid=${userId}`  
-  window.location =`testProfile.html?id=${userId}` 
-  console.log(userId);
-}  */
-
+  
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
     if(!Container){
@@ -30,7 +22,7 @@ const Url = "http://localhost:3000"
      Container.appendChild(Div)
      setTimeout(() => {
      Div.remove()
-     }, 2500);
+     }, 4500);
 } 
 
 
@@ -53,7 +45,13 @@ const Img12 = document.querySelector('.Img12')
 let Mood = "Create"
 
 /* ************************************************Login************************************************************* */
-
+/* function ScriteToSite2(){
+   const token = localStorage.getItem('token')
+   if (!token) {
+    window.location = 'index.html'
+   }
+}
+ScriteToSite2() */
 const Login = document.querySelector('.buttonlogin')
 
 
@@ -74,26 +72,9 @@ passwordVissssibile.addEventListener('click' , () =>{
  
 })
 
-/* let buttonlout = document.getElementById('buttonlogin')
-const Object = {
-   Email : "AksourHoucine@gmail.com",
-   password : "0662164980"
-} */
-
 document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
-console.log(password ,email)
-
-/* if (Object.Email === email && Object.password === password) {
-        ShowAltert("تم تسجيل الدخول بنجاح");
-       setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
-   
-}else{
-
-console.log('no is password filed');
-
-} */
  axios.post(`${Url}/login`, {
   email: email,
   password: password,
@@ -184,7 +165,7 @@ InputCreatepost.addEventListener('click' , ()=>{   //////////////Inbut
 
 })
 CreatePost1.addEventListener('click' ,function(){   ///////////////////////Box1
-/* CreatePost1.classList.remove('ClassVisibleContainer') */
+ CreatePost1.classList.remove('ClassVisibleContainer') 
  document.body.classList.remove('no-scroll') 
 CreatePost1.classList.remove('ClassVisibleContainer')
 
@@ -195,6 +176,8 @@ PageTextAndImageAndVideo.addEventListener("click" , (e)=>{
 })
 IconeX.onclick = function(){
     CreatePost1.classList.toggle('ClassVisibleContainer')
+    document.body.classList.remove('no-scroll')
+    
 }
 //////////////////////////////////////////////////////////////////////////All Post//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -202,7 +185,7 @@ const UsersArayys = JSON.parse(localStorage.getItem('Users'))
 let SetTimeOutX = false
  document.addEventListener('click' ,(e)=>{
           if (!e.target.closest('.ResultVoid') && !e.target.closest('.ResultSearch')) {
-            ResultSearch.classList.add('SetTimeOut')
+             ResultSearch.classList.add('SetTimeOut')
             
           }
          })
@@ -275,7 +258,7 @@ InputSearch.addEventListener('input' , ()=>{
    /* ______Stop Function________ */
     GetPostsAll() /* ____________________________________________________________________________________________________________ */
 function GetPostsAll(){
-   const token = localStorage.getItem('token');
+
   axios.get('http://localhost:3000/posts', {
     headers: { Authorization: `Bearer ${token}`}
   })
@@ -285,13 +268,13 @@ function GetPostsAll(){
 
     }
    
+    
      const Likes = response.data
-    const posts = response.data.reverse()
+    const posts = response.data
     const containerAll = document.querySelector('.SideBar');
     containerAll.innerHTML = "";
     posts.forEach(element => { 
-     console.log(element);
-     
+      
       const container = document.createElement('div');
       container.classList.add('content');
        let result =r() 
@@ -314,7 +297,7 @@ function GetPostsAll(){
                 <i class="fa-solid fa-ellipsis"></i>
                 <div class="UsernameAndImage1">
                    <div class="UsernameAndImage">
-                     <h4 onclick="ProfileClicked('${element.userId._id}'">
+                     <h4 id="ProfileClickede" onclick="ProfileClicked('${element.userId._id}','${element.userId.name}')">
                       ${element.userId?.name || "Unknown User"}
                      </h4>
                      <h6>${element.createdAt}</h6>
@@ -468,8 +451,8 @@ function UdpatePost(object){
      ButtonCreatet__Post.addEventListener('click' , ()=>{
     if (Mood == "update") {
 
-    const Token = localStorage.getItem('token');
-    const  headers =  {Authorization: `Bearer ${Token}`}
+   
+    const  headers =  {Authorization: `Bearer ${token}`}
     const TextArea1 = document.getElementById('TextArea1').value.trim();
     const ImagePost = document.getElementById('ImageInput2').files[0];
     let formdata = new FormData();
@@ -480,29 +463,31 @@ function UdpatePost(object){
         return;
     }
     
-  urlxdown = `${Url}/posts/${Objct._id}`
+     urlxdown = `${Url}/posts/${Objct._id}`
              axios.put(urlxdown , formdata, {headers:headers})
       .then((res) => {
-      ShowAltert("✅ تم تعديل  البوست بنجاح");
-      
-      
+        console.log("ezjugjgh");
+        CreatePost1.classList.remove('ClassVisibleContainer')
+      /* ShowAltert("✅ تم تعديل  البوست بنجاح"); */
       const containerAll = document.querySelector('.Cont');
-      containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-      /*  GetPostsAll(); */  // ← تحديث حقيقي للبوستات من السيرفر
+// تنظيف فقط قبل التحديث
+      GetPostsAll(); 
+    
      }).catch((e)=>{
       console.log(e);
-      
 
-      
-   })  
+   })
+   if (containerAll) {
+          containerAll.innerHTML = ""; 
+   }  
     } 
  })
  
 /* ______________________________________________________________________________________ */
-} const Token = localStorage.getItem('token');
-axios.get("http://localhost:3000/profile", {
+} 
+/* axios.get("http://localhost:3000/profile", {
   headers: {
-    authorization: `Bearer ${Token}`
+    authorization: `Bearer ${token}`
   }
 })
 .then(res => {
@@ -510,15 +495,15 @@ axios.get("http://localhost:3000/profile", {
 })
 .catch(err => {
 
-});
+}); */
 
 /* ************************************************************************ Upadte Start ********************************************************************************* **********************************/
 
 /* ************************************************************************ Create Post Start ********************************************************************************* **********************************/
- function x(){
-   ButtonCreatet__Post.addEventListener('click', function(){
-   const Token = localStorage.getItem('token');
-    const  headers =  {Authorization: `Bearer ${Token}`}
+    function x(){
+   ButtonCreatet__Post.addEventListener('click', async function(){
+  
+    const  headers =  {Authorization: `Bearer ${token}`}
     const TextArea1 = document.getElementById('TextArea1').value.trim();
     const ImagePost = document.getElementById('ImageInput2').files[0];
     let formdata = new FormData();
@@ -529,20 +514,19 @@ axios.get("http://localhost:3000/profile", {
         return;
      } 
     if (Mood == "Create") { 
-    
-     urlxdown = `${Url}/posts`  
+     urlxdown = `${Url}/posts`
      axios.post(urlxdown , formdata, {headers:headers})
     .then((res) => {
-      
+      GetPostsAll();
      ShowAltert("✅ تم نشر البوست بنجاح");
-    // 🟢 جلب كل البوستات من السيرفر بعد الحف
-    const containerAll = document.querySelector('.Cont');
-    containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-  /*   GetPostsAll();  */
-   
-    // ← تحديث حقيقي للبوستات من السيرفر
+      CreatePost1.classList.remove('ClassVisibleContainer')
+      document.body.classList.remove('no-scroll')
+     const containerAll = document.querySelector('.Cont');
   })
-}
+  if (containerAll) {
+     containerAll.innerHTML = ""; 
+  }
+  }
 });
  } 
 x();
@@ -561,7 +545,7 @@ document.addEventListener("click", (e) => {
 });
 function SendComments(postId){
 
-   const Token = localStorage.getItem('token')
+
    const Inputtext = document.querySelector(`[data-box="${postId}"]`)
    const Result = Inputtext.querySelector('.ComentsInput').value
    const Input = Inputtext.querySelector('.ComentsInput')
@@ -576,7 +560,7 @@ function SendComments(postId){
     
     },
       {
-         headers : {Authorization : `Bearer ${Token}`}
+         headers : {Authorization : `Bearer ${token}`}
       }
     )
  
@@ -611,10 +595,10 @@ return `مند ${Math.floor(diff  / 86400)} يوم`
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 function GetComments(id) {
-  const Token = localStorage.getItem('token');
+
 
   axios.get(`http://localhost:3000/posts/${id}/comments`, {
-    headers: { Authorization: `Bearer ${Token}` }
+    headers: { Authorization: `Bearer ${token}` }
   })
   .then(response => {
     const comments = response.data
@@ -791,7 +775,7 @@ document.addEventListener('click', (e) => {
 GetReplyComments() 
 
  */
- const token = localStorage.getItem('token');
+ 
 function loadReplies() {
 
   axios.get('http://localhost:3000/replies', {
@@ -868,8 +852,6 @@ function ClikedPostComents(userid){
 
   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
   const ButtonDelete = document.getElementById('ButtonDelete')
-  const Token = localStorage.getItem('token')
-  /* const  */
   ContainerComnfirm.classList.add('ShowConfirm')
     const Canel1 = document.getElementById('Canel1')
    Canel1.addEventListener('click' , ()=>{
@@ -879,7 +861,7 @@ function ClikedPostComents(userid){
   ButtonDelete.addEventListener('click'  , ()=>{
   axios.delete(`http://localhost:3000/posts/${id}`, {
      
-     headers: {  Authorization: `Bearer ${Token}`} ,
+     headers: {  Authorization: `Bearer ${token}`} ,
 
      })
       .then((respone)=>{
@@ -903,9 +885,10 @@ function ClikedPostComents(userid){
 /* ************************************************************************ Profile start   ********************************************************************************* **********************************/
  Profile()
 function Profile() {
-  const token = localStorage.getItem('token');
+ 
   const Window_The_Profile = document.querySelector('.Window_The_Profile')
     let WindowToProfile      = ""
+   /*  Window_The_Profile.innerHTML ="" */
   if (token) {
     axios.get("http://localhost:3000/profile", {
       headers: {
@@ -913,20 +896,27 @@ function Profile() {
       }
        
     }).then((res) => {
-      console.log(res);
+    
       
       const response = res.data;
       document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`;
       document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`;
       document.getElementById('MouhemdAksourImage').src = `http://localhost:3000/uploads/${response.avatar}`
       document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
+   /*    WindowToProfile = `
+                 <img id="MouhemdAksourImage" src="http://localhost:3000/uploads/${response.avatar}" alt="">
+                       <h3 id="UsernameMouhmedAksour">${response.name}</h3>
+                       <h4 class="UserDachbord">@Aksour_Houcine_Enf</h4>
       
+      `
+      Window_The_Profile.innerHTML = WindowToProfile */
     }).catch((e) => {
       console.log(e);
     
     });
   }
 }
+
 /* ************************************************************************ Profile End   ********************************************************************************* **********************************/
 /* document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
@@ -1103,56 +1093,18 @@ window.addEventListener('scroll' ,()=>{
     }
 })
 
- function GetOnepostPage(id){
+function GetOnepostPage(id){
+ window.location=`http://127.0.0.1:5501/testProfile.html?id=${id}` 
+console.log(id)
+} 
 
-window.location = `http://127.0.0.1:5500/testProfile.html?id=${id}` 
-console.log(id) 
- } 
-
- function Ape (id){
+function Ape (id){
 const fa_building_user = document.querySelector('.fa-building-user')
 fa_building_user.addEventListener('click'  , function(){
-window.location = `http://127.0.0.1:5500/testProfile.html?userid=${id}` 
+window.location = `http://127.0.0.1:5501/testProfile.html?userid=${id}` 
 console.log(id);
-
 })
- }
- Ape()
-
-
-
-
-
-
-/* createdAt
-: 
-"2026-04-30T12:30:20.729Z"
-image
-: 
-"1777552220727-1762074942659.jpg"
-likes
-: 
-(3) ['69f350c24bd8f7cacafc2cc7', '69dd6a58cf3d06916a497829', '6a1c4321a2edff16f75e9048']
-text
-: 
-"قلربثقرلقرثقبل"
-userId
-: 
-avatar
-: 
-"1776118360187-code.png"
-email
-: 
-"AksourHoucine@gmail.com"
-name
-: 
-"AksourHoucine"
-password
-: 
-"0662164980+"
-__v
-: 
-0
-_id
-: 
-"69dd6a58cf3d06916a497829" */
+} function ProfileClicked(userId){
+  window.location = `http://127.0.0.1:5501/testProfile.html?id=${userId}`
+} 
+  

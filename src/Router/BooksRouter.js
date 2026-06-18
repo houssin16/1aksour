@@ -6,7 +6,7 @@ const multer = require("multer");
 // Controllers
 const { registerUser, loginUser, getProfile, SearchUsers ,GetUserprofile } = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
-const { createPost, getPosts, deletePost, UpdatePost ,GetMyPosts ,ChengeImageUser } = require("../Contllors/postController");
+const { createPost, getPosts, deletePost, UpdatePost, GetMyPosts, ChengeImageUser, GetPostById ,GetMyDataUser } = require("../Contllors/postController");
 const { addComment, getComments } = require("../Contllors/commentController");
 const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
@@ -20,23 +20,20 @@ const storageAvatar = multer.diskStorage({
 const upload = multer({ storage: storageAvatar });
 
 // Routes
-Router.post("/register", upload.single("avatar"), registerUser);
+Router.post("/register", upload.single("avatar"),registerUser);
 Router.post("/login", loginUser);
 Router.get("/profile", verifyToken, getProfile);
-
+Router.get('/posts/user/:id', GetPostById);
 // Posts
-Router.post("/posts", verifyToken, upload.single("image"), createPost);
+Router.post("/posts", verifyToken, upload.single("image"),createPost);
 Router.get("/posts", getPosts);
 Router.delete("/posts/:id", verifyToken, deletePost);
 Router.post('/posts/:id/like', verifyToken, PostLikess);
 Router.get('/posts/likes', verifyToken, Get___Likes);
-Router.put("/posts/:id", verifyToken, upload.single("image"), UpdatePost);
-/* Router.put("/ChengeImage", upload.single("avatar"),verifyToken , ChengeImageUser) */
-Router.put("/ChengeImage",
-  upload.single("avatar"),     // ← أولاً: اقرأ الملف
-  verifyToken,                  // ← ثانياً: تحقق من التوكن
-  ChengeImageUser               // ← ثالثاً: نفذ العملية
-);
+Router.put("/posts/:id", verifyToken, upload.single("image"),UpdatePost);
+Router.put("/ChengeImage",  upload.single("avatar"),verifyToken,ChengeImageUser);  
+Router.get("/GetUser/:id" ,verifyToken  ,GetMyDataUser )
+
 // Comments
 Router.post("/posts/:id/comments", verifyToken, addComment);
 Router.get("/posts/:id/comments", getComments);

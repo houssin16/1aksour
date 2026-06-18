@@ -1,8 +1,9 @@
 // project_root/Controllers/postController.js
 const Post    = require("../Models/PostsModel");
 const comment = require("../Models/CommentsModel");
- const jwt     = require('jsonwebtoken')
- const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
+const jwt     = require('jsonwebtoken')
+const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
+const User  = require("../Models/UsersModel")
 const createPost = async (req, res) => {
   try {
     const { text } = req.body;
@@ -119,7 +120,7 @@ const GetMyPosts = async ( req , res) => {
       
       .populate('userId')
       .sort({createdAt: -1})
-    res.json(Posts)
+       res.json(Posts)
   }catch(e){
 
       return res.status(500).json({message:"Server error ", error:e.message})
@@ -127,41 +128,6 @@ const GetMyPosts = async ( req , res) => {
 
 }
 
-
-
-/* const ChengeImageUser = async (req, res) => {
-    console.log("STEP 4 CONTROLLER");
-
-  try {
-
-    if (!req.file) {
-      return res.status(400).json({
-        message: "لم يتم اختيار صورة"
-      });
-    }
-
-    const File = req.file.filename;
-    const Userid = req.user.id;
-
-    const Users = require('../Models/UsersModel');
-
-    await Users.findByIdAndUpdate(Userid, {
-      avatar: File
-    });
-
-    res.json({
-      message: "Image Updated Successfully",
-      avatar: File
-    });
-
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      error: error.message
-    });
-  }
-}; */
 const ChengeImageUser = async (req, res) => {
   try {
 
@@ -190,5 +156,40 @@ const ChengeImageUser = async (req, res) => {
     });
   }
 };
-module.exports = { createPost, getPosts, deletePost , UpdatePost ,GetMyPosts ,ChengeImageUser};
+const GetPostById = async (req , res)=>{
+ try{
+    const posts = await Post.find({
+     userId :req.params.id
+     
+    })
+   if (!posts) {
+    res.status(404).json({
+
+      message:"User Not Found"
+    })
+   }
+   res.status(200).json(posts)
+
+  
+ }catch(error){
+res.status(500).json(error)}
+}
+const GetMyDataUser = async (req ,  res)=>{
+ try{
+    const id = req.params.id
+    const username = await User.findById(id) 
+    if(!username){
+      return res.status(404).json({
+        message:'User Not Found'
+      })
+      }
+      res.status(200).json(username)
+
+ }catch(error){
+  res.status(500).json(error)
+ }
+   
+}
+
+module.exports = { createPost, getPosts, deletePost , UpdatePost ,GetMyPosts ,ChengeImageUser ,GetPostById ,GetMyDataUser};
 

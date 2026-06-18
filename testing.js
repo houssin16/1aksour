@@ -80,14 +80,16 @@ Usernameandimage.forEach((element,index)=> {
  
     })
 }); 
- PlaceImage.addEventListener('mouseenter' , ()=>{
+if (PlaceImage) {
+   PlaceImage.addEventListener('mouseenter' , ()=>{
  UploadeFile.classList.add('classVisibilety') 
 })
 PlaceImage.addEventListener('mouseleave' , ()=>{
 UploadeFile.classList.remove('classVisibilety')
 }) 
-const token = localStorage.getItem("token");
- 
+
+}
+
 /* _______________________________________________________________________________________________________________________
  */
 
@@ -101,12 +103,6 @@ async function ChengeFhotoInProfile() {
     AlertMessage("يجب تسجيل الدخول أولاً ❌");
     return;
   }
-
-  if (!ValueFile) {
-    AlertMessage("اختر صورة أولاً ❌");
-    return;
-  }
-
   const Formdate = new FormData();
   Formdate.append("avatar", ValueFile);
 
@@ -147,7 +143,6 @@ async function Profilex() {
       authorization: `Bearer ${TokenProfile}`
     }
   }).then(res => {
-    console.log(res);
     ImageHeader.src = `http://localhost:3000/uploads/${res.data.avatar}`
     ImageProfile.src = `http://localhost:3000/uploads/${res.data.avatar}`
   });
