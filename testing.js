@@ -13,7 +13,6 @@ const ImageProfile       = document.getElementById('ImageProfile')
 const ButtonSevgred1     = document.getElementById('ButtonSevgred1')
 /* ________________________________________________________________________________________________ */
 
-  
   ImageHeaderClassAll.forEach((e , index) =>{
  e.addEventListener('mouseover' ,()=>{
     if (e.length === e[index]) {
@@ -89,16 +88,33 @@ UploadeFile.classList.remove('classVisibilety')
 }) 
 
 }
-
+ function AlertMessage(ms) {
+    const box = document.querySelector('.AlertMessage');
+    if (!box) return 
+    const div = document.createElement('div');
+    div.textContent = ms;
+    div.className = "AlertMessagee";
+    box.appendChild(div)
+    requestAnimationFrame(()=>{
+      div.classList.add('show')
+    })
+    setTimeout(() => {
+        div.classList.add('hide') 
+    }, 2000);
+} 
 /* _______________________________________________________________________________________________________________________
  */
+/* ===================================================================1996========================================================== */
 
 async function ChengeFhotoInProfile() {
   console.log("START UPLOAD");
+  console.log("⏰ Profilex استُدعيت:", new Date().toLocaleTimeString());
 
   const ValueFile = FileInUploadFhoto.files[0];
   const token = localStorage.getItem("token");
-
+  if (!ValueFile) {
+    return 
+  }
   if (!token) {
     AlertMessage("يجب تسجيل الدخول أولاً ❌");
     return;
@@ -115,26 +131,48 @@ async function ChengeFhotoInProfile() {
       }
     }
   );
+        
 
   // ← بعد الرفع حدث الصورة مباشرة
-  const newAvatar = response.data.avatar;
-  const newSrc = `http://localhost:3000/uploads/${newAvatar}?t=${Date.now()}`;
-  ImageProfile.src = newSrc;
-  ImageHeader.src = newSrc;
+const newAvatar = response.data.avatar;
 
+const isDefault =
+  !newAvatar ||
+  newAvatar === "defaulte.png" ||
+  newAvatar.trim() === "";
+
+const newSrc = isDefault
+  ? "http://localhost:3000/images/defaulte.png"
+  : `http://localhost:3000/uploads/${newAvatar}?t=${Date.now()}`;
+
+ImageProfile.src = newSrc;
+ImageHeader.src = newSrc;
+ 
+ 
   return response;
 }
+
+/* ===================================================================1996========================================================== */
 const alertBox = document.querySelector(".AlertMessage");
+/* ======================================================8888888====================================================================================================== */
+let  IntervalId = null
+   async function ChekingFhotoProfile(){
+  const GetFormationUSER = await GetMyDataUser()
+  if (GetFormationUSER.avatar === "default.png") {
+     IntervalId = setInterval(() => {
+      AlertMessage('يجب اضافة صورة');
+     }, 10000);
+    }
 
-
-
+} 
+ChekingFhotoProfile()
+/* ========================================================88888888======================================================================================================== */
 /* ____________________________________________________________________________________________________________________________________*/
 async function Profilex() {
   const TokenProfile = localStorage.getItem('token');
-
   // ← أضف هذا التحقق
   if (!TokenProfile) {
-    console.log("لا يوجد توكن، يرجى تسجيل الدخول");
+   
     return;
   }
 
@@ -143,30 +181,22 @@ async function Profilex() {
       authorization: `Bearer ${TokenProfile}`
     }
   }).then(res => {
-    ImageHeader.src = `http://localhost:3000/uploads/${res.data.avatar}`
-    ImageProfile.src = `http://localhost:3000/uploads/${res.data.avatar}`
+    const AvatarDefaulteing = res.data.avatar
+    const InviledAvatar     = !AvatarDefaulteing || AvatarDefaulteing === "default.png" ;
+    if (ImageProfile && ImageHeader) {
+       ImageHeader.src  = InviledAvatar ?  "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${res.data.avatar}`
+       ImageProfile.src = InviledAvatar ?  "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${res.data.avatar}` 
+    }
+   
   });
+  
 }
   Profilex() 
 
 /* ____________________________________________________________________________________________________________________________________*/
 
-
- function AlertMessage(ms) {
-    const box = document.querySelector('.AlertMessage');
-    const div = document.createElement('div');
-    div.textContent = ms;
-    div.className = "AlertMessagee";
-    box.appendChild(div)
-    requestAnimationFrame(()=>{
-      div.classList.add('show')
-    })
-    setTimeout(() => {
-        div.classList.add('hide') 
-    }, 2000);
-} 
- 
-  ButtonSevgred1.addEventListener('click', async (e) => {
+  if (ButtonSevgred1) {
+     ButtonSevgred1.addEventListener('click', async (e) => {
   e.preventDefault();
   const FileInUploadFhoto = document.getElementById('FileInUploadFhoto');
   if (!FileInUploadFhoto.files || FileInUploadFhoto.files.length === 0 ) {
@@ -174,9 +204,15 @@ async function Profilex() {
     return
   }else{
     AlertMessage("تم حفض التغيرات بنجاح")
+    
   }
   try {
     await  ChengeFhotoInProfile()
+  
+    if (IntervalId) {
+       clearInterval(IntervalId)
+       IntervalId = null 
+    }
     FileInUploadFhoto.value = ""
     window.scrollX = "0"
   } catch (err) {
@@ -184,5 +220,8 @@ async function Profilex() {
     AlertMessage("حدث خطأ ");
   }
 }); 
+        
+  }
+ 
 /* ____________________________ */
 

@@ -1,6 +1,7 @@
 console.log("🔥 THIS SERVER IS RUNNING");
 const express = require("express");
 const cors = require("cors");
+
 const Db = require('./db.js');
 const path = require("path");
 const fs = require('fs')
@@ -9,6 +10,7 @@ const methodOverride = require("method-override");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json())
+app.use(express.static("public"));
 // ✅ 1. Middleware أولاً (الترتيب مهم جداً)
 app.use(cors({
   origin: "*",

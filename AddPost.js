@@ -1,4 +1,5 @@
- const token = localStorage.getItem('token'); 
+
+const token = localStorage.getItem('token');  
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
 const Containerews = document.querySelector('.Parent');
@@ -897,11 +898,12 @@ function Profile() {
        
     }).then((res) => {
     
-      
-      const response = res.data;
-      document.getElementById('ImageHeader').src = `http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('IamgePrifilpageprencbal').src = `http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('MouhemdAksourImage').src = `http://localhost:3000/uploads/${response.avatar}`
+       
+      const response      = res.data;
+      const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
+      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
       document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
    /*    WindowToProfile = `
                  <img id="MouhemdAksourImage" src="http://localhost:3000/uploads/${response.avatar}" alt="">
@@ -1106,5 +1108,57 @@ console.log(id);
 })
 } function ProfileClicked(userId){
   window.location = `http://127.0.0.1:5501/testProfile.html?id=${userId}`
+}
+ let  IntervalId2 = null 
+   async function ChekingFhotoProfile2(){
+  const GetFormationUSER = await GetUserdata2()
+  if (GetFormationUSER.avatar === "default.png" || GetFormationUSER.avatar === "") {
+     IntervalId2 = setInterval(() => {
+      AlertMessage2('انقر هنا لاضافة صورة');
+     }, 10000);
+    }
 } 
-  
+ ChekingFhotoProfile2()
+ function AlertMessage2(ms) {
+    const box = document.querySelector('.AlertMessage');
+    if (!box) return 
+    box.addEventListener('click' , ()=>{
+       window.location = "http://127.0.0.1:5501/UpdateAcount.html"
+    })
+    const div = document.createElement('div');
+    div.textContent = ms;
+    div.className = "AlertMessagee";
+    box.appendChild(div)
+    requestAnimationFrame(()=>{
+      div.classList.add('show')
+    })
+    setTimeout(() => {
+        div.classList.add('hide') 
+    },5000);
+}
+
+async function GetUserdata2(){
+  const userid =  r()
+  const ResUserdata = await  axios.get(`http://localhost:3000/GetUser/${userid._id}` ,{headers :{Authorization : `Bearer ${token}`}})
+  return ResUserdata.data
+}
+const GetProfilex =  async () =>{
+   const TokenProfilex = localStorage.getItem('token');
+   const res = await axios.get("http://localhost:3000/profile" , {
+    headers: {
+      authorization: `Bearer ${TokenProfilex}`
+    }
+  })
+  return res
+}
+
+async  function yt(){
+ const  data = await GetProfilex()
+ const  Result = data.data.avatar
+ const ChekingOfAvatarisFindOrNO = Result !== "default.png" || Result !== "" ; 
+ if (!ChekingOfAvatarisFindOrNO){
+     clearInterval(IntervalId2) 
+  }
+}
+yt() 
+

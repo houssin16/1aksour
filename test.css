@@ -829,12 +829,13 @@ overflow-wrap: anywhere;
   background-color: rgb(250, 248, 248);
   width:40%;
   height: 170px;
- position: fixed;
+  position: fixed;
   top:50%;
- left: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 4px;
   direction: rtl;
+  padding: 15px;
 }
 .Confirm h2{
   margin-bottom: 0px;
@@ -843,10 +844,13 @@ overflow-wrap: anywhere;
  color: #6b6d70;
   margin-top: 0px;
 }
-.ConfirmDelete {
-
+.ConfirmDelete{
   width: 90%;
   margin-right: 10px;
+  direction: rtl;
+}
+.ConfirmDelete h5 {
+  padding: 3px;
 }
 .ButtonConfirm{
    width: 30%;
@@ -870,7 +874,8 @@ overflow-wrap: anywhere;
 
 }
 .ButtonConfirm :last-child {
-  color: #333333;
+  color: #161515;
+  background-color: #d1d4d8b9;
 }
   .ShowConfirm {
   visibility: visible;
@@ -2217,6 +2222,7 @@ transition: 0.2s;
   font-size: 22px;
 }
 .AlertMessagee {
+  cursor: pointer;
   position: fixed;
   top: 80px;
   right: 600px;

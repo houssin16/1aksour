@@ -4,7 +4,7 @@ const Token = localStorage.getItem('token')
 document.querySelector('.fa-house').addEventListener('click' , function(){
   window.location.href =`testDachbored.html` 
 })
-const PlaceInComments = document.querySelector(".placeCommentsPost");
+ const PlaceInComments = document.querySelector(".placeCommentsPost"); 
 function ShowAltert(x ,){
      const div = document.createElement('h1')
      const text = document.createTextNode(`${x}`)
@@ -26,6 +26,7 @@ const Params = new URLSearchParams(window.location.search)
 const ___Id = Params.get('id')
 /* const Name  = Params.get('name') */
 let user = w()
+
 let userID = user.id
 /* ___________________________________________________________________________________________________________________________ _____*/
 function ScriteToSite(){
@@ -67,8 +68,10 @@ const logoutE = document.getElementById('Buttonlogout')
      })   
     }
 /* _________________________________________________________________________________________________________________________________ */
-function Profile(){
+ function Profile(){
 const token = localStorage.getItem("token");
+const DACHBORDE = document.getElementById('Dachbord')
+if (!DACHBORDE)  return 
 if (token){
   axios.get("http://localhost:3000/profile", {
   headers: {
@@ -77,7 +80,7 @@ if (token){
 }).then(res => {
   
   const user = res.data.user;
-    document.getElementById('Dachbord').innerHTML = ""
+    DACHBORDE.innerHTML = ""
     const result = `
          <b class="username"  onclick ="ProfileUser(${user.id})" >${user.name}</b>
         <img id="image" src=${user.avatar} alt="" style="width: 35px; height: 35PX; border-radius: 50%;">
@@ -95,11 +98,11 @@ if (token){
                
           `
           document.querySelector('.header').innerHTML += profaile2
-      document.getElementById('Dachbord').innerHTML = result
+      DACHBORDE.innerHTML = result
 });
 }
-} 
-Profile()
+}  
+Profile() 
 function CreatePostONS(){
 const e = document.querySelector('.AksourPosts')
 }
@@ -112,17 +115,7 @@ function TokenCheking(){
 }
  TokenCheking()
 
-  function w(){
-                     
-            let user = localStorage.getItem('username')
-            let name = null
-            if (user) {
-              name =  JSON.parse(user)
-          
-            }
-            return name
-          }
-w()
+
  /* 8888888888888 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
 async  function GetUsersFindById(___Id){ ////h The Acount is no login //////////////////////////////////////////////
   const Res = await axios.get(`http://localhost:3000/user/${___Id}/posts`)
@@ -140,7 +133,9 @@ const ContanLe = document.querySelector('.ContanLe')
 const BoxFrindes = document.querySelector('.Frindes')
 
 
-ImageansFriends[3].classList.add('active');
+if (ImageansFriends.length > 3) {
+  ImageansFriends[3].classList.add('active');
+}
 if(sidebar){
    
   
@@ -236,7 +231,7 @@ if(sidebar){
  
 }) */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ProfileUser(id){
+ function ProfileUser(id){
  axios.get(`http://localhost:3000/user/${id}/posts`)
    .then((response)=>{
          
@@ -308,7 +303,7 @@ function ProfileUser(id){
                
    })
 
-}  
+}   
 document.addEventListener('click' , (e)=>{
  const IconrSendCoumment = e.target.closest('.Send-Comments')
 if (!IconrSendCoumment) return ;
@@ -435,7 +430,7 @@ let Mood = "Create"
 
 
 /* Profile() */
- function Profile(){
+/*  function Profile(){
 
 const token = localStorage.getItem("token");
 
@@ -459,10 +454,8 @@ axios.get("http://localhost:3000/profile",{
 
  
 })
-
 }
-
-} 
+}  */
 ////////////////////////////////////////////////////////////////Update ///////////////////////////////////////////
 function UdpatePost(object){  
   Mood = "update"
@@ -540,10 +533,24 @@ const Respons = await axios.get(`http://localhost:3000/My_User_Post`,{headers:{A
 return Respons.data
 
 }
-/* ___________________________________________________________________________________________________________________________________________ */
+const ChengeFhoto = document.getElementById('ChengeFhoto')
+if (ChengeFhoto) {
+  ChengeFhoto.addEventListener('click' ,()=>{
+   window.location.href = "UpdateAcount.html"
+})
+}
+/* _________________________________________________________________________________________________________________________________________*/
+
+
+   /* ____________________________________________________________________________________________________________________________________________ */
+
+    /* ___________________________________________________________________________________________________________________________________________ */
   async function inti(){
          const Container = document.querySelector('.Parent');
-         Container.innerHTML = ""
+         if (Container) {
+          Container.innerHTML = ""
+         }
+         
          if(___Id){
          const OthersPosts =  await  GetUsersFindById(___Id) 
          RenderOthersPost(OthersPosts)
@@ -560,27 +567,16 @@ return Respons.data
  })
 /* _____________________________________________________________________________________________________________________________________________ */
 
-
-const ChengeFhoto = document.getElementById('ChengeFhoto')
-ChengeFhoto.addEventListener('click' ,()=>{
-   window.location.href = "UpdateAcount.html"
-})
-/* _________________________________________________________________________________________________________________________________________*/
-async function GetMyDataUser(){
- const userId = w()
- const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,{headers :{ Authorization :`Bearer ${Token}`}})
- const data = await Response.json()
- return data;
- }   
-GetMyDataUser()
-/* ____________________________________________________________________________________________________________________________________________ */
-/* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ == Resnder To RenderSideBarUserPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+   /* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ == Resnder To RenderSideBarUserPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
 
   async  function RenderSideBarUserPost(post , userdata){
   try{
- const SideBar = document.querySelector('.Sidebar')
+  const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
-  Container.innerHTML = ""
+  if (Container) {
+     Container.innerHTML = ""
+   }
+ 
        for(const element of post){
                   
            let ButtonDeletAndUpdate = "";
@@ -597,6 +593,7 @@ GetMyDataUser()
       }
       const CreateDivElement = document.createElement('div')
       CreateDivElement.classList.add('ContanLe')
+     
       CreateDivElement.innerHTML = `
         <div class="UsernameAndImageImage">
           <i class="fa-solid fa-ellipsis"></i>
@@ -606,7 +603,7 @@ GetMyDataUser()
               <h6>${element.createdAt}</h6>
             </div>
             <div class="ImageUserM">
-              <img src="http://localhost:3000/uploads/${element.userId.avatar || 'default.png'}">
+              <img src="http://localhost:3000/uploads/${element.userId.avatar}">
             </div>
           </div>
         </div>
@@ -614,7 +611,7 @@ GetMyDataUser()
           <p>${element.text}</p>
         </div>
         <div class="ImagePost">
-          <img src="http://localhost:3000/uploads/${element.image || 'default.png'}"> 
+          <img src="http://localhost:3000/uploads/${element.image}"> 
         </div>
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
@@ -660,17 +657,20 @@ GetMyDataUser()
      const result = await GetComments(element._id)
      ResnderComments(result)  
      }
+      const AvatarStatus = userdata.avatar
+      const InvaliedAvatar = !AvatarStatus || AvatarStatus === "" || AvatarStatus ===  "default.png" ;
+      const ResultStatusAvatar = InvaliedAvatar ? "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
+       if (!sidebar) return ;
        sidebar.innerHTML = `
         <div class="ImageProfile">
           <img src="./TTTTTTTt.jpg" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
-            <img src="http://localhost:3000/uploads/${userdata.avatar}" alt="">
+            <img src="${ResultStatusAvatar}"alt="">
           </div>
         </div>
         <div class="Username">
-
             <h1>${userdata.name}</h1>
 
           <div class="information">
@@ -739,7 +739,7 @@ GetMyDataUser()
               <h6>${element.createdAt}</h6>
             </div>
             <div class="ImageUserM">
-              <img src="http://localhost:3000/uploads/${element.userId.avatar || 'default.png'}">
+              <img src="http://localhost:3000/uploads/${element.userId.avatar}">
             </div>
           </div>
         </div>
@@ -747,7 +747,7 @@ GetMyDataUser()
           <p>${element.text}</p>
         </div>
         <div class="ImagePost">
-          <img src="http://localhost:3000/uploads/${element.image || 'default.png'}"> 
+          <img src="http://localhost:3000/uploads/${element.image}"> 
         </div>
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
@@ -841,7 +841,7 @@ GetMyDataUser()
       const Comments = Comment.comments
      const Postid  = Comment.PostId 
      console.log(Comment)
-     const PlaceInComments = document.querySelector(`.placeCommentsPost-${Postid}`);
+     const PlaceInComments = document.querySelector(`.placeCommentsPost-${Postid}`); /* 11111111111111111111111111 */
      if (!PlaceInComments) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
       return;
@@ -874,8 +874,30 @@ GetMyDataUser()
       <span>إعجاب</span>
     </div>
   </div>
-`;
-    
+  `;
       PlaceInComments.appendChild(div);
     });
-} 
+}
+  function w(){
+                     
+            let user = localStorage.getItem('username')
+            let name = null
+            if (user) {
+              name =  JSON.parse(user)
+          
+            }
+            return name
+          }
+w()
+window.GetMyDataUser =  async function (){
+  console.log("GetMyDataUser loaded")
+  const Tokene = localStorage.getItem('token')
+ const userId = w()
+ console.log(userId._id);
+ console.log(Tokene);
+ 
+ const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,{headers :{ Authorization :`Bearer ${Tokene}`}})
+ const data = await Response.json()
+ return data;
+ 
+ }
