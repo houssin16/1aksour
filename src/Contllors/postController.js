@@ -132,14 +132,14 @@ const ChengeImageUser = async (req, res) => {
   try {
 
     if (!req.file) {
-      return res.status(400).json({
+        return res.status(400).json({
         message: "No image uploaded"
       });
     }
      const Users = require('../Models/UsersModel');
     const file = req.file.filename;
     const userId = req.user.id;
-
+         
     await Users.findByIdAndUpdate(userId, {
       avatar: file
     });
@@ -190,6 +190,39 @@ const GetMyDataUser = async (req ,  res)=>{
  }
    
 }
-
-module.exports = { createPost, getPosts, deletePost , UpdatePost ,GetMyPosts ,ChengeImageUser ,GetPostById ,GetMyDataUser};
+const AddCoverImageSendFun =  async( req , res ) => {
+ try {
+       
+       const Id = req.user.id
+       
+       if(!req.file){
+        return res.status(400).json({message:"No file Uploades"})
+       }
+       const file  = req.file.filename
+       
+       await User.findByIdAndUpdate(Id, {
+       coverImage : file
+       })
+       
+       res.status(200).json({
+         message : "Cover image update Successfully"
+       })
+    }catch (error) {
+      res.status(500).json({
+     message : error.message
+  })
+  
+ }
+}
+module.exports = {
+    createPost,
+    getPosts,
+    deletePost,
+    UpdatePost,
+    GetMyPosts,
+    ChengeImageUser,
+    GetPostById,
+    GetMyDataUser,
+    AddCoverImageSendFun,  
+  };
 

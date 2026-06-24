@@ -554,7 +554,7 @@ if (ChengeFhoto) {
          if(___Id){
          const OthersPosts =  await  GetUsersFindById(___Id) 
          RenderOthersPost(OthersPosts)
-    
+           
           }else{
           const posts       =  await GetpostUseranyUsers() 
           const userdata    =  await GetMyDataUser() /////معلومات   الحساب الدي مسجل دخولو الاسم البريد الاكتروني 
@@ -573,6 +573,7 @@ if (ChengeFhoto) {
   try{
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
+  const CoverImage = userdata.coverImage
   if (Container) {
      Container.innerHTML = ""
    }
@@ -663,7 +664,7 @@ if (ChengeFhoto) {
        if (!sidebar) return ;
        sidebar.innerHTML = `
         <div class="ImageProfile">
-          <img src="./TTTTTTTt.jpg" alt="">
+          <img src="http://localhost:3000/uploads/${CoverImage}" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
@@ -710,6 +711,7 @@ if (ChengeFhoto) {
 
     const RespOthersPosts   = OthersPosts.IU
     const RespNameandAvatar =  OthersPosts.user
+    const CoverImage = OthersPosts.user.coverImage
     const SideBar = document.querySelector('.Sidebar')
     const Container = document.querySelector('.Parent');
     Container.innerHTML=""
@@ -794,7 +796,7 @@ if (ChengeFhoto) {
     }
        sidebar.innerHTML = `
         <div class="ImageProfile">
-          <img src="./TTTTTTTt.jpg" alt="">
+          <img src="http://localhost:3000/uploads/${CoverImage}" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
@@ -840,7 +842,6 @@ if (ChengeFhoto) {
  async function ResnderComments(Comment){
       const Comments = Comment.comments
      const Postid  = Comment.PostId 
-     console.log(Comment)
      const PlaceInComments = document.querySelector(`.placeCommentsPost-${Postid}`); /* 11111111111111111111111111 */
      if (!PlaceInComments) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
@@ -901,3 +902,24 @@ window.GetMyDataUser =  async function (){
  return data;
  
  }
+const AddCoverImage = document.getElementById('AddCoverImage')
+const InputAddcoverImage = document.getElementById('InputAddcoverImage')
+AddCoverImage.addEventListener('click' , function(){
+InputAddcoverImage.click()
+})
+InputAddcoverImage.addEventListener('change' ,function(){
+  AddCoverImageSend()
+})
+async function AddCoverImageSend(){
+const Coverimage = document.getElementById('InputAddcoverImage').files[0]
+  if (!Coverimage) {
+    console.log("No file selected");
+    return;
+  }
+const TokenaddcoverImage = localStorage.getItem('token')
+const Headers =  {Authorization :`Bearer ${TokenaddcoverImage}`}
+const Form_Data  = new FormData()
+Form_Data.append('coverImage' , Coverimage)
+const res  = await  axios.post('http://localhost:3000/AddCover-image' , Form_Data  ,{headers:Headers})
+console.log(res)
+}

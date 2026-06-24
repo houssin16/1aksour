@@ -8,9 +8,7 @@ const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
 
 
-const Url = "http://localhost:3000"  
-
-  
+   const Url = "http://localhost:3000"  
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
     if(!Container){

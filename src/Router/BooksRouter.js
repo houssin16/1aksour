@@ -4,9 +4,18 @@ const path = require("path");
 const multer = require("multer");
 
 // Controllers
-const { registerUser, loginUser, getProfile, SearchUsers ,GetUserprofile } = require("../Contllors/authController");
+const { registerUser, loginUser, getProfile, SearchUsers  , GetUserprofile,} = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
-const { createPost, getPosts, deletePost, UpdatePost, GetMyPosts, ChengeImageUser, GetPostById ,GetMyDataUser } = require("../Contllors/postController");
+const { 
+    createPost,
+    getPosts,
+    deletePost,
+    UpdatePost, 
+    GetMyPosts, 
+    ChengeImageUser, 
+    GetPostById ,
+    GetMyDataUser,
+  AddCoverImageSendFun  } = require("../Contllors/postController");
 const { addComment, getComments } = require("../Contllors/commentController");
 const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
@@ -34,6 +43,8 @@ Router.put("/posts/:id", verifyToken, upload.single("image"),UpdatePost);
 Router.put("/ChengeImage",  upload.single("avatar"),verifyToken,ChengeImageUser);  
 Router.get("/GetUser/:id" ,verifyToken  ,GetMyDataUser )
 
+Router.post('/AddCover-image',upload.single("coverImage"),verifyToken ,AddCoverImageSendFun)
+
 // Comments
 Router.post("/posts/:id/comments", verifyToken, addComment);
 Router.get("/posts/:id/comments", getComments);
@@ -42,6 +53,7 @@ Router.put('/comments/:id', verifyToken, UpdateComment);
 // Replies
 Router.post("/replies", verifyToken, ReplyComment);
 Router.get('/replies', verifyToken, GetReplyComment);
+console.log(typeof GetUserprofile)
 Router.get('/user/:id/posts' , GetUserprofile)
 // Search
 Router.get('/SearchUser', SearchUsers);
