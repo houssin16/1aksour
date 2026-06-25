@@ -664,7 +664,7 @@ if (ChengeFhoto) {
        if (!sidebar) return ;
        sidebar.innerHTML = `
         <div class="ImageProfile">
-          <img src="http://localhost:3000/uploads/${CoverImage}" alt="">
+          <img id="CoverPhoto" src="http://localhost:3000/uploads/${CoverImage}" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
@@ -800,7 +800,7 @@ if (ChengeFhoto) {
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
-            <img src="http://localhost:3000/uploads/${RespNameandAvatar.avatar}" alt="">
+            <img id="CoverPhoto" src="http://localhost:3000/uploads/${RespNameandAvatar.avatar}" alt="">
           </div>
         </div>
         <div class="Username">
@@ -910,16 +910,26 @@ InputAddcoverImage.click()
 InputAddcoverImage.addEventListener('change' ,function(){
   AddCoverImageSend()
 })
+const loading = document.getElementById('loadingy');
 async function AddCoverImageSend(){
-const Coverimage = document.getElementById('InputAddcoverImage').files[0]
+try{                      
+  const Coverimage = document.getElementById('InputAddcoverImage').files[0]
   if (!Coverimage) {
     console.log("No file selected");
-    return;
+    
   }
+const CoverPhoto = document.getElementById('CoverPhoto')
 const TokenaddcoverImage = localStorage.getItem('token')
 const Headers =  {Authorization :`Bearer ${TokenaddcoverImage}`}
 const Form_Data  = new FormData()
 Form_Data.append('coverImage' , Coverimage)
 const res  = await  axios.post('http://localhost:3000/AddCover-image' , Form_Data  ,{headers:Headers})
-console.log(res)
+const CoverImage = res.data.coverImage
+CoverPhoto.src =`http://localhost:3000/uploads/${CoverImage}?t=${Date.now()}`
+const Cover    = await AlertMessage("تم تغيير الصورة ")
+return res.data
+}catch(error) {
+console.log(error);
+} 
+
 }

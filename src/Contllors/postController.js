@@ -205,11 +205,13 @@ const AddCoverImageSendFun =  async( req , res ) => {
        })
        
        res.status(200).json({
-         message : "Cover image update Successfully"
+         message : "Cover image update Successfully",
+         coverImage : file
        })
     }catch (error) {
       res.status(500).json({
-     message : error.message
+      message : error.message,
+    
   })
   
  }

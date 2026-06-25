@@ -12,6 +12,7 @@ const FileInUploadFhoto  = document.getElementById('FileInUploadFhoto')
 const ImageProfile       = document.getElementById('ImageProfile')
 const ButtonSevgred1     = document.getElementById('ButtonSevgred1')
 /* ________________________________________________________________________________________________ */
+console.log();
 
   ImageHeaderClassAll.forEach((e , index) =>{
  e.addEventListener('mouseover' ,()=>{
@@ -68,7 +69,7 @@ Usernameandimage.forEach((element,index)=> {
     }else if(element.classList.contains('fa-message')){
     
     }else if(element.classList.contains('fa-user-group')){
-     console.log("2");
+
     }else if(element.classList.contains('fa-building-user')){
      window.location = `testProfile.html`
     }else if (element.classList.contains('fa-house')) {
@@ -107,8 +108,7 @@ UploadeFile.classList.remove('classVisibilety')
 /* ===================================================================1996========================================================== */
 
 async function ChengeFhotoInProfile() {
-  console.log("START UPLOAD");
-  console.log("⏰ Profilex استُدعيت:", new Date().toLocaleTimeString());
+
 
   const ValueFile = FileInUploadFhoto.files[0];
   const token = localStorage.getItem("token");
@@ -156,13 +156,14 @@ ImageHeader.src = newSrc;
 const alertBox = document.querySelector(".AlertMessage");
 /* ======================================================8888888====================================================================================================== */
 let  IntervalId = null
-   async function ChekingFhotoProfile(){
-  const GetFormationUSER = await GetMyDataUser()
-  if (GetFormationUSER.avatar === "default.png") {
-     IntervalId = setInterval(() => {
-      AlertMessage('يجب اضافة صورة');
-     }, 10000);
-    }
+async function ChekingFhotoProfile(){
+const GetFormationUSER = await GetMyDataUser()
+
+if (GetFormationUSER.avatar === "default.png") {
+    IntervalId = setInterval(() => {
+    AlertMessage('يجب اضافة صورة');
+    }, 10000);
+  }
 
 } 
 ChekingFhotoProfile()
@@ -216,12 +217,9 @@ async function Profilex() {
     FileInUploadFhoto.value = ""
     window.scrollX = "0"
   } catch (err) {
-    console.log(err);
+ 
     AlertMessage("حدث خطأ ");
   }
 }); 
         
-  }
- 
-/* ____________________________ */
-
+ }
