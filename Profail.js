@@ -231,12 +231,12 @@ if(sidebar){
  
 }) */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- function ProfileUser(id){
+/*  function ProfileUser(id){
  axios.get(`http://localhost:3000/user/${id}/posts`)
    .then((response)=>{
          
            const UserPost = response.data.posts.reverse()
-            window.location = `testProfile.html?userid=${id}` 
+            window.location = `testProfile.html?userid=${id}`
            const Container =  document.querySelector('.Cont')
            Container.innerHTML = ""
            let posts = '';
@@ -303,7 +303,7 @@ if(sidebar){
                
    })
 
-}   
+}       */     
 document.addEventListener('click' , (e)=>{
  const IconrSendCoumment = e.target.closest('.Send-Comments')
 if (!IconrSendCoumment) return ;
@@ -527,11 +527,11 @@ function FunctionDelete(id){
 
 /* ___________________________________________________________________________________________________________________________________________ */
 document.querySelector('.fa-building-user').addEventListener('click' ,GetpostUseranyUsers)
+
 async function  GetpostUseranyUsers(){ /////The  acount is login/////////////////////////////////////////////////////////
 const token = localStorage.getItem('token')
 const Respons = await axios.get(`http://localhost:3000/My_User_Post`,{headers:{Authorization:`Bearer ${token}`}})
 return Respons.data
-
 }
 const ChengeFhoto = document.getElementById('ChengeFhoto')
 if (ChengeFhoto) {
@@ -562,7 +562,7 @@ if (ChengeFhoto) {
           }
 }        
  inti().catch((e)=>{
-   console.log(e);
+   console.log(e.message);
    
  })
 /* _____________________________________________________________________________________________________________________________________________ */
@@ -571,13 +571,14 @@ if (ChengeFhoto) {
 
   async  function RenderSideBarUserPost(post , userdata){
   try{
+  
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
   const CoverImage = userdata.coverImage
   if (Container) {
      Container.innerHTML = ""
    }
- 
+    
        for(const element of post){
                   
            let ButtonDeletAndUpdate = "";
@@ -708,12 +709,14 @@ if (ChengeFhoto) {
  
  async  function RenderOthersPost(OthersPosts){
   try{
-
-    const RespOthersPosts   = OthersPosts.IU
-    const RespNameandAvatar =  OthersPosts.user
-    const CoverImage = OthersPosts.user.coverImage
-    const SideBar = document.querySelector('.Sidebar')
-    const Container = document.querySelector('.Parent');
+    console.log(OthersPosts)
+    const RespOthersPosts    = OthersPosts.IU
+    const RespNameandAvatar  = OthersPosts.user
+    const CoverImage         = OthersPosts.user.coverImage
+    const SideBar            = document.querySelector('.Sidebar')
+    const Container          = document.querySelector('.Parent');
+   /*  const ButtonAddCoverImeg = document.getElementById('DivButtonChengeFhotoTheProfile')
+    ButtonAddCoverImeg.style.display ="none" */
     Container.innerHTML=""
     for(const element of RespOthersPosts) { 
 
@@ -926,7 +929,7 @@ Form_Data.append('coverImage' , Coverimage)
 const res  = await  axios.post('http://localhost:3000/AddCover-image' , Form_Data  ,{headers:Headers})
 const CoverImage = res.data.coverImage
 CoverPhoto.src =`http://localhost:3000/uploads/${CoverImage}?t=${Date.now()}`
-const Cover    = await AlertMessage("تم تغيير الصورة ")
+ await AlertMessage("الغلاف تم تغيير الصورة ")
 return res.data
 }catch(error) {
 console.log(error);

@@ -255,23 +255,32 @@ InputSearch.addEventListener('input' , ()=>{
 
 
    /* ______Stop Function________ */
-    GetPostsAll() /* ____________________________________________________________________________________________________________ */
-function GetPostsAll(){
 
-  axios.get('http://localhost:3000/posts', {
+ /* ___________________________________________________Scrolling________________________________________________________________________________________________________ */
+  
+ /* __________________________________________________________________________________________________________________________________________________________________________ */
+let page    = 1;
+let limit   = 5 ; 
+let loading = false; 
+GetPostsAll()
+ function GetPostsAll(){
+  if(loading) return;
+     loading = true;
+     try{                               
+    axios.get(`http://localhost:3000/posts?page=${page}&limit=${limit}`,{
     headers: { Authorization: `Bearer ${token}`}
-  })
-  .then(response => {
+     })
+     .then(response => {
     if(PlaceInComments){
            PlaceInComments.style.display = "none" 
 
     }
-   
-    
      const Likes = response.data
     const posts = response.data
     const containerAll = document.querySelector('.SideBar');
+    if (page === 1) {
     containerAll.innerHTML = "";
+    }
     posts.forEach(element => { 
       
       const container = document.createElement('div');
@@ -362,21 +371,32 @@ function GetPostsAll(){
              
             
             
-`;
-    
-  
+`; 
+       
        containerAll.appendChild(container);
-      GetComments(element._id)
-     
+       GetComments(element._id)
+      
     }              
-   })
+   })  
+       page++          
+       loading = false;
    loadLikedPosts()
-  }).catch((e)=>{
-  console.log(e);
-  
-    
   })
+  }catch(e){
+   console.log(e)
+  }finally {
+  loading = false 
+  }
+     
 }
+  window.addEventListener('scroll' , ()=>{
+
+       const {scrollTop  , scrollHeight , clientHeight} = document.documentElement
+       if(scrollTop + clientHeight  >=  scrollHeight - 100){
+         GetPostsAll()
+       
+       }
+    })
 
 /* ************************************************************************ All Post End ******************************************************************************************************************** */
  async function openPost(id ,e){

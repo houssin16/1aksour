@@ -73,24 +73,21 @@ const SearchUsers = async (req  ,  res)=>{
   
 
   }
-
 }
 
 /* ____________________________________GetUserspage_____________________________________________ */
 const GetUserprofile = async (req, res) => {
   try {
     const { id } = req.params;
-
+    
     if (!id || id === "null") {
       return res.status(400).json({ message: "Invalid user id" });
     }
-
     const user = await User.findById(id);
-
-    const IU = await Post.find({ userId: id })
+    const IU = await Post.find({ userId: id})
       .populate("userId");
 
-    return res.json({ user, IU });
+    return res.json({ user, IU});
 
   } catch (error) {
     console.log(error);
