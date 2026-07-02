@@ -1,5 +1,5 @@
 
-
+const Url = `http://localhost:3000/`
 const Token = localStorage.getItem('token')
 document.querySelector('.fa-house').addEventListener('click' , function(){
   window.location.href =`testDachbored.html` 
@@ -78,7 +78,7 @@ if (token){
     authorization: `Bearer ${token}`
   }
 }).then(res => {
-  
+  console.log(res);
   const user = res.data.user;
     DACHBORDE.innerHTML = ""
     const result = `
@@ -137,15 +137,13 @@ if (ImageansFriends.length > 3) {
   ImageansFriends[3].classList.add('active');
 }
 if(sidebar){
-   
-  
- 
+
     sidebar.addEventListener('click', (e) => {
         const clicked = e.target.closest('.Friends1');
       /*    const H4 = e.target.closest("h4")
         if (H4) {
            if (H4.innerHTML === "حول") {
-              H4.style.color ="rgb(246, 249, 252)
+              H4.style.color ="rgb(48, 70, 92)
              
            }
         }  */
@@ -367,9 +365,13 @@ if(!Post) return
 const Fratch  = Post.querySelector('.fa-trash')
 if (!Fratch) return
 Fratch.classList.toggle('visibleIcone')
+document.addEventListener("mousedown" ,function(e){
+ if (!Fratch.contains(e.target)){
+    Fratch.classList.remove('visibleIcone')
+ }
+})
+})
 
-})  
-  
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
@@ -429,38 +431,15 @@ const Img12 = document.querySelector('.Img12')
 let Mood = "Create"
 
 
-/* Profile() */
-/*  function Profile(){
+console.log(CreatePost1);
 
-const token = localStorage.getItem("token");
-
-if(token){
-
-axios.get("http://localhost:3000/profile",{
- headers:{
-   Authorization:`Bearer ${token}`
- }
-}).then((res)=>{
-
- const image = res.data.user.avatar
- localStorage.setItem('imge' , JSON.stringify(image))
- const Container = document.querySelector('.Parent');
- const response = res.data.user
- const rescome = res.data.user.id
-
- document.getElementById('ImageHeader').src = response.avatar 
- const Div1 = document.createElement('div')
- Div1.classList.add('ContanLe')
-
- 
-})
-}
-}  */
 ////////////////////////////////////////////////////////////////Update ///////////////////////////////////////////
-function UdpatePost(object){  
+async function UdpatePost(object){  
   Mood = "update"
   const Objct = JSON.parse(decodeURIComponent(object))
-  const CreatePost1 = document.querySelector('.CreatePost1')
+
+  
+  /* const CreatePost1 = document.querySelector('.CreatePost1') */
   CreatePost1.classList.add('ClassVisibleContainer')
   document.querySelector('.TitleBox1 h2').innerHTML = "تعديل المنشور"
   document.querySelector('.TitleCreatePost h4').innerHTML = "اضافة الي تعديل"
@@ -468,12 +447,13 @@ function UdpatePost(object){
   document.getElementById('TextArea1').value = Objct.text
   document.getElementById('ImageInput2').src = Objct.image
   
-     ButtonCreatet__Post.addEventListener('click' , ()=>{
+     ButtonCreatet__Post.addEventListener('click' , async ()=>{
+      
     if (Mood == "update") {
 
     const Token = localStorage.getItem('token');
     const  headers =  {Authorization: `Bearer ${Token}`}
-    const TextArea1 = document.getElementById('TextArea1').value.trim();
+    const TextArea1 = document.getElementById('TextArea1').value.trim()
     const ImagePost = document.getElementById('ImageInput2').files[0];
     let formdata = new FormData();
     formdata.append('text', TextArea1);
@@ -483,20 +463,20 @@ function UdpatePost(object){
         return;
     }
 
-  urlxdown = `${Url}posts/${Objct.id}`
-             axios.put(urlxdown , formdata, {headers:headers})
-      .then((res) => {
-      ShowAltert("✅ تم تعديل  البوست بنجاح");
-      
-      
-      const containerAll = document.querySelector('.Cont');
-      containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-       GetPostsAll();  // ← تحديث حقيقي للبوستات من السيرفر
-     }).catch((e)=>{
-   })  
+       const urlxdown = `${Url}posts/${Objct._id}`
+       await axios.put(urlxdown , formdata, {headers:headers}) 
+       CreatePost1.classList.remove('ClassVisibleContainer')
+       const containerAll = document.querySelector('.Cont');
+       containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
+       
+        // ← تحديث حقيقي للبوستات من السيرفر
+       
     } 
  })
+ 
 } 
+
+
 /////////////////////////////////////////////////////////////////Find Update ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////Delete///////////////////////////////////////////////////////
 function FunctionDelete(id){
@@ -559,10 +539,12 @@ if (ChengeFhoto) {
           const posts       =  await GetpostUseranyUsers() 
           const userdata    =  await GetMyDataUser() /////معلومات   الحساب الدي مسجل دخولو الاسم البريد الاكتروني 
           RenderSideBarUserPost( posts, userdata) 
+          
+          
           }
 }        
  inti().catch((e)=>{
-   console.log(e.message);
+   console.log(e.message);                        
    
  })
 /* _____________________________________________________________________________________________________________________________________________ */
@@ -575,15 +557,17 @@ if (ChengeFhoto) {
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
   const CoverImage = userdata.coverImage
+  const AvatarPoste = userdata.avatar
+  console.log(AvatarPoste);
+  const varfyAvatar = AvatarPoste === "default.png" || AvatarPoste === "" ;
+  const resultAvatar = varfyAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
   if (Container) {
      Container.innerHTML = ""
    }
-    
        for(const element of post){
-                  
            let ButtonDeletAndUpdate = "";
       // ✅ تحقق أولاً قبل استخدام user.id
-           if (user && element.userId === user.id) {
+           
            ButtonDeletAndUpdate = `
           <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')">
             <i class="fa-solid fa-pen"></i> تعديل المنشور
@@ -592,10 +576,9 @@ if (ChengeFhoto) {
             <i class="fa-regular fa-trash-can"></i> حذف المنشور
           </li>
         `
-      }
+      
       const CreateDivElement = document.createElement('div')
       CreateDivElement.classList.add('ContanLe')
-     
       CreateDivElement.innerHTML = `
         <div class="UsernameAndImageImage">
           <i class="fa-solid fa-ellipsis"></i>
@@ -605,7 +588,7 @@ if (ChengeFhoto) {
               <h6>${element.createdAt}</h6>
             </div>
             <div class="ImageUserM">
-              <img src="http://localhost:3000/uploads/${element.userId.avatar}">
+              <img src="${resultAvatar}">
             </div>
           </div>
         </div>
@@ -631,6 +614,7 @@ if (ChengeFhoto) {
         <div class="fa-trash">
           <ul>
             ${ButtonDeletAndUpdate}
+            
             <li><i class="fa-solid fa-eye-slash"></i>اخفاء المنشور</li>
             <li><i class="fa-solid fa-flag"></i>ابلاغ</li>
           </ul>
@@ -661,7 +645,8 @@ if (ChengeFhoto) {
      }
       const AvatarStatus = userdata.avatar
       const InvaliedAvatar = !AvatarStatus || AvatarStatus === "" || AvatarStatus ===  "default.png" ;
-      const ResultStatusAvatar = InvaliedAvatar ? "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
+      const ResultStatusAvatar = InvaliedAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
+      document.getElementById('ImageHeader').src = InvaliedAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}`
        if (!sidebar) return ;
        sidebar.innerHTML = `
         <div class="ImageProfile">
@@ -709,7 +694,7 @@ if (ChengeFhoto) {
  
  async  function RenderOthersPost(OthersPosts){
   try{
-    console.log(OthersPosts)
+   
     const RespOthersPosts    = OthersPosts.IU
     const RespNameandAvatar  = OthersPosts.user
     const CoverImage         = OthersPosts.user.coverImage
@@ -836,7 +821,7 @@ if (ChengeFhoto) {
         </div>
       `
   }catch(e){
-   console.log(e);
+  
   }
     
       
@@ -894,12 +879,9 @@ if (ChengeFhoto) {
           }
 w()
 window.GetMyDataUser =  async function (){
-  console.log("GetMyDataUser loaded")
-  const Tokene = localStorage.getItem('token')
- const userId = w()
- console.log(userId._id);
- console.log(Tokene);
  
+ const Tokene = localStorage.getItem('token')
+ const userId = w()
  const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,{headers :{ Authorization :`Bearer ${Tokene}`}})
  const data = await Response.json()
  return data;
@@ -918,8 +900,8 @@ async function AddCoverImageSend(){
 try{                      
   const Coverimage = document.getElementById('InputAddcoverImage').files[0]
   if (!Coverimage) {
-    console.log("No file selected");
     
+                   
   }
 const CoverPhoto = document.getElementById('CoverPhoto')
 const TokenaddcoverImage = localStorage.getItem('token')

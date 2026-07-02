@@ -93,7 +93,7 @@ const password = document.getElementById('passwordlOGIN').value.trim()
   
    }).catch((e) =>{
   ShowAltert(e.response?.data?.message || "حدث خطأ");
-    console.log(e.response?.data?.message || "حدث خطأ");
+  
 
 }) 
  
@@ -153,15 +153,19 @@ videoInput.click()
 feelings.addEventListener('click' , ()=>{
   feelingInput.click()
 })
-InputCreatepost.addEventListener('click' , ()=>{   //////////////Inbut
+InputCreatepost.addEventListener('click' , async  ()=>{   //////////////Inbut
   CreatePost1.classList.add('ClassVisibleContainer')
   document.body.classList.add('no-scroll')
   Mood = "Create"
-
+  const ResAwait = await Profile()
+  const Res_Thename_Avatar = ResAwait.data
+  console.log(Res_Thename_Avatar.avatar);
+  document.getElementById('AvatarTheCreatePoste').src = `http://localhost:3000/uploads/${ Res_Thename_Avatar.avatar}`
+  document.getElementById('UsernameTheCreateposte').innerHTML = Res_Thename_Avatar.name
   document.querySelector('.TitleBox1 h2').innerHTML = "إنشاء منشور"
   document.querySelector('.TitleCreatePost h4').innerHTML = "اضافة الي منشورك"
   document.querySelector('.ButtonCreateNewPost button').innerHTML = "نشر" 
-
+  document.getElementById('TextArea1').placeholder += Res_Thename_Avatar.name
 })
 CreatePost1.addEventListener('click' ,function(){   ///////////////////////Box1
  CreatePost1.classList.remove('ClassVisibleContainer') 
@@ -259,34 +263,39 @@ InputSearch.addEventListener('input' , ()=>{
  /* ___________________________________________________Scrolling________________________________________________________________________________________________________ */
   
  /* __________________________________________________________________________________________________________________________________________________________________________ */
-let page    = 1;
+ let page    = 1;
 let limit   = 5 ; 
-let loading = false; 
+let loading = false;  
 GetPostsAll()
- function GetPostsAll(){
-  if(loading) return;
-     loading = true;
+ async  function GetPostsAll(){
+   if(loading) return;
+     loading = true;  
      try{                               
-    axios.get(`http://localhost:3000/posts?page=${page}&limit=${limit}`,{
+    const Response  = await axios.get(`http://localhost:3000/posts?page=${page}&limit=${limit}`,{
+    
     headers: { Authorization: `Bearer ${token}`}
      })
-     .then(response => {
+     
     if(PlaceInComments){
            PlaceInComments.style.display = "none" 
 
     }
-     const Likes = response.data
-    const posts = response.data
-    const containerAll = document.querySelector('.SideBar');
-    if (page === 1) {
-    containerAll.innerHTML = "";
-    }
+     const Likes = Response.data
+     const posts = Response.data
+    
+     const containerAll = document.querySelector('.SideBar');
+     if (page === 1) {
+     ;containerAll.innerHTML = ""
+    }   
     posts.forEach(element => { 
-      
+     
+      const AvatarResponse   = element.userId.avatar 
+      let   AvatarDefultOrNo = AvatarResponse === "default.png" || AvatarResponse === ""
+      const AvatarORViody  = AvatarDefultOrNo ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${element.userId?.avatar}`
       const container = document.createElement('div');
       container.classList.add('content');
        let result =r() 
-       if (result) {
+                                      
        let ButtonDeUpdate = ""
         
         if (result) { 
@@ -311,7 +320,7 @@ GetPostsAll()
                      <h6>${element.createdAt}</h6>
                    </div>
                    <div class="ImageUser">
-                 <img src="http://localhost:3000/uploads/${element.userId?.avatar}"></div>
+                 <img src="${AvatarORViody}"></div>
                    </div> 
                    </div>
                    <div class="Paraghraf">
@@ -372,35 +381,32 @@ GetPostsAll()
             
             
 `; 
-       
-       containerAll.appendChild(container);
-       GetComments(element._id)
-      
-    }              
+  
+   containerAll.appendChild(container);  
+   GetComments(element._id)
+  
    })  
-       page++          
-       loading = false;
-   loadLikedPosts()
-  })
+   page++ 
   }catch(e){
-   console.log(e)
+  
   }finally {
   loading = false 
-  }
-     
+  }  
+  loadLikedPosts()
+ 
 }
-  window.addEventListener('scroll' , ()=>{
+window.addEventListener('scroll' , ()=>{
 
        const {scrollTop  , scrollHeight , clientHeight} = document.documentElement
        if(scrollTop + clientHeight  >=  scrollHeight - 100){
          GetPostsAll()
-       
+        
        }
-    })
+    })       
 
 /* ************************************************************************ All Post End ******************************************************************************************************************** */
  async function openPost(id ,e){
-  e.preventDefault()
+ /*  e.preventDefault() */
   await GetComments(id);
    loadReplies(); 
    
@@ -493,7 +499,7 @@ function UdpatePost(object){
       GetPostsAll(); 
     
      }).catch((e)=>{
-      console.log(e);
+     
 
    })
    if (containerAll) {
@@ -586,7 +592,7 @@ function SendComments(postId){
     .then(response => {
          
         Input.value = ""
-       /*  GetPostsAll() */
+         GetPostsAll()
        
        
     })
@@ -640,7 +646,7 @@ function GetComments(id) {
    
     
     comments.forEach((comment )=> {
-     /*  console.log(comment); ////// Object */
+    
      
       const div = document.createElement('div');
       div.classList.add('comment');
@@ -802,7 +808,7 @@ function loadReplies() {
       Authorization: `Bearer ${token}`
     }
   }).then(({ data }) => {
-     
+  
     document.querySelectorAll('.ReplayParghraf').forEach((f)=>{
 
      f.innerHTML = ""
@@ -821,9 +827,6 @@ function loadReplies() {
       // 🟢 البحث عن comment الصحيح
       const commentContainer =
         document.querySelector(`[data-comments-id="${id}"]`);
-
-   
-
       if (!commentContainer) return;
 
       const box = commentContainer.querySelector('.ReplayParghraf');
@@ -868,7 +871,6 @@ function ClikedPostComents(userid){
 
 /* ************************************************************************ Delete Start ************************************************************************************************************************** */
  function FunctionDelete(id){
-
   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
   const ButtonDelete = document.getElementById('ButtonDelete')
   ContainerComnfirm.classList.add('ShowConfirm')
@@ -884,7 +886,7 @@ function ClikedPostComents(userid){
 
      })
       .then((respone)=>{
-        /*  GetPostsAll() */
+          GetPostsAll()
          ContainerComnfirm.classList.remove('ShowConfirm')
         this.classList.add('CanelConfirm')
          ShowAltert("تم حدف البوست")
@@ -903,40 +905,30 @@ function ClikedPostComents(userid){
 /* ************************************************************************ Delete End   ********************************************************************************* **********************************/
 /* ************************************************************************ Profile start   ********************************************************************************* **********************************/
  Profile()
-function Profile() {
+async  function Profile() {
  
   const Window_The_Profile = document.querySelector('.Window_The_Profile')
     let WindowToProfile      = ""
    /*  Window_The_Profile.innerHTML ="" */
   if (token) {
-    axios.get("http://localhost:3000/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-       
-    }).then((res) => {
-    
-       
-      const response      = res.data;
-      const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
-      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defaulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
-      document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
-   /*    WindowToProfile = `
-                 <img id="MouhemdAksourImage" src="http://localhost:3000/uploads/${response.avatar}" alt="">
-                       <h3 id="UsernameMouhmedAksour">${response.name}</h3>
-                       <h4 class="UserDachbord">@Aksour_Houcine_Enf</h4>
+    try{
+    const res = await axios.get("http://localhost:3000/profile", {  headers: {Authorization: `Bearer ${token}`  } })
       
-      `
-      Window_The_Profile.innerHTML = WindowToProfile */
-    }).catch((e) => {
-      console.log(e);
-    
-    });
-  }
+      const response      = res.data;
+      
+      const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
+      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
+      document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
+      return res;
+      }catch(e){
+       console.log(e)
+    }
+  
 }
 
+}
 /* ************************************************************************ Profile End   ********************************************************************************* **********************************/
 /* document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
@@ -983,7 +975,6 @@ async function LikesPost(heart) {
   heart.classList.toggle('likedee'); //// 
  heart.style.color = !isLikedNow ? "red" : "" ;
  
-    
  try{
      const response = await axios.post(`http://localhost:3000/posts/${postId}/like` , {} ,{
 
@@ -1016,16 +1007,15 @@ async function LikesPost(heart) {
   let   UserId2 = r()
   const Xn = UserId2._id
 
-async function loadLikedPosts() {
+async function loadLikedPosts(){
   try {
-    const res = await axios.get("http://localhost:3000/posts/likes", {
+    const res = await axios.get("http://localhost:3000/posts/likes",{
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
 
     const likedPosts = res.data;
-
     likedPosts.forEach(post => {
       const heart = document.querySelector(`[data-id="${post._id}"]`);
      
@@ -1050,7 +1040,7 @@ if(!DeleteUpdate) return
 DeleteUpdate.classList.toggle('displayB')
 }) 
  document.addEventListener('mousedown' , (e)=>{
-if (e.target.closest('.Classhidden')) {
+if (e.target.closest('.Classhidden')){
   return
 }
  document.querySelectorAll('.Classhidden').forEach((e)=>{
@@ -1095,7 +1085,7 @@ axios.put(`http://localhost:3000/comments/${objects._id}` , {
     Input.value = ""
         GetPostsAll()
      }).catch((Error)=>{
-    console.log(Error);
+    
  })
 }
 const Suggestion = document.querySelector('.suggestion')
@@ -1115,7 +1105,7 @@ window.addEventListener('scroll' ,()=>{
 
 function GetOnepostPage(id){
  window.location=`http://127.0.0.1:5501/testProfile.html?id=${id}` 
-console.log(id)
+
 } 
 
 function Ape (id){

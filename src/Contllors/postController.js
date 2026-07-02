@@ -36,16 +36,16 @@ const getPosts = async (req, res) => {
 
     const token = authoHeader.split(" ")[1];
     const decoded = jwt.verify(token, "my_secret_key");
-    const page  = parseInt(req.query.page)  || 1 ;/// 1 
-    const limit = parseInt(req.query.Limit) || 5;  //// 10
-    const skip  = (page - 1) * limit; ////// 1-1=0 *5
+   const page  = parseInt(req.query.page)  || 1 ;/// 1 
+    const limit = parseInt(req.query.limit) || 5;  //// 10
+    const skip  = (page - 1) * limit; ////// 1-1=0 *5 
     const posts = await Post.find()
       .populate("userId")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
 
-    const Result = await Promise.all(
+      const Result = await Promise.all(
       posts.map(async (p) => {
         const Count = await comment.countDocuments({
           postId: p._id,

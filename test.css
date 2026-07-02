@@ -38,6 +38,7 @@ body.no-scroll {
     justify-content: center;
     font-family: 'Cairo' , sans-serif;
     background-color: #3b83f6b2;
+   
 }
 .container .navbar {
   width: 100%;
@@ -530,23 +531,23 @@ color: #615e5efb;
 }
 .UsernameANDimageusername {
   direction: rtl;
-  /* background-color: red; */
+/*  background-color: red; */
 }
 .UsernameANDimageusername .ImageBox1996 {
-/*   background-color: green; */
+/* background-color: green;  */
   display: flex;
   align-items: center;
-
   gap:20px;
+  height: 80px;
 }
 .UsernameANDimageusername .ImageBox1996 img{
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  
+  margin-right: 10px;
 }
 .UsernameANDimageusername .ImageCreatepost {
- /*  background-color: blue;  */
+/*  background-color: blue; */
   display: flex;
   align-items: center;
   position: relative;
@@ -558,8 +559,8 @@ color: #615e5efb;
 /*   background-color: yellow; */
 }
 .selectBox b {
-
- color: #312c2c;
+margin-top: 5px;
+ color: #271313;
 }
 .UsernameANDimageusername .selectBox select {
   width: 85px;
@@ -570,6 +571,7 @@ color: #615e5efb;
   background-color: #dadbdd;
   color: #312c2c;
   padding: 4px;
+ margin-top: 5px;
 }
 .PageTextAndImageAndVideo h2{
   font-size: 20px;
