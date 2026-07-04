@@ -15,7 +15,7 @@ const {
     ChengeImageUser, 
     GetPostById ,
     GetMyDataUser,
-  AddCoverImageSendFun  } = require("../Contllors/postController");
+  AddCoverImageSendFun,GetPost } = require("../Contllors/postController");
 const { addComment, getComments } = require("../Contllors/commentController");
 const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
@@ -42,7 +42,7 @@ Router.get('/posts/likes', verifyToken, Get___Likes);
 Router.put("/posts/:id", verifyToken, upload.single("image"),UpdatePost);
 Router.put("/ChengeImage",  upload.single("avatar"),verifyToken,ChengeImageUser);  
 Router.get("/GetUser/:id" ,verifyToken  ,GetMyDataUser )
-
+Router.get("/posts/:id", GetPost)
 Router.post('/AddCover-image',upload.single("coverImage"),verifyToken ,AddCoverImageSendFun)
 
 // Comments

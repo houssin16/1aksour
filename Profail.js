@@ -433,12 +433,13 @@ let Mood = "Create"
 
 console.log(CreatePost1);
 
-////////////////////////////////////////////////////////////////Update ///////////////////////////////////////////
+////////////////////////////////////////////////////////////////Update///////////////////////////////////////////
 async function UdpatePost(object){  
   Mood = "update"
-  const Objct = JSON.parse(decodeURIComponent(object))
-
-  
+  const res = await axios.get(`${Url}posts/${object}`)
+  const  Objct = res.data 
+  console.log(Objct);
+  console.log(`${Url}posts/${object}`);
   /* const CreatePost1 = document.querySelector('.CreatePost1') */
   CreatePost1.classList.add('ClassVisibleContainer')
   document.querySelector('.TitleBox1 h2').innerHTML = "تعديل المنشور"
@@ -449,7 +450,7 @@ async function UdpatePost(object){
   
      ButtonCreatet__Post.addEventListener('click' , async ()=>{
       
-    if (Mood == "update") {
+    if (Mood == "update"){
 
     const Token = localStorage.getItem('token');
     const  headers =  {Authorization: `Bearer ${Token}`}
@@ -458,16 +459,21 @@ async function UdpatePost(object){
     let formdata = new FormData();
     formdata.append('text', TextArea1);
     formdata.append('image', ImagePost);
-    if (TextArea1.length == 0 &&  !ImagePost){
-      ShowAltert("الرجاء كتابة نص أو اختيار صورة قبل النشر");
+    if (TextArea1.length == 0 ||  !ImagePost){
+     /*  ShowAltert("الرجاء كتابة نص أو اختيار صورة قبل النشر"); */
+       console.log("dddddddddddddddddd");
+      
         return;
     }
 
-       const urlxdown = `${Url}posts/${Objct._id}`
-       await axios.put(urlxdown , formdata, {headers:headers}) 
+       const urlxdown = `${Url}posts/${object}`
+      const rq =  await axios.put(urlxdown , formdata, {headers:headers})
        CreatePost1.classList.remove('ClassVisibleContainer')
        const containerAll = document.querySelector('.Cont');
-       containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
+       if (containerAll) {
+         containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
+       }
+       document.getElementById(`${object}`).innerHTML = rq.data.text
        
         // ← تحديث حقيقي للبوستات من السيرفر
        
@@ -475,7 +481,9 @@ async function UdpatePost(object){
  })
  
 } 
-
+Img12.addEventListener('click' , function(){
+  ImageInput2.click()
+})
 
 /////////////////////////////////////////////////////////////////Find Update ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////Delete///////////////////////////////////////////////////////
@@ -567,9 +575,10 @@ if (ChengeFhoto) {
        for(const element of post){
            let ButtonDeletAndUpdate = "";
       // ✅ تحقق أولاً قبل استخدام user.id
+           console.log(element._id);
            
            ButtonDeletAndUpdate = `
-          <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')">
+          <li onclick="UdpatePost('${element._id}')">
             <i class="fa-solid fa-pen"></i> تعديل المنشور
           </li>
           <li onclick="FunctionDelete(${element._id})">
@@ -593,7 +602,7 @@ if (ChengeFhoto) {
           </div>
         </div>
         <div class="Paraghraf">
-          <p>${element.text}</p>
+          <p id="${element._id}">${element.text}</p>
         </div>
         <div class="ImagePost">
           <img src="http://localhost:3000/uploads/${element.image}"> 
@@ -694,23 +703,29 @@ if (ChengeFhoto) {
  
  async  function RenderOthersPost(OthersPosts){
   try{
-   
-    const RespOthersPosts    = OthersPosts.IU
-    const RespNameandAvatar  = OthersPosts.user
-    const CoverImage         = OthersPosts.user.coverImage
-    const SideBar            = document.querySelector('.Sidebar')
-    const Container          = document.querySelector('.Parent');
-   /*  const ButtonAddCoverImeg = document.getElementById('DivButtonChengeFhotoTheProfile')
-    ButtonAddCoverImeg.style.display ="none" */
-    Container.innerHTML=""
-    for(const element of RespOthersPosts) { 
+     const RespOthersPosts    = OthersPosts.IU
+     const RespNameandAvatar  = OthersPosts.user
+     const CoverImage         = OthersPosts.user.coverImage
+     const SideBar            = document.querySelector('.Sidebar')
+     const Container          = document.querySelector('.Parent');
+     const ButtonAddCoverImeg = document.getElementById('DivButtonChengeFhotoTheProfile')
+     const Id_                = w()
+     const user_id            = OthersPosts.user._id
+     if (Id_._id === user_id) {
+      ButtonAddCoverImeg.style.display ="block"
+     } else {
+      ButtonAddCoverImeg.style.display ="none"
+     }
+     console.log(user_id);
+     Container.innerHTML=""
+     for(const element of RespOthersPosts) { 
 
            let ButtonDeletAndUpdate = "";
       //  ✅ تحقق أولاً قبل استخدام user.id
-           if (user && element.userId === user.id){
+           if (user && element.userId === user._id){
            ButtonDeletAndUpdate = `
 
-          <li onclick="UdpatePost('${encodeURIComponent(JSON.stringify(element))}')">
+          <li onclick="UdpatePost('${element._id}')">
             <i class="fa-solid fa-pen"></i> تعديل المنشور
           </li>
           <li onclick="FunctionDelete(${element._id})">
@@ -821,7 +836,8 @@ if (ChengeFhoto) {
         </div>
       `
   }catch(e){
-  
+   console.log(e.message);
+   
   }
     
       
