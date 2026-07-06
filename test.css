@@ -652,7 +652,7 @@ gap: 7px;
 /* ///////////////////////////////////////////////////////////////////////////////////////////////// */
 .BoxComments {
  display: none;
-/*  background-color: red; */
+ /* background-color: red;  */
  padding: 15px;
 
 }
@@ -681,12 +681,11 @@ gap: 7px;
 
 }
 .ButtonCommentsSend {
-/*   background-color: green;  */
+/*  background-color: green;   */
   display: flex;
   justify-content: space-between;
   width: 85%;
   margin-left: 10px;
- 
 }
 .ButtonCommentsSend button{
   border-radius: 50%;
@@ -694,22 +693,26 @@ gap: 7px;
   height: 38px;
   border: none;
   color: rgb(255, 255, 255);
-  background-color:#2a7cda;
+  background-color:#2a7cda; 
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.5;
   cursor:no-drop;
+  position: relative;
+  bottom: 37px;
+  right: 35px;
+
 }
-.Send-Comments.InputNotVid{
+ .Send-Comments.InputNotVid{
 opacity: 2;
 cursor:pointer;
-}
+} 
 .Box1Button {
-/* background-color: red;   */
 width: 10%;
 border-radius: 50%;
+
 }
 .OtherIcones {
 /*    background-color: #2a7cda;  */
@@ -756,11 +759,9 @@ z-index: 99999999999999;
 
 .replace {
 height: 100px;
-
 }
 .rheight {                                                                                                                                                                                                                                                                                                               
   height: 35px;
- 
 }
 .UsernameAndComments{
 /*  background-color: blue;   */
@@ -882,7 +883,7 @@ overflow-wrap: anywhere;
   color: #161515;
   background-color: #d1d4d8b9;
 }
-  .ShowConfirm {
+.ShowConfirm {
   visibility: visible;
   opacity: 1;
   transition: 0.2s;

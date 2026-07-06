@@ -23,8 +23,6 @@ const ResultSearch  = document.querySelector('.ResultSearch')
      Div.remove()
      }, 4500);
 } 
-
-
  const res = document.getElementById('Alert')
 let urlxdown = `${Url}/posts`
 const PlaceInComments = document.querySelector('.placeCommentsPost');
@@ -159,7 +157,7 @@ InputCreatepost.addEventListener('click' , async  ()=>{   //////////////Inbut
   Mood = "Create"
   const ResAwait = await Profile()
   const Res_Thename_Avatar = ResAwait.data
-  console.log(Res_Thename_Avatar.avatar);
+
   document.getElementById('AvatarTheCreatePoste').src = `http://localhost:3000/uploads/${ Res_Thename_Avatar.avatar}`
   document.getElementById('UsernameTheCreateposte').innerHTML = Res_Thename_Avatar.name
   document.querySelector('.TitleBox1 h2').innerHTML = "إنشاء منشور"
@@ -360,7 +358,7 @@ GetPostsAll()
 
              <div class="BoxComments" data-box="${element._id}">
                  <div class="InputINCoumments">
-                    <input type ="text" class="ComentsInput" name ="text">
+                    <input type ="text" class="ComentsInput" name="text">
                     <img src = http://localhost:3000/uploads/${result.avatar}>
               </div>
                  <div class="ButtonCommentsSend">
@@ -383,9 +381,10 @@ GetPostsAll()
 `; 
   
    containerAll.appendChild(container);  
-   GetComments(element._id)
-  
+    GetComments(element._id)
+   
    })  
+    loadReplies();
    page++ 
   }catch(e){
   
@@ -405,12 +404,11 @@ window.addEventListener('scroll' , ()=>{
     })       
 
 /* ************************************************************************ All Post End ******************************************************************************************************************** */
- async function openPost(id ,e){
- /*  e.preventDefault() */
+/*   async function openPost(id ,e){
+ preventDefault()
   await GetComments(id);
-   loadReplies(); 
-   
-}
+  loadReplies();
+}  */
 /* ************************************************************************ Place  Comments Start ********************************************************************************* ***********************************/
  document.addEventListener('click', (e) => {
   const famessage = e.target.closest('.fa-message');
@@ -491,7 +489,7 @@ function UdpatePost(object){
      urlxdown = `${Url}/posts/${Objct._id}`
              axios.put(urlxdown , formdata, {headers:headers})
       .then((res) => {
-        console.log("ezjugjgh");
+    
         CreatePost1.classList.remove('ClassVisibleContainer')
       /* ShowAltert("✅ تم تعديل  البوست بنجاح"); */
       const containerAll = document.querySelector('.Cont');
@@ -566,18 +564,16 @@ document.addEventListener("click", (e) => {
   e.preventDefault();
   const PostId = IconSendComments.dataset.id;
   SendComments(PostId)
-  
 });
 function SendComments(postId){
-
-
    const Inputtext = document.querySelector(`[data-box="${postId}"]`)
    const Result = Inputtext.querySelector('.ComentsInput').value
    const Input = Inputtext.querySelector('.ComentsInput')
-   if(!Result) {
-     ShowAltert("eeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+   if(Result.length === 0 || !Result) {
+     AlertMessage2("يجب املاء الحقل ")
      return
-   }
+    }
+                            
    axios.post(
     `http://localhost:3000/posts/${postId}/comments` ,
     {
@@ -588,16 +584,12 @@ function SendComments(postId){
          headers : {Authorization : `Bearer ${token}`}
       }
     )
- 
     .then(response => {
          
         Input.value = ""
          GetPostsAll()
-       
-       
     })
- 
-  .catch(err =>{
+   .catch(err =>{
     console.error(err.response?.data || err);
   });
 }
@@ -619,41 +611,31 @@ return `مند ${Math.floor(diff  / 86400)} يوم`
 /* ///////////////////////////////////////////////////////////////////////////////Time Comments/////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-function GetComments(id) {
+async  function GetComments(id) {
+try{
 
 
-  axios.get(`http://localhost:3000/posts/${id}/comments`, {
-    headers: { Authorization: `Bearer ${token}` }
+   const response = await  axios.get(`http://localhost:3000/posts/${id}/comments`, {
+    headers: { Authorization: `Bearer ${token}`}
   })
-  .then(response => {
     const comments = response.data
     const PlaceInCommentsq = document.querySelector(`.placeCommentsPost-${id}`);
     const ImageCommentsReplay = JSON.parse(localStorage.getItem('imge'))
-    
-    
-    
     if (!PlaceInCommentsq) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
       return;
     } 
     PlaceInCommentsq.innerHTML = ""
-
-
     if (comments.length === 0) {
       PlaceInCommentsq.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
       return;
     }
-   
-    
     comments.forEach((comment )=> {
-    
-     
       const div = document.createElement('div');
       div.classList.add('comment');
       let Us            = r()
-
       let  DeleteUpdate = ""
-     if (comment.userId._id === Us._id) {
+     if (comment.userId._id === Us._id){
         DeleteUpdate = `
          <ul>
             <li  class="UpdateThisElement" data-Object=${JSON.stringify(comment)}>تعديل<i class="fa-solid fa-pen"></i></li>
@@ -661,15 +643,13 @@ function GetComments(id) {
             <li><i class="fa-regular fa-flag"></i>ابلاغ</li>
            <ul>
         `
-    } else {
+    }else{
       DeleteUpdate = `
       <ul>
             <li><i class="fa-regular fa-flag"></i>ابلاغ</li>
       <ul>
-      
       `
-     } 
-       
+     }
       div.innerHTML = `
   <div class="titleimagenameANDUsernameAndComments">
     <div class="titleimagename">
@@ -716,34 +696,35 @@ function GetComments(id) {
       </div>
   </div>
 `;
- 
       PlaceInCommentsq.appendChild(div);
-  
     });
-     
     
-  });  
-  loadReplies(); 
+}catch(error){
+
+   console.log(error);
+   
+}
+
 }
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "http://localhost:3000" 
 // ✅ خارج أي دالة — يُسجَّل مرة واحدة فقط
 document.addEventListener('click', (e) => {
 
   // فتح / إغلاق الرد
-  const openBtn = e.target.closest('.Reponde');
+
+   const openBtn = e.target.closest('.Reponde');
   if (openBtn) {
+    
     const commentContainer = openBtn.closest('.UsernameAndComments');
     const repondEl = commentContainer.querySelector('.Secondebox');
-   const Reponded = document.querySelector('.PlaceAksourLikeAndSeconde')
-   const ContinerInputANDButtonSen = commentContainer.querySelector('.Reponded')
+    const ContinerInputANDButtonSen = commentContainer.querySelector('.Reponded')
     /* ContinerInputANDButtonSen.classList.toggle('active1996') */
      ContinerInputANDButtonSen.classList.toggle('hidden')
      
     /* commentContainer.classList.toggle('replace');  */
     return;
   }
- 
   // إرسال الرد
   const sendBtn = e.target.closest('.Send-CommentsReponded');
  
@@ -775,8 +756,7 @@ document.addEventListener('click', (e) => {
       repondEl.classList.remove('active1996');
       commentContainer.classList.remove('replace');
       const Userid = data.userId
-     
-     
+
     })
     .catch(err => {
       console.error(err);
@@ -802,37 +782,30 @@ GetReplyComments()
  */
  
 function loadReplies() {
-
   axios.get('http://localhost:3000/replies', {
     headers: {
       Authorization: `Bearer ${token}`
     }
   }).then(({ data }) => {
-  
     document.querySelectorAll('.ReplayParghraf').forEach((f)=>{
-
      f.innerHTML = ""
     })
 /*     console.log("REPLIES:", data); */
-
-    data.forEach(reply => {
-
+       data.forEach(reply => {
+       
       // 🟢 استخراج ID بشكل صحيح
       let id = reply.commentId;
-
       if (typeof id === "object") {
         id = id._id;
       }
-
       // 🟢 البحث عن comment الصحيح
-      const commentContainer =
-        document.querySelector(`[data-comments-id="${id}"]`);
+   
+      const commentContainer = document.querySelector(`[data-comments-id="${id}"]`);
+       
       if (!commentContainer) return;
-
       const box = commentContainer.querySelector('.ReplayParghraf');
-     
       if (!box) return;
-
+      
       // 🟢 إضافة الرد
       const html = `
         <div class="reply">
@@ -941,26 +914,24 @@ const Result = document.querySelector('.ComentsInput')
 const IconeSend = document.querySelector('.fa-paper-plane')
 const ButtonCommentsSend = document.querySelector('.Send-Comments')
 
-
  document.addEventListener('input' ,(e)=>{
-
+   if(!e.target.classList.contains('ComentsInput'))  return
    const Input  = e.target
-   if(Input) return ;
+   const ValueinputtRealy = Input.closest('.ComentsInput')
+  
    const Parent = Input.closest('.BoxComments') 
    const Button = Parent.querySelector('.Send-Comments')
     if(e.target.classList.contains('ComentsInput'))
       {
-
        if(e.target.value.trim().length > 0 ){
-         
          Button.classList.add('InputNotVid')
-        
        }else{
         Button.classList.remove('InputNotVid')
-        
        }
-   } 
-}) 
+   }
+
+   
+})
 
 
 
@@ -1050,20 +1021,22 @@ e.classList.remove('displayB')
   
 document.addEventListener('click', (e)=>{    //////////  زر التعديل
 const element1 = e.target.closest('.UpdateThisElement')
+
+
 if(!element1) return
+console.log(element1);
 const DeleteUpdate = e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe') /* ____ نضيف له display None ________*/
 const titleimagenameANDUsernameAndComments   = e.target.closest('.titleimagenameANDUsernameAndComments')
-const Secondebox = titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')  /* ______Display None ________*/
-const InputSaveValueNew = titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock') /*_______Display________*/
+const Secondebox = titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')                 /* ______Display None ________*/
+const InputSaveValueNew = titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock')     /*_______Display________*/
 const UpdateThisElement = titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
-const P                 = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi') 
+const P                 = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi')
 P.classList.add('DisplayNoNe') 
-
 /* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
 
 })
 
-function UpdateComments(bTn) {
+function UpdateComments(bTn){
 const objects = JSON.parse(decodeURIComponent(escape(atob(bTn.dataset.object))));
 const Input = bTn.closest('.titleimagenameANDUsernameAndComments').querySelector('.ValueNew')
 const Value = Input.value
@@ -1112,7 +1085,7 @@ function Ape (id){
 const fa_building_user = document.querySelector('.fa-building-user')
 fa_building_user.addEventListener('click'  , function(){
 window.location = `http://127.0.0.1:5501/testProfile.html?userid=${id}` 
-console.log(id);
+
 })
 } function ProfileClicked(userId){
   window.location = `http://127.0.0.1:5501/testProfile.html?id=${userId}`
@@ -1165,7 +1138,7 @@ async  function yt(){
  const  Result = data.data.avatar
  const ChekingOfAvatarisFindOrNO = Result !== "default.png" || Result !== "" ; 
  if (!ChekingOfAvatarisFindOrNO){
-     clearInterval(IntervalId2) 
+     clearInterval(IntervalId2)
   }
 }
 yt() 

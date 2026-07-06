@@ -434,12 +434,14 @@ let Mood = "Create"
 console.log(CreatePost1);
 
 ////////////////////////////////////////////////////////////////Update///////////////////////////////////////////
-async function UdpatePost(object){  
+async function UdpatePost(object , img){  
+  console.log(object , img);
+  
   Mood = "update"
   const res = await axios.get(`${Url}posts/${object}`)
   const  Objct = res.data 
   console.log(Objct);
-  console.log(`${Url}posts/${object}`);
+ /*  console.log(`${Url}posts/${object}`); */
   /* const CreatePost1 = document.querySelector('.CreatePost1') */
   CreatePost1.classList.add('ClassVisibleContainer')
   document.querySelector('.TitleBox1 h2').innerHTML = "تعديل المنشور"
@@ -448,7 +450,7 @@ async function UdpatePost(object){
   document.getElementById('TextArea1').value = Objct.text
   document.getElementById('ImageInput2').src = Objct.image
   
-     ButtonCreatet__Post.addEventListener('click' , async ()=>{
+     ButtonCreatet__Post.addEventListener('click' , async ()=>{  //  زر النشر  
       
     if (Mood == "update"){
 
@@ -473,8 +475,8 @@ async function UdpatePost(object){
        if (containerAll) {
          containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
        }
-       document.getElementById(`${object}`).innerHTML = rq.data.text
-       
+        document.getElementById(`${object}`).innerHTML = rq.data.text 
+        document.getElementById(`${img}`).src = rq.data.image
         // ← تحديث حقيقي للبوستات من السيرفر
        
     } 
@@ -488,28 +490,29 @@ Img12.addEventListener('click' , function(){
 /////////////////////////////////////////////////////////////////Find Update ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////Delete///////////////////////////////////////////////////////
 function FunctionDelete(id){
+  console.log(id);
   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
   const ButtonDelete = document.getElementById('ButtonDelete')
   const Token = localStorage.getItem('token')
   /* const  */
   ContainerComnfirm.classList.add('ShowConfirm')
-  ButtonDelete.addEventListener('click'  , ()=>{
+  ButtonDelete.onclick =  ()=>{
   axios.delete(`http://localhost:3000/posts/${id}`,{
      
-     headers: {  Authorization: `Bearer ${Token}`} ,
+     headers: {  Authorization: `Bearer ${Token}`},
 
      })
       .then((respone)=>{
+        
          ContainerComnfirm.classList.remove('ShowConfirm')
          this.classList.add('CanelConfirm')
          ShowAltert("تم حدف البوست")
       }).catch((error)=>{
- 
-          ShowAltert(error)
+      ShowAltert(error)
   
       })
 
-     })
+     }
 
   } 
 
@@ -578,10 +581,10 @@ if (ChengeFhoto) {
            console.log(element._id);
            
            ButtonDeletAndUpdate = `
-          <li onclick="UdpatePost('${element._id}')">
+          <li onclick="UdpatePost('${element._id}','${element.image}')">
             <i class="fa-solid fa-pen"></i> تعديل المنشور
           </li>
-          <li onclick="FunctionDelete(${element._id})">
+          <li onclick="FunctionDelete('${element._id}')">
             <i class="fa-regular fa-trash-can"></i> حذف المنشور
           </li>
         `
@@ -716,22 +719,24 @@ if (ChengeFhoto) {
      } else {
       ButtonAddCoverImeg.style.display ="none"
      }
-     console.log(user_id);
+   
      Container.innerHTML=""
      for(const element of RespOthersPosts) { 
-
+        
            let ButtonDeletAndUpdate = "";
       //  ✅ تحقق أولاً قبل استخدام user.id
-           if (user && element.userId === user._id){
-           ButtonDeletAndUpdate = `
+           if (element.userId._id === Id_._id){
+               ButtonDeletAndUpdate = `
 
           <li onclick="UdpatePost('${element._id}')">
-            <i class="fa-solid fa-pen"></i> تعديل المنشور
+            <i class="fa-solid fa-pen"></i> تعديل المنشور.
           </li>
-          <li onclick="FunctionDelete(${element._id})">
+          <li onclick="FunctionDelete('${element._id}')">
             <i class="fa-regular fa-trash-can"></i> حذف المنشور
           </li>
         `
+      }else{
+       ButtonDeletAndUpdate =""
       }
       const CreateDivElement = document.createElement('div')
       CreateDivElement.classList.add('ContanLe')
