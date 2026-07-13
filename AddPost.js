@@ -6,8 +6,6 @@ const Containerews = document.querySelector('.Parent');
  const containerAll = document.querySelector('.Cont');
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
-
-
    const Url = "http://localhost:3000"  
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
@@ -254,14 +252,8 @@ InputSearch.addEventListener('input' , ()=>{
   }      
      
 })
-
-
-   /* ______Stop Function________ */
-
- /* ___________________________________________________Scrolling________________________________________________________________________________________________________ */
-  
- /* __________________________________________________________________________________________________________________________________________________________________________ */
- let page    = 1;
+/* ______Stop Function________ */
+let page    = 1;
 let limit   = 5 ; 
 let loading = false;  
 GetPostsAll()
@@ -341,7 +333,7 @@ GetPostsAll()
                   </div>
                   <div class="IconeLikesComentSharing">
                     <i class="fa-solid fa-share-nodes">مشاركة</i>
-                    <i onclick="openPost('${element._id}')" class="fa-regular fa-message">تعليق</i>
+                    <i onclick="" class="fa-regular fa-message">تعليق</i>
                     <i class="fa-regular fa-heart"  data-id =${element._id} data-likes=""  onclick="LikesPost(this)"><span class="LikeSpan">اعجاب</span></i>
                   </div>
                    
@@ -382,9 +374,9 @@ GetPostsAll()
   
    containerAll.appendChild(container);  
     GetComments(element._id)
-   
+       loadReplies(element._id);
    })  
-    loadReplies();
+
    page++ 
   }catch(e){
   
@@ -423,7 +415,7 @@ window.addEventListener('scroll' , ()=>{
 
     
  })
-  const Icone3biont  = document.querySelectorAll('.fa-ellipsis') //// Icone 3 biont
+ /*  const Icone3biont  = document.querySelectorAll('.fa-ellipsis') //// Icone 3 biont */
  //////// list
 let OpenList = false ;
 const Input =  localStorage.getItem('username')
@@ -436,15 +428,12 @@ const Post = IconeUbdate.closest('.content')
 if(!Post) return
 const Fratch  = Post.querySelector('.fa-trash')
 if (!Fratch) return
-const Fratsh1996 = Fratch.dataset.id
- 
+/* const Fratsh1996 = Fratch.dataset.id */
 const AksourOpenList = document.querySelector('.visibleIcone')
 if (AksourOpenList && AksourOpenList !== Fratch) {
   AksourOpenList.classList.remove('visibleIcone')
 }
   Fratch.classList.toggle('visibleIcone'); 
-
-
 })
 /* _______________________________________________________________________________________________ */
 /* _______________________________________________________________________________________________ */
@@ -498,7 +487,7 @@ function UdpatePost(object){
     
      }).catch((e)=>{
      
-
+     
    })
    if (containerAll) {
           containerAll.innerHTML = ""; 
@@ -614,7 +603,7 @@ return `مند ${Math.floor(diff  / 86400)} يوم`
 async  function GetComments(id) {
 try{
 
-
+  
    const response = await  axios.get(`http://localhost:3000/posts/${id}/comments`, {
     headers: { Authorization: `Bearer ${token}`}
   })
@@ -631,6 +620,7 @@ try{
       return;
     }
     comments.forEach((comment )=> {
+     
       const div = document.createElement('div');
       div.classList.add('comment');
       let Us            = r()
@@ -639,7 +629,7 @@ try{
         DeleteUpdate = `
          <ul>
             <li  class="UpdateThisElement" data-Object=${JSON.stringify(comment)}>تعديل<i class="fa-solid fa-pen"></i></li>
-            <li>حدف<i class="fa-regular fa-trash-can"></i></li>
+            <li onclick ="DeleteComments('${comment._id}')">حدف<i class="fa-regular fa-trash-can"></i></li>
             <li><i class="fa-regular fa-flag"></i>ابلاغ</li>
            <ul>
         `
@@ -660,12 +650,14 @@ try{
        <h3 onclick="ClikedPostComents('${comment.userId}')">${comment.userId.name}</h3>
 
     ${comment.text ? `<p class="TextIllzi">${comment.text}</p>` : ""}
+    
       <div class="Secondebox">
       <span> ${TimeAgo(comment.createdAt)} </span>
       <span class="Reponde">رد</span>
       <span class="Likess">إعجاب</span>
-       
+      
     </div>
+   
     <div class="PlaceAksourLikeAndSeconde" data-comments-id="${comment._id}">
   
     <div class="Reponded">
@@ -676,12 +668,12 @@ try{
                 <input type ="text" placeholder = "اكتب الرد"  class="Repond" name ="text" style="direction: rtl;">
                     <img id="RepondImg" placeholder = "اكتب الرد"  src ="http://localhost:3000/uploads/${ImageCommentsReplay}">
                 </div>
-        <div class= "ReplayParghraf">
-         
-         
-               </div>
+               
+              <div class= "ReplayParghraf">
+               </div>  
+               <button class="Show_MoreButton">علرض المزيد</button>          
         </div>
-     
+    
     </div> 
      <i class="fa-solid fa-ellipsis-vertical" id="CommentsDeleteAndUpdate" ></i>
       <div class="InputSaveValueNew">
@@ -749,8 +741,8 @@ document.addEventListener('click', (e) => {
     )
     .then(({ data }) => {
       if (!data) return;
-     
-      const ReplayParghraf = commentContainer.querySelector('.ReplayParghraf')
+
+       const ReplayParghraf = commentContainer.querySelector('.ReplayParghraf') 
       // تنظيف
       input.value = '';
       repondEl.classList.remove('active1996');
@@ -768,63 +760,62 @@ document.addEventListener('click', (e) => {
 });
 
 /* ----------------------------------------------------__Get response Reply Comments_______________________________-------------------------------------- */
-/* function GetReplyComments (){
 
-  axios.get(`${BASE_URL}/replies`)
-  .then((res)=>{
 
-    console.log(res);
-    
-  })
-} 
-GetReplyComments() 
-
- */
- 
-function loadReplies() {
-  axios.get('http://localhost:3000/replies', {
+function loadReplies(idpost) {
+  axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
     headers: {
       Authorization: `Bearer ${token}`
     }
   }).then(({ data }) => {
-    document.querySelectorAll('.ReplayParghraf').forEach((f)=>{
-     f.innerHTML = ""
-    })
-/*     console.log("REPLIES:", data); */
-       data.forEach(reply => {
+        const CountReplies = {}
+          
+      /*   const button = commentContain */
+        data.forEach((reply , index ) => {
        
-      // 🟢 استخراج ID بشكل صحيح
-      let id = reply.commentId;
-      if (typeof id === "object") {
-        id = id._id;
-      }
-      // 🟢 البحث عن comment الصحيح
+        if (!reply.commentId) return;
    
-      const commentContainer = document.querySelector(`[data-comments-id="${id}"]`);
-       
-      if (!commentContainer) return;
-      const box = commentContainer.querySelector('.ReplayParghraf');
-      if (!box) return;
-      
-      // 🟢 إضافة الرد
-      const html = `
+        let id = reply.commentId._id;
+        if(!CountReplies[id]){
+
+          CountReplies[id] = 1
+        }else{
+            
+           CountReplies[id]++
+        }
+        const commentContainer = document.querySelector( `[data-comments-id="${id}"]`)
+        if (!commentContainer) return;
+        const box = commentContainer.querySelector(".ReplayParghraf");
+        const PlaceAksourLikeAndSeconde  = commentContainer.closest('.PlaceAksourLikeAndSeconde')
+        if (!box) return;
+        const button = PlaceAksourLikeAndSeconde.querySelector('.Show_MoreButton')
+        console.log(button)
+         if(CountReplies[id] >= 3){
+          button.classList.add('ButtonShow_More')
+          box.classList.add('ClassHiddenContianer')
+          }
+          button.onclick = () =>{
+           
+
+          }
+        const html =`
         <div class="reply">
         <div class= "uLIZICom">
           <img src="http://localhost:3000/uploads/${reply.userId.avatar}">
-           
-            <h4>${reply.userId.name}</h4>
+
+            <h4 class="Namethereplies">${reply.userId.name}</h4>
             </div>
-            <p>${reply.text}</p>
-         
+            <p >${reply.text}</p>
+        </div>
         </div>
       `;
-
       box.insertAdjacentHTML("beforeend", html);
-
     });
-
-  }).catch(err => {
-    console.error("Error loading replies:", err);
+   /*  console.log(CountReplies) */
+   /*  console.log(CountReplies); */
+    
+  }).catch(err =>{
+    console.log("Error loading replies:", err);
   });
  
 }
@@ -844,13 +835,12 @@ function ClikedPostComents(userid){
 
 /* ************************************************************************ Delete Start ************************************************************************************************************************** */
  function FunctionDelete(id){
-  const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
-  const ButtonDelete = document.getElementById('ButtonDelete')
-  ContainerComnfirm.classList.add('ShowConfirm')
-    const Canel1 = document.getElementById('Canel1')
-   Canel1.addEventListener('click' , ()=>{
+ const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
+const ButtonDelete = document.getElementById('ButtonDelete')
+ContainerComnfirm.classList.add('ShowConfirm')  
+const Canel1 = document.getElementById('Canel1')
+  Canel1.addEventListener('click' , ()=>{
    ContainerComnfirm.classList.remove("ShowConfirm")
-     
   })
   ButtonDelete.addEventListener('click'  , ()=>{
   axios.delete(`http://localhost:3000/posts/${id}`, {
@@ -1002,68 +992,101 @@ async function loadLikedPosts(){
   }
 }
 document.addEventListener('click' , (e)=>{  ///     ايقونة ثلاث نقاط   
-const fa_ellipsis  = e.target.closest('.fa-ellipsis-vertical')
-if (!fa_ellipsis) return
-const titleimagenameANDUsernameAndComments = fa_ellipsis.closest('.titleimagenameANDUsernameAndComments')
+ const fa_ellipsis  = e.target.closest('.fa-ellipsis-vertical')
+if (!fa_ellipsis) return 
+ const titleimagenameANDUsernameAndComments = fa_ellipsis.closest('.titleimagenameANDUsernameAndComments')
 if(!titleimagenameANDUsernameAndComments)return
 const DeleteUpdate = titleimagenameANDUsernameAndComments.querySelector('.DeleteUpdate')
 if(!DeleteUpdate) return
-DeleteUpdate.classList.toggle('displayB')
-}) 
+ const OpenList =  DeleteUpdate.classList.contains('displayB')
+  document.querySelectorAll(".DeleteUpdate").forEach((menu) => {
+    menu.classList.remove("displayB");
+  });
+ if (!OpenList) {
+    DeleteUpdate.classList.add("displayB");
+ }
+})
  document.addEventListener('mousedown' , (e)=>{
-if (e.target.closest('.Classhidden')){
+if (e.target.closest('.Classhidden') || e.target.closest(".fa-ellipsis-vertical")){
   return
 }
- document.querySelectorAll('.Classhidden').forEach((e)=>{
-e.classList.remove('displayB')
-}) 
+document.querySelectorAll('.Classhidden').forEach((e)=>{
+ e.classList.remove('displayB')
+})
 }) 
   
 document.addEventListener('click', (e)=>{    //////////  زر التعديل
 const element1 = e.target.closest('.UpdateThisElement')
-
-
 if(!element1) return
-console.log(element1);
-const DeleteUpdate = e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe') /* ____ نضيف له display None ________*/
+  e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe')  /* ____ نضيف له display None ________*/
 const titleimagenameANDUsernameAndComments   = e.target.closest('.titleimagenameANDUsernameAndComments')
-const Secondebox = titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')                 /* ______Display None ________*/
-const InputSaveValueNew = titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock')     /*_______Display________*/
-const UpdateThisElement = titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
-const P                 = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi')
+titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')                 /* ______Display None ________*/
+titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock')     /*_______Display________*/
+titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
+const P = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi')
 P.classList.add('DisplayNoNe') 
 /* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
-
 })
 
-function UpdateComments(bTn){
+async function UpdateComments(bTn){
+try{
 const objects = JSON.parse(decodeURIComponent(escape(atob(bTn.dataset.object))));
-const Input = bTn.closest('.titleimagenameANDUsernameAndComments').querySelector('.ValueNew')
+const TextIllzi = bTn.closest('.InputSaveValueNew')
+const PlaceTextCommentToChenge = TextIllzi.closest('.titleimagenameANDUsernameAndComments')
+const TextIllziIsEndResult  = PlaceTextCommentToChenge.querySelector('.TextIllzi')
+const SecondeboxRemoveClass = PlaceTextCommentToChenge.querySelector('.Secondebox')
+const DeleteUpdateList      = PlaceTextCommentToChenge.querySelector('.DeleteUpdate')
+const Input = bTn.closest('.titleimagenameANDUsernameAndComments').querySelector('.ValueNew')                                                        
 const Value = Input.value
-axios.put(`http://localhost:3000/comments/${objects._id}` , {
- text : Value
-},
-    {
-      headers:{
-       Authorization : `Bearer ${localStorage.getItem('token')}`
-  },
-  
- 
-}).then(({data}) =>{
-     if(data){
+if (Value.length === 0 ) {
+  AlertMessage2('يجب اضاف التعليق')
+  return ;
+ }
+ const res = await axios.put(`http://localhost:3000/comments/${objects._id}`,{ text : Value},{ headers:{ Authorization : `Bearer ${localStorage.getItem('token')}`},})
+
      const Container = bTn.closest('.titleimagenameANDUsernameAndComments')
-     Container.querySelector('.InputSaveValueNew').classList.add('VisisbltyHidden')
-     }
-
-    Input.value = ""
-        GetPostsAll()
-     }).catch((Error)=>{
-    
- })
+     Container.querySelector('.InputSaveValueNew').classList.remove('DiplayBlock')
+     Input.value = ""  
+     /* GetPostsAll() */
+     
+     const TextValue = res.data.text
+     TextIllziIsEndResult.classList.remove('DisplayNoNe')
+     TextIllziIsEndResult.innerHTML = TextValue
+     SecondeboxRemoveClass.classList.remove('DisplayNoNe')
+     DeleteUpdateList.classList.remove('DisplayNoNe')
+ }catch(error){
+    console.log(error);
+  
+ }
+  
 }
+let DeleteMod = "Nothing"
+async function DeleteComments(id){
+    DeleteMod = "delete"
+   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
+   const ButtonDelete = document.getElementById('ButtonDelete')
+   ContainerComnfirm.classList.add('ShowConfirm') 
+   const Canel1 = document.getElementById('Canel1')
+   Canel1.addEventListener('click' , ()=>{
+   ContainerComnfirm.classList.remove("ShowConfirm")
+  })
+  if (DeleteMod === "delete") {
+       ButtonDelete.addEventListener( "click", async  ()=>{
+       await axios.delete(`http://localhost:3000/deletetcommenst/${id}`,{headers:{Authorization : `Bearer ${token}`},}) 
+       ContainerComnfirm.classList.remove('ShowConfirm') 
+       {once: true}})
+      }
+} 
+ 
+
+
+
+
+ 
+
+                     
+
 const Suggestion = document.querySelector('.suggestion')
-
-
 const Window_The_Profile = document.querySelector('.Window_The_Profile')
 window.addEventListener('scroll' ,()=>{
     if (window.scrollY > 2) {

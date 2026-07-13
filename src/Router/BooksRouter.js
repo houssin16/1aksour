@@ -4,7 +4,7 @@ const path = require("path");
 const multer = require("multer");
 
 // Controllers
-const { registerUser, loginUser, getProfile, SearchUsers  , GetUserprofile,} = require("../Contllors/authController");
+const { registerUser, loginUser, getProfile, SearchUsers  , GetUserprofile,  } = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
 const { 
     createPost,
@@ -20,7 +20,7 @@ const { addComment, getComments } = require("../Contllors/commentController");
 const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
 const { UpdateComment } = require('../Contllors/UpdateComments');
-
+const {Deletecommentee}  = require ('../Contllors/commentController')
 // Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
@@ -44,7 +44,9 @@ Router.put("/ChengeImage",  upload.single("avatar"),verifyToken,ChengeImageUser)
 Router.get("/GetUser/:id" ,verifyToken  ,GetMyDataUser )
 Router.get("/posts/:id", GetPost)
 Router.post('/AddCover-image',upload.single("coverImage"),verifyToken ,AddCoverImageSendFun)
-
+console.log("verifyToken:", typeof verifyToken);
+console.log("Deletecomment:", typeof Deletecommentee);
+Router.delete('/deletetcommenst/:id',verifyToken ,Deletecommentee)
 // Comments
 Router.post("/posts/:id/comments", verifyToken, addComment);
 Router.get("/posts/:id/comments", getComments);
@@ -52,7 +54,7 @@ Router.put('/comments/:id', verifyToken, UpdateComment);
 
 // Replies
 Router.post("/replies", verifyToken, ReplyComment);
-Router.get('/replies', verifyToken, GetReplyComment);
+Router.get('/posts/:postIdd/reblies', verifyToken, GetReplyComment);
 console.log(typeof GetUserprofile)
 Router.get('/user/:id/posts' , GetUserprofile)
 // Search

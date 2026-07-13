@@ -764,7 +764,7 @@ height: 100px;
   height: 35px;
 }
 .UsernameAndComments{
-/*  background-color: blue;   */
+/* background-color: blue;  */
   display: flex;
   flex-direction: column;
  align-items: flex-end;
@@ -790,12 +790,8 @@ overflow-wrap: anywhere;
   border-radius: 50%; cursor: pointer;
 }
 .titleimagename {
-
-  margin-right: 12px;
-
-  
+margin-right: 12px;
 }
-
 /* _____________________________________________________________________________________ */
 .titleimagenameANDUsernameAndComments {
 
@@ -803,7 +799,7 @@ overflow-wrap: anywhere;
   flex-direction: row-reverse;
   gap: 26px;
   position: relative;
-/*  background-color: rgb(17, 17, 80);  */
+/*   background-color: rgb(17, 17, 80); */
   margin-top: 20px;
 
 }
@@ -1759,11 +1755,11 @@ gap: 5px;
   border-radius: 50%;
  }
  .ReplayParghraf {
-  /*  background-color: rgb(91, 34, 138); */
+  background-color: rgb(91, 34, 138); 
    margin-right: 20px;
    position: relative;
-   
-  
+   height: 210px;
+   overflow: hidden;
  }
  .ReplayParghraf img {
  border-radius: 50%;
@@ -1771,11 +1767,12 @@ gap: 5px;
   height:30px;
  }
  .ReplayParghraf p {
-  /* background-color: yellow;  */
-   margin-bottom: 5px;
-   font-size: 20px;
+  /*  background-color: yellow;  */ 
+   margin-bottom: 2px;
+   font-size: 18px;
    direction: rtl;
    color: #6b6d70;
+   overflow: hidden;
  }
  .ImageReply {
  /*  background-color: #2a7cda; */
@@ -1796,26 +1793,29 @@ gap: 5px;
  display: flex;
    align-items: center;
    gap: 20px;
- /*  background-color: brown; */
+  /* background-color: brown;  */
   direction: rtl;
 }
 .LikeSpan {
-
-  color: #6b6d70;
- 
+  color: #4f545a;
 }
-
+.Namethereplies {
+ margin: 5px;
+  /* background-color: #2a7cda; */
+}
 #CommentsDeleteAndUpdate {
   position: absolute;
   left: 10px;
   top: 10px;
-  color: black;
+  color: rgb(143, 16, 16);
   cursor: pointer;
+  
 }
 
 .DeleteUpdate{
   position: absolute;
-  background-color: #2b7bdd;
+  /* background-color: #2b7bdd; */
+  background-color: #850303;
   left: 15px;
   top: 25px;
   width: 23%;
@@ -1847,7 +1847,7 @@ gap: 5px;
 }
 /* __________________________________________________________________________________________ */
 .InputSaveValueNew {
-  /*  background-color: rgb(204, 22, 22);  */
+  background-color: rgb(204, 22, 22);  
   width: 80%;
   position: absolute;
   top: -12px;
@@ -2282,4 +2282,26 @@ transform: translateY(30px);
 .Username h1 {
   color: #bb270d;
   margin-right: 50px;
+}
+.PlaceAksourLikeAndSeconde{
+  /* background-color: rgb(10, 13, 189);  */
+ /*height: 500px;*/
+ position: relative;
+}
+.Show_MoreButton{
+  display: none;
+  background-color: #bb270d;
+}
+.ButtonShow_More{
+/*  background-color: red; */
+ display:  block;
+ position: absolute;
+ bottom: -20px;
+ background-color: rebeccapurple;
+ /*max-height: 300px;
+overflow-y: auto;
+padding: 8px;*/
+}
+.ClassHiddenContianer {
+ padding:8px;
 }

@@ -768,11 +768,12 @@ background-color: rgb(230, 31, 41);
      transition: opacity 0.3s ease, visibility 0.5s ease;
 
 }
-.CanelConfirm{
+/* .CanelConfirm{
     visibility: hidden;
     opacity: 0;
     transition:opacity 1s ease ,visibility 1s ease ;
-} 
+    background-color: red;
+}  */
 .oneheader .pro .username {
 
     font-size: 35px;

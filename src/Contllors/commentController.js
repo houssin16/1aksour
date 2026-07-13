@@ -31,6 +31,20 @@ const getComments = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+const Deletecommentee= async (req, res) => {
 
+ 
+ try{
+    const {id} = req.params
+    const Com  = await Comment.findByIdAndDelete(id)
+    if(!Com) {
+      return res.status(404).json({message : "التعليق غير موجود"})
+     }
+      res.status(200).json({message: "تم حذف التعليق بنجاح"})
+     }catch(err){
+      res.status(500).json({ message: err.message }); 
+  
+ }
+}
 
-module.exports = { addComment, getComments };
+module.exports = { addComment, getComments ,Deletecommentee};
