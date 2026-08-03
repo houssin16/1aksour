@@ -796,7 +796,7 @@ function loadReplies(idpost) {
           }
           button.onclick = () =>{
            
-
+               
           }
         const html =`
         <div class="reply">
