@@ -375,6 +375,8 @@ GetPostsAll()
    containerAll.appendChild(container);  
     GetComments(element._id)
        loadReplies(element._id);
+       CountRepliess(element._id)
+       Getdatarplay(element._id)
    })  
 
    page++ 
@@ -602,14 +604,17 @@ return `مند ${Math.floor(diff  / 86400)} يوم`
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 async  function GetComments(id) {
 try{
-
   
    const response = await  axios.get(`http://localhost:3000/posts/${id}/comments`, {
     headers: { Authorization: `Bearer ${token}`}
   })
+   
+   /*  console.log(FunctionReplay); */
     const comments = response.data
     const PlaceInCommentsq = document.querySelector(`.placeCommentsPost-${id}`);
     const ImageCommentsReplay = JSON.parse(localStorage.getItem('imge'))
+   
+
     if (!PlaceInCommentsq) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
       return;
@@ -619,9 +624,21 @@ try{
       PlaceInCommentsq.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
       return;
     }
+
     comments.forEach((comment )=> {
+    
+  /*     const Objcetsq = FunctionReplay[comment._id] 
+        if (Objcetsq) {
+        
+         if (Objcetsq > 3 ) {
+            console.log(FunctionReplay);
+            
+         }
+          
+      } */
      
       const div = document.createElement('div');
+     
       div.classList.add('comment');
       let Us            = r()
       let  DeleteUpdate = ""
@@ -640,6 +657,7 @@ try{
       <ul>
       `
      }
+   
       div.innerHTML = `
   <div class="titleimagenameANDUsernameAndComments">
     <div class="titleimagename">
@@ -687,13 +705,18 @@ try{
          ${DeleteUpdate}
       </div>
   </div>
-`;
-      PlaceInCommentsq.appendChild(div);
+   `;
+   
+     PlaceInCommentsq.appendChild(div);
+     
     });
+      
     
+      
+
 }catch(error){
 
-   console.log(error);
+ console.log(error);
    
 }
 
@@ -762,42 +785,25 @@ document.addEventListener('click', (e) => {
 /* ----------------------------------------------------__Get response Reply Comments_______________________________-------------------------------------- */
 
 
-function loadReplies(idpost) {
-  axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
+async function loadReplies(idpost) { 
+try{
+
+const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
     headers: {
       Authorization: `Bearer ${token}`
-    }
-  }).then(({ data }) => {
-        const CountReplies = {}
-          
-      /*   const button = commentContain */
-        data.forEach((reply , index ) => {
+    }})
        
-        if (!reply.commentId) return;
-   
+       
+         const resData = data.data
+        resData.forEach((reply , index ) => {
         let id = reply.commentId._id;
-        if(!CountReplies[id]){
-
-          CountReplies[id] = 1
-        }else{
-            
-           CountReplies[id]++
-        }
-        const commentContainer = document.querySelector( `[data-comments-id="${id}"]`)
-        if (!commentContainer) return;
+       const commentContainer = document.querySelector( `[data-comments-id="${id}"]`)
+        if (!commentContainer) return; 
         const box = commentContainer.querySelector(".ReplayParghraf");
+      
         const PlaceAksourLikeAndSeconde  = commentContainer.closest('.PlaceAksourLikeAndSeconde')
         if (!box) return;
-        const button = PlaceAksourLikeAndSeconde.querySelector('.Show_MoreButton')
-        console.log(button)
-         if(CountReplies[id] >= 3){
-          button.classList.add('ButtonShow_More')
-          box.classList.add('ClassHiddenContianer')
-          }
-          button.onclick = () =>{
-           
-               
-          }
+   
         const html =`
         <div class="reply">
         <div class= "uLIZICom">
@@ -809,18 +815,69 @@ function loadReplies(idpost) {
         </div>
         </div>
       `;
+     
       box.insertAdjacentHTML("beforeend", html);
-    });
-   /*  console.log(CountReplies) */
-   /*  console.log(CountReplies); */
-    
-  }).catch(err =>{
-    console.log("Error loading replies:", err);
-  });
- 
+    }); 
+  
+}catch(error1){
+
+ console.log(error1)
+   
 }
 
-/* ______________________________________________________________________________________________________________ */
+}
+
+ async function Getdatarplay(idpost){
+
+    const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
+    headers: {
+      Authorization: `Bearer ${token}`
+    }})
+     const resData = data.data
+   return resData
+  }
+  
+CountRepliess(idpost)  /* _________________________________________________________CountRepliles______________________________________________________________________________________________*/
+async function CountRepliess(idpost){
+ const ReplayCommnt = await Getdatarplay(idpost)
+
+  const CountReplies = {}
+ ReplayCommnt.forEach(r => {
+  const id = r.commentId._id   /* ====6a52cdc2a7e8381330968075 */
+ 
+        
+         if(!CountReplies[id]){
+
+          CountReplies[id] = 1
+        
+        }else{
+           
+           CountReplies[id]++
+          
+        }})
+        console.log(CountReplies);
+        
+         /*  const button = PlaceAksourLikeAndSeconde.querySelector('.Show_MoreButton')
+         if(CountReplies[id] >= 3 ){
+          button.classList.add('ButtonShow_More')
+          box.classList.add('ClassHiddenContianer')
+
+           button.addEventListener('click' ,function(){
+            console.log("تم الضغط");
+           if (box.classList.contains('ClassHiddenContianer')) {
+             box.classList.remove('ClassHiddenContianer')
+             button.textContent = "اخفاء"
+           }else{
+            button.textContent = "اضهار المزيد"
+              box.classList.add('ClassHiddenContianer')
+           }
+
+          })} */
+
+}
+/* _________________________________________________________CountRepliles______________________________________________________________________________________________*/
+
+/* _________________________________________________________________________________________________ */
 function ClikedPostComents(userid){
 
 
