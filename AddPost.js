@@ -75,8 +75,9 @@ const password = document.getElementById('passwordlOGIN').value.trim()
   password: password,
 }) 
 .then((respone)=>{
+   ;
      
-     if (respone) {
+     if (respone) { 
         const res = respone.data.user
          localStorage.setItem("imge", JSON.stringify(res.avatar));
         const Token = respone.data.token
@@ -179,6 +180,21 @@ IconeX.onclick = function(){
     
 }
 //////////////////////////////////////////////////////////////////////////All Post//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const Suggestion = document.querySelector('.suggestion')
+const Window_The_Profile = document.querySelector('.Window_The_Profile')
+window.addEventListener('scroll' ,()=>{
+    if (window.scrollY > 2) {
+      Suggestion.classList.add('TopL')
+      Window_The_Profile.classList.add('TopL')
+       
+    }else if (window.scrollY === 0){
+      Suggestion.classList.remove('TopL')   
+      Window_The_Profile.classList.remove('TopL')  
+    }
+   
+    
+})
 
 const UsersArayys = JSON.parse(localStorage.getItem('Users'))
 let SetTimeOutX = false
@@ -374,9 +390,8 @@ GetPostsAll()
   
    containerAll.appendChild(container);  
     GetComments(element._id)
-       loadReplies(element._id);
-       CountRepliess(element._id)
-       Getdatarplay(element._id)
+   
+   
    })  
 
    page++ 
@@ -386,7 +401,6 @@ GetPostsAll()
   loading = false 
   }  
   loadLikedPosts()
- 
 }
 window.addEventListener('scroll' , ()=>{
 
@@ -440,8 +454,8 @@ if (AksourOpenList && AksourOpenList !== Fratch) {
 /* _______________________________________________________________________________________________ */
 /* _______________________________________________________________________________________________ */
 document.addEventListener('mousedown' , (e)=>{
-if(e.target.closest('.fa-ellipsis') || e.target.closest('.fa-trash')) {
- return ;
+if(e.target.closest('.fa-ellipsis') || e.target.closest('.fa-trash')){
+ return;
 }
 document.querySelectorAll('.fa-trash').forEach((e)=>{
    e.classList.remove("visibleIcone") 
@@ -613,8 +627,9 @@ try{
     const comments = response.data
     const PlaceInCommentsq = document.querySelector(`.placeCommentsPost-${id}`);
     const ImageCommentsReplay = JSON.parse(localStorage.getItem('imge'))
-   
+    const Resultreply = await CountRepliess(id)
 
+   
     if (!PlaceInCommentsq) {
       console.warn("لا يوجد مكان لتعليقات البوست:", id);
       return;
@@ -624,25 +639,14 @@ try{
       PlaceInCommentsq.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
       return;
     }
-
+   
     comments.forEach((comment )=> {
-    
-  /*     const Objcetsq = FunctionReplay[comment._id] 
-        if (Objcetsq) {
-        
-         if (Objcetsq > 3 ) {
-            console.log(FunctionReplay);
-            
-         }
-          
-      } */
-     
       const div = document.createElement('div');
-     
-      div.classList.add('comment');
-      let Us            = r()
-      let  DeleteUpdate = ""
-     if (comment.userId._id === Us._id){
+         
+        /* div.classList.add('comment'); */
+        let Us            = r()
+        let  DeleteUpdate = ""
+        if (comment.userId._id === Us._id){
         DeleteUpdate = `
          <ul>
             <li  class="UpdateThisElement" data-Object=${JSON.stringify(comment)}>تعديل<i class="fa-solid fa-pen"></i></li>
@@ -707,13 +711,30 @@ try{
   </div>
    `;
    
-     PlaceInCommentsq.appendChild(div);
-     
-    });
-      
-    
-      
+      const paraghraf = div.querySelector(".ReplayParghraf");
+      const buttonMore = div.querySelector(".Show_MoreButton");
+       const Result = Resultreply[comment._id]
+   
+           if( Result > 3) {
+            buttonMore.style.display ="block"
+            paraghraf.classList.add('ClassHiddenContianer')
+            buttonMore.textContent ="عرض المزيد"
+           }
+           buttonMore.addEventListener("click" , ()=>{
+            if (paraghraf.classList.contains('ClassHiddenContianer')) {
+              paraghraf.classList.remove('ClassHiddenContianer')
+            buttonMore.textContent ="اخفاء"
 
+            }else{
+              paraghraf.classList.add('ClassHiddenContianer')
+              buttonMore.textContent ="عرض المزيد"
+            }
+
+           })
+       PlaceInCommentsq.appendChild(div);
+});
+ CountRepliess(id)    
+loadReplies(id);
 }catch(error){
 
  console.log(error);
@@ -721,6 +742,38 @@ try{
 }
 
 }
+let DeleteMod = "Nothing"
+async function DeleteComments(id){
+  console.log(id);
+  
+    DeleteMod = "delete"
+   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
+   const ButtonDelete = document.getElementById('ButtonDelete')
+   ContainerComnfirm.classList.add('ShowConfirm') 
+   const Canel1 = document.getElementById('Canel1')
+   Canel1.addEventListener('click' , ()=>{
+   ContainerComnfirm.classList.remove("ShowConfirm")
+  })
+  if (DeleteMod === "delete") {
+       ButtonDelete.addEventListener( "click", async  ()=>{
+       await axios.delete(`http://localhost:3000/deletetcommenst/${id}`,{headers:{Authorization : `Bearer ${token}`},}) 
+       ContainerComnfirm.classList.remove('ShowConfirm') 
+       {once: true}})
+      }
+} 
+
+document.addEventListener('click', (e)=>{    //////////  زر التعديل
+const element1 = e.target.closest('.UpdateThisElement')
+if(!element1) return
+  e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe')  /* ____ نضيف له display None ________*/
+const titleimagenameANDUsernameAndComments   = e.target.closest('.titleimagenameANDUsernameAndComments')
+titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')                 /* ______Display None ________*/
+titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock')     /*_______Display________*/
+titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
+const P = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi')
+P.classList.add('DisplayNoNe') 
+/* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
+})
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 const BASE_URL = "http://localhost:3000" 
 // ✅ خارج أي دالة — يُسجَّل مرة واحدة فقط
@@ -785,6 +838,51 @@ document.addEventListener('click', (e) => {
 /* ----------------------------------------------------__Get response Reply Comments_______________________________-------------------------------------- */
 
 
+ Profile()
+async  function Profile() {
+ console.log("ergqzerg");
+ 
+  const Window_The_Profile = document.querySelector('.Window_The_Profile')
+   const Result        = await GetPostsOFone_User()
+    let WindowToProfile      = ""
+   /*  Window_The_Profile.innerHTML ="" */
+  if (token) {
+    try{
+    const res = await axios.get("http://localhost:3000/profile", {  headers: {Authorization: `Bearer ${token}`  } })
+      
+      const response      = res.data;
+     
+      const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
+      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
+      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
+      document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
+      document.getElementById('LengthPost').innerHTML = ` <span>${Result}</span>`
+       console.log(Result);
+      return res;
+      }catch(e){
+       console.log(e)
+    }
+
+}
+
+
+}
+console.log("terhgerthsrthsrth");
+async function GetPostsOFone_User(){
+
+  const res = await axios.get('http://localhost:3000/Posts_one_user' , {
+    headers : {
+      Authorization : `Bearer ${token}`
+    }
+  })
+
+ return res.data.length
+ 
+}
+GetPostsOFone_User()
+
+
 async function loadReplies(idpost) { 
 try{
 
@@ -800,10 +898,8 @@ const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
        const commentContainer = document.querySelector( `[data-comments-id="${id}"]`)
         if (!commentContainer) return; 
         const box = commentContainer.querySelector(".ReplayParghraf");
-      
-        const PlaceAksourLikeAndSeconde  = commentContainer.closest('.PlaceAksourLikeAndSeconde')
+         const PlaceAksourLikeAndSeconde  = commentContainer.closest('.PlaceAksourLikeAndSeconde')
         if (!box) return;
-   
         const html =`
         <div class="reply">
         <div class= "uLIZICom">
@@ -826,7 +922,33 @@ const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
 }
 
 }
+document.addEventListener('click' , (e)=>{ 
+   ///     ايقونة ثلاث نقاط   
+ const fa_ellipsis  = e.target.closest('.fa-ellipsis-vertical')
+if (!fa_ellipsis) return 
+ const titleimagenameANDUsernameAndComments = fa_ellipsis.closest('.titleimagenameANDUsernameAndComments')
+if(!titleimagenameANDUsernameAndComments)return
+const DeleteUpdate = titleimagenameANDUsernameAndComments.querySelector('.DeleteUpdate')
+if(!DeleteUpdate) return
+ const OpenList =  DeleteUpdate.classList.contains('displayB')
+  document.querySelectorAll(".DeleteUpdate").forEach((menu) => {
+    menu.classList.remove("displayB");
+  });
+ if (!OpenList) {
+    DeleteUpdate.classList.add("displayB");
+ }
+   
+ 
+})
 
+ document.addEventListener('mousedown' , (e)=>{
+if (e.target.closest('.Classhidden') || e.target.closest(".fa-ellipsis-vertical")){
+  return
+}
+document.querySelectorAll('.Classhidden').forEach((e)=>{
+ e.classList.remove('displayB')
+})
+}) 
  async function Getdatarplay(idpost){
 
     const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
@@ -840,7 +962,6 @@ const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
 CountRepliess(idpost)  /* _________________________________________________________CountRepliles______________________________________________________________________________________________*/
 async function CountRepliess(idpost){
  const ReplayCommnt = await Getdatarplay(idpost)
-
   const CountReplies = {}
  ReplayCommnt.forEach(r => {
   const id = r.commentId._id   /* ====6a52cdc2a7e8381330968075 */
@@ -854,26 +975,11 @@ async function CountRepliess(idpost){
            
            CountReplies[id]++
           
-        }})
-        console.log(CountReplies);
-        
-         /*  const button = PlaceAksourLikeAndSeconde.querySelector('.Show_MoreButton')
-         if(CountReplies[id] >= 3 ){
-          button.classList.add('ButtonShow_More')
-          box.classList.add('ClassHiddenContianer')
-
-           button.addEventListener('click' ,function(){
-            console.log("تم الضغط");
-           if (box.classList.contains('ClassHiddenContianer')) {
-             box.classList.remove('ClassHiddenContianer')
-             button.textContent = "اخفاء"
-           }else{
-            button.textContent = "اضهار المزيد"
-              box.classList.add('ClassHiddenContianer')
-           }
-
-          })} */
-
+        }
+       Getdatarplay(id)
+      })
+      return CountReplies
+         
 }
 /* _________________________________________________________CountRepliles______________________________________________________________________________________________*/
 
@@ -889,7 +995,6 @@ function ClikedPostComents(userid){
      window.location.href = `testProfile.html?userid=${userid}` 
 }
 /* ************************************************************************ Create Comments End ********************************************************************************* **********************************/
-
 /* ************************************************************************ Delete Start ************************************************************************************************************************** */
  function FunctionDelete(id){
  const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
@@ -924,31 +1029,8 @@ const Canel1 = document.getElementById('Canel1')
 
 /* ************************************************************************ Delete End   ********************************************************************************* **********************************/
 /* ************************************************************************ Profile start   ********************************************************************************* **********************************/
- Profile()
-async  function Profile() {
- 
-  const Window_The_Profile = document.querySelector('.Window_The_Profile')
-    let WindowToProfile      = ""
-   /*  Window_The_Profile.innerHTML ="" */
-  if (token) {
-    try{
-    const res = await axios.get("http://localhost:3000/profile", {  headers: {Authorization: `Bearer ${token}`  } })
-      
-      const response      = res.data;
-      
-      const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
-      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
-      document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
-      return res;
-      }catch(e){
-       console.log(e)
-    }
-  
-}
 
-}
+
 /* ************************************************************************ Profile End   ********************************************************************************* **********************************/
 /* document.querySelector('.fa-building-user').addEventListener('click' , function(){
 window.location.href =`testProfile.html` 
@@ -979,8 +1061,6 @@ const ButtonCommentsSend = document.querySelector('.Send-Comments')
 
    
 })
-
-
 
 async function LikesPost(heart) {
  
@@ -1048,42 +1128,7 @@ async function loadLikedPosts(){
    
   }
 }
-document.addEventListener('click' , (e)=>{  ///     ايقونة ثلاث نقاط   
- const fa_ellipsis  = e.target.closest('.fa-ellipsis-vertical')
-if (!fa_ellipsis) return 
- const titleimagenameANDUsernameAndComments = fa_ellipsis.closest('.titleimagenameANDUsernameAndComments')
-if(!titleimagenameANDUsernameAndComments)return
-const DeleteUpdate = titleimagenameANDUsernameAndComments.querySelector('.DeleteUpdate')
-if(!DeleteUpdate) return
- const OpenList =  DeleteUpdate.classList.contains('displayB')
-  document.querySelectorAll(".DeleteUpdate").forEach((menu) => {
-    menu.classList.remove("displayB");
-  });
- if (!OpenList) {
-    DeleteUpdate.classList.add("displayB");
- }
-})
- document.addEventListener('mousedown' , (e)=>{
-if (e.target.closest('.Classhidden') || e.target.closest(".fa-ellipsis-vertical")){
-  return
-}
-document.querySelectorAll('.Classhidden').forEach((e)=>{
- e.classList.remove('displayB')
-})
-}) 
-  
-document.addEventListener('click', (e)=>{    //////////  زر التعديل
-const element1 = e.target.closest('.UpdateThisElement')
-if(!element1) return
-  e.target.closest('.DeleteUpdate').classList.add('DisplayNoNe')  /* ____ نضيف له display None ________*/
-const titleimagenameANDUsernameAndComments   = e.target.closest('.titleimagenameANDUsernameAndComments')
-titleimagenameANDUsernameAndComments.querySelector('.Secondebox').classList.add('DisplayNoNe')                 /* ______Display None ________*/
-titleimagenameANDUsernameAndComments.querySelector('.InputSaveValueNew').classList.add('DiplayBlock')     /*_______Display________*/
-titleimagenameANDUsernameAndComments.querySelector('.UpdateThisElement')
-const P = titleimagenameANDUsernameAndComments.querySelector('.TextIllzi')
-P.classList.add('DisplayNoNe') 
-/* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
-})
+
 
 async function UpdateComments(bTn){
 try{
@@ -1117,44 +1162,8 @@ if (Value.length === 0 ) {
  }
   
 }
-let DeleteMod = "Nothing"
-async function DeleteComments(id){
-    DeleteMod = "delete"
-   const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
-   const ButtonDelete = document.getElementById('ButtonDelete')
-   ContainerComnfirm.classList.add('ShowConfirm') 
-   const Canel1 = document.getElementById('Canel1')
-   Canel1.addEventListener('click' , ()=>{
-   ContainerComnfirm.classList.remove("ShowConfirm")
-  })
-  if (DeleteMod === "delete") {
-       ButtonDelete.addEventListener( "click", async  ()=>{
-       await axios.delete(`http://localhost:3000/deletetcommenst/${id}`,{headers:{Authorization : `Bearer ${token}`},}) 
-       ContainerComnfirm.classList.remove('ShowConfirm') 
-       {once: true}})
-      }
-} 
- 
 
 
-
-
- 
-
-                     
-
-const Suggestion = document.querySelector('.suggestion')
-const Window_The_Profile = document.querySelector('.Window_The_Profile')
-window.addEventListener('scroll' ,()=>{
-    if (window.scrollY > 2) {
-      Suggestion.classList.add('TopL')
-      Window_The_Profile.classList.add('TopL')
-       
-    }else if (window.scrollY === 0){
-      Suggestion.classList.remove('TopL')   
-      Window_The_Profile.classList.remove('TopL')  
-    }
-})
 
 function GetOnepostPage(id){
  window.location=`http://127.0.0.1:5501/testProfile.html?id=${id}` 

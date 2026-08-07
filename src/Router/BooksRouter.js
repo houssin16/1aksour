@@ -15,7 +15,7 @@ const {
     ChengeImageUser, 
     GetPostById ,
     GetMyDataUser,
-  AddCoverImageSendFun,GetPost } = require("../Contllors/postController");
+  AddCoverImageSendFun,GetPost ,GetPost_one_user } = require("../Contllors/postController");
 const { addComment, getComments } = require("../Contllors/commentController");
 const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
@@ -51,7 +51,7 @@ Router.delete('/deletetcommenst/:id',verifyToken ,Deletecommentee)
 Router.post("/posts/:id/comments", verifyToken, addComment);
 Router.get("/posts/:id/comments", getComments);
 Router.put('/comments/:id', verifyToken, UpdateComment);
-
+Router.get('/Posts_one_user' ,verifyToken ,GetPost_one_user)
 // Replies
 Router.post("/replies", verifyToken, ReplyComment);
 Router.get('/posts/:postIdd/reblies', verifyToken, GetReplyComment);

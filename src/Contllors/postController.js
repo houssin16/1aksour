@@ -232,6 +232,20 @@ try{
  res.status(500).json({message:err.massege})
 }
 }
+
+const GetPost_one_user = async  (req , res) => {
+
+ try{
+ const UserId  = req.user.id
+ const Result  = await Post.find({
+  userId : UserId
+})
+ res.json(Result)
+ }catch(err){
+res.status(404).json({message:err.massege})
+}
+
+}
 module.exports = {
     createPost,
     getPosts,
@@ -242,6 +256,7 @@ module.exports = {
     GetPostById,
     GetMyDataUser,
     AddCoverImageSendFun,  
-    GetPost
+    GetPost,
+    GetPost_one_user
   };
 

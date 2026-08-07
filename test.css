@@ -18,8 +18,8 @@ body.no-scroll {
 }
 .container {
   width: 100%;
-    min-height: 10vh;
-   display: grid;
+min-height: 10vh;
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
   gap: 15px;
  
@@ -764,8 +764,8 @@ height: 100px;
   height: 35px;
 }
 .UsernameAndComments{
-background-color: blue; 
-  display: flex;
+/* background-color: blue; 
+ */  display: flex;
   flex-direction: column;
  align-items: flex-end;
  gap: 7px;
@@ -1756,10 +1756,12 @@ gap: 5px;
   border-radius: 50%;
  }
  .ReplayParghraf {
-  background-color: rgb(91, 34, 138); 
+ /*  background-color: rgb(91, 34, 138);  */
    margin-right: 20px;
    position: relative;
    overflow: hidden;
+   margin-bottom: 2px;
+  
  }
  .ReplayParghraf img {
  border-radius: 50%;
@@ -1775,7 +1777,7 @@ gap: 5px;
    overflow: hidden;
  }
  .ImageReply {
- /*  background-color: #2a7cda; */
+  background-color: #2a7cda;
   display: flex;
   justify-content:center;
   width: 20%;
@@ -1793,7 +1795,7 @@ gap: 5px;
  display: flex;
    align-items: center;
    gap: 20px;
-  /* background-color: brown;  */
+/*   background-color: brown;  */
   direction: rtl;
 }
 .LikeSpan {
@@ -2237,8 +2239,8 @@ transition: 0.2s;
  visibility: visible !important;
  opacity: 1 !important;
  transition: 0.4s;
- cursor: pointer !important
- ;
+ cursor: pointer !important;
+ 
 }
 #UploadeFile h3 {
   font-size: 20px;
@@ -2284,12 +2286,11 @@ transform: translateY(30px);
   margin-right: 50px;
 }
  .PlaceAksourLikeAndSeconde{
-   background-color: rgb(102, 179, 1);  
-
- position: relative;
+ /*   background-color: rgb(102, 179, 1);   */
+   position: relative;
 } 
 .Show_MoreButton{
-  display: none;
+ display: none;
   background-color: #bb270d;
 }
 .ButtonShow_More{
@@ -2302,9 +2303,47 @@ transform: translateY(30px);
 overflow-y: auto;
 padding: 8px;*/
 }
-  .ClassHiddenContianer {
- padding:8px;
- height: 205px;
-} 
-
+.ClassHiddenContianer {
+padding:8px;
+height: 201px;
+}
+ .container .FrindesPage{
+  background-color: #0565d3;
+  width: 100%;
+  height:100VH;
+  display: flex; 
  
+  flex-direction: row-reverse;
+}
+.Friends_list_chat {
+  background-color: #8595a7;
+  width: 40%;
+ 
+}
+.Title_And_Search {
+  background-color: chartreuse;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  gap: 10px;
+  direction: rtl;
+  margin-top: 100PX;
+}
+.Title_And_Search .SearchFrindes {
+  width: 100%;
+  height: 80px;
+  border-radius: 30px ;
+}
+.Title_And_Search h2 {
+font-size: 27px;
+}
+.PlaceTheChat {
+  width: 70%;
+  background-color: red;
+}
+.Friends_list_chat .BoxFrindesChat {
+  background-color: #0565d3;
+  width: 100%;
+  height: 80PX;
+  
+}
