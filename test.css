@@ -394,15 +394,15 @@ pointer-events: auto;
   /*  background-color: red; */
    padding: 15px;
    margin-bottom: 45px;
-   
 
 }
 .Parent {
   /*  background-color: red;  */
-  width: 100%;
+  width: 80%;
   display: flex; 
   flex-direction: column;
-  align-items: flex-end; 
+ margin-left: 300px;
+
 }
 /* /////////////////////////////////// */
 .Illlzi {
@@ -413,11 +413,20 @@ pointer-events: auto;
  display: none;
 }
 .ContanLe {
-
+  background-color: #e7eef5;
   width: 55%;
-   margin: 20px 0px 20px 570px;; 
+   margin: 20px 0px 60px 570px;; 
   /* display: none;  */
- font-family: 'Cairo', sans-serif;;
+  font-family: 'Cairo', sans-serif;
+  border-radius: 7px;
+ box-shadow: 0px 2px 0px 0px rgb(210, 210, 214);
+ 
+}
+.ClassBlocking {
+  visibility: visible;
+}
+.classHiddenxw {
+  visibility: hidden;
 }
 /* //////////////////////////////////// */
 .PageTextAndImageAndVideo  {
@@ -888,7 +897,7 @@ margin-right: 12px;
 
 /* *********************************************************************************************************Profile************************************************************** */
 .container {
-
+  position: relative;
   width: 100%;
   min-height: 0;
 }
@@ -902,7 +911,7 @@ margin-right: 12px;
 .ImageProfile  {
 background-color: rgb(247, 139, 139);
  width: 100%; 
- height: 300px;
+ height: 500px;
   overflow:hidden;
 }
 .ImageProfile img{
@@ -2308,42 +2317,349 @@ padding:8px;
 height: 201px;
 }
  .container .FrindesPage{
-  background-color: #0565d3;
+ /*  background-color: #0565d3; */
   width: 100%;
   height:100VH;
   display: flex; 
- 
   flex-direction: row-reverse;
 }
 .Friends_list_chat {
-  background-color: #8595a7;
-  width: 40%;
- 
+  background-color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  direction: rtl;
+ height:580px;
+
 }
 .Title_And_Search {
-  background-color: chartreuse;
-  display: flex;
-  flex-direction: column;
-  height: 100px;
+/*   background-color: rgb(95, 189, 2); */
+  height: 150px;
   gap: 10px;
   direction: rtl;
-  margin-top: 100PX;
+   margin-top: 70PX; 
+   position: relative;
+  
+  
+}
+.Title_And_Search .fa-sistrix {
+  position: absolute;
+  right: 90px;
+  top: 84.5px;
+  font-size: 30px;
+ color:  rgb(121, 121, 124);
 }
 .Title_And_Search .SearchFrindes {
-  width: 100%;
-  height: 80px;
-  border-radius: 30px ;
+  width: 87%;
+  height: 60px;
+  border-radius: 25px;
+  margin-right: 75px;
+  margin-top: 40px;
+  padding-right: 50px;
+  font-size: 20px;
+  outline: 0;
+  border: 0;
+  caret-color: rgb(121, 121, 124);
+ 
+}
+.SearchFrindes::placeholder {
+font-size: 25px;
+padding-right: 10px;
+  font-family: 'Cairo' , sans-serif;
+}
+
+.SearchFrindes:focus {
+
+  border: 3px solid #0565d3 ;
 }
 .Title_And_Search h2 {
 font-size: 27px;
+margin-right: 80px;
+position: relative;
+top: 20px;
 }
 .PlaceTheChat {
   width: 70%;
-  background-color: red;
+ /*  background-color: red; */
+}
+.PlaceTheChat .StartingChat {
+ text-align: center;
+ /*  background-color: #271313; */
+  width: 60%;
+  height: 300PX;
+}
+.Box_Chating {
+  width:80%;
+  height: 700px;
+  background-color: #295686;
+  margin: 150px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ display: none;
+}
+.StartingChat .fa-paper-plane {
+  color: rgb(134, 134, 134);
+  font-size: 50px;
 }
 .Friends_list_chat .BoxFrindesChat {
-  background-color: #0565d3;
+  background-color: #ffffff;
   width: 100%;
-  height: 80PX;
+  height: 65PX;
+  direction: rtl;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+ margin-top: 30px;
+ cursor: pointer;
+
+}
+.Name_person {
+/*   background-color: yellow; */
+  width: fit-content;
+ display: flex;
+flex-direction: column;
+justify-content:center;
+h2 {
+line-height:2.5;
+color: #181717c2;
+font-weight: 500;
+}
+h3{
+  color: #636466b2;
+  font-weight: 250;
+}
+}
+.BoxFrindesChat h2{
+   font-size: 25px;
+}
+.Image_Person  {
+display: flex;
+justify-content: center;
+align-items: center;
+img {
+width: 70px;
+height: 70px;
+border-radius:50%;
+}
+}
+.TimingMessage {
+ /*  background-color: cornflowerblue; */
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: end;
+  gap: 3px;
+}
+.TimingMessage .Message_Chat{
+background-color: #0565d3; 
+color: white;
+width:27px;
+height: 27px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+}
+.mage_Person_And_Name_person {
+ /*  background-color: #df2222; */
+  display: flex;
+  gap:25px;
+  margin-right: 50px;
+}
+.TimingMessage h3 {
+  margin-left: 7px;
+  color: #878788;
+  font-weight: 200;
+  font-size: 18px;
+}
+.bettwen {
+/*   background-color: #141313c2; */
+  width: 40%;
+  margin:auto auto;
+}
+.Image_Person::before{
+
+  content: '';
+  width: 13px;
+  height: 13px;
+  position: relative;
+  background-color: rgb(41, 209, 41);
+  border-radius: 50%;
+  right: 70px;
+  top: 25px;
+  border: 3px solid white;
+}
+.PlaceTheChatFrindes {
+    width:80%;
+  height: 700px;
+  background-color: #ffffff;
+  margin: 150px auto;
+  display: flex;
+  border-radius: 10px;
+/*   border: 1px solid rgb(30, 113, 223); */
+  flex-direction: column;
+}
+#TwoDivChating {
+  height:100px ;
+  /* background-color: #0565d3; */
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  box-shadow: 0 3px 0px 0 rgb(219, 218, 218) ;
+}
+.PlaceTheChatFrindes .NamePerson_Chat {
+/*   background-color: chartreuse; */
+  width:30%;
+  height:100px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-right: 10px;
+  gap: 10px;
+  img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  };
+ 
+}
+.PlaceTheChatFrindes .Video-Person-Chat{
+  width: 30%;
+ /*  background-color: rgb(1, 112, 49); */
+  height:100px;
+  i {
+    width: 60px;
+    height: 60px;
+  /*   background-color: #0565d3; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: #474747;
+  }
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 5px;
+    
+    
+}
+.NamePerson_Chat .NamePersonContact {
+ width:fit-content;
+ /*  background-color: #e6dbdb; */
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  justify-content: center;
+  h2{
+    font-size: 25px;
+    line-height: 1.6;
+  }
+  h3 {
+
+    font-weight: 300;
+  }
+}
+.name_Image-To-Person {
+position: relative;
+}
+.name_Image-To-Person::before{
+  content: '';
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  background-color: rgb(41, 209, 41);
+  border-radius: 50%;
+  border: 3px solid white;
+  top: 50px;
+}
+/* ____________________________________________ */
+.Chat_Online {
+  height: 500px;
+ /*  background-color: #7e7070; */
+}
+.Chat {
+
+  /* background-color: #295686; */
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+   overflow-y: auto;
   
+}
+.left {
+    align-self: flex-start;
+    background-color: #f0ebeb;
+    margin: 70px;
+    padding: 15px;
+    border-radius: 7px;
+    direction: rtl;
+     color: rgb(34, 34, 34);
+    
+    p{
+      font-size: 20px;
+      margin:0;
+    }
+    span {
+      color: #444040;
+     color: rgb(34, 34, 34);
+    }
+}
+.right {
+  color: white;
+align-self: flex-end;
+background-color: rgb(74, 156, 233);
+margin: 70px;
+ padding: 15px;
+    border-radius: 7px;
+    direction: rtl;
+   p{
+      font-size: 20px;
+      margin:0;
+    }
+    span {
+      color: #444040;
+       color: white;
+    }
+}
+.Input_Send {
+ width: 100%;
+ /*  background-color: rgb(39, 143, 204); */
+  height: 100%;
+  display: flex;
+   flex-direction: row-reverse;
+   align-items: center;
+   gap: 50px;
+}
+.Input_Send input {
+  width:80%;
+  display: flex;
+ height: 65px;
+ border-radius: 30px;
+ margin-right: 40px;
+ direction: rtl;
+ padding-right: 30px;
+ font-size: 25px;
+ outline: 0;
+ border: 0;
+
+}
+.Input_Send button {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  outline:0;
+  border: 0;
+  i{
+    font-size: 35px;
+    color: gray;
+  }
+}
+#DivButtonChengeFhotoTheProfile {
+ position: absolute;
+ top: 180px;
 }

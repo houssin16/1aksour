@@ -236,9 +236,9 @@ try{
 const GetPost_one_user = async  (req , res) => {
 
  try{
- const UserId  = req.user.id
+ const UserIde  = req.user.id
  const Result  = await Post.find({
-  userId : UserId
+  userId : UserIde
 })
  res.json(Result)
  }catch(err){
