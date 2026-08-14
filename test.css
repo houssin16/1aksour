@@ -758,14 +758,14 @@ z-index: 99999999999999;
 /*   justify-content: right; */
   gap: 15px;
   color: rgb(107, 107, 107);
-/*  background-color: gray;   */
+ /* background-color: gray;   */
   padding: 10px;
   align-items: center;
-  justify-content: center;
-
-
+  justify-content: right;
 }
-
+#SecondeId {
+margin-right: 100px;
+}
 .replace {
 height: 100px;
 }
@@ -2662,4 +2662,7 @@ margin: 70px;
 #DivButtonChengeFhotoTheProfile {
  position: absolute;
  top: 180px;
+}
+.Border-Rud {
+  border: 3px solid rgb(11, 127, 221);
 }

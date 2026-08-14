@@ -288,7 +288,8 @@ GetPostsAll()
     }
      const Likes = Response.data
      const posts = Response.data
-    
+     console.log(Likes);
+     
      const containerAll = document.querySelector('.SideBar');
      if (page === 1) {
      ;containerAll.innerHTML = ""
@@ -350,7 +351,7 @@ GetPostsAll()
                   <div class="IconeLikesComentSharing">
                     <i class="fa-solid fa-share-nodes">مشاركة</i>
                     <i onclick="" class="fa-regular fa-message">تعليق</i>
-                    <i class="fa-regular fa-heart"  data-id =${element._id} data-likes=""  onclick="LikesPost(this)"><span class="LikeSpan">اعجاب</span></i>
+                    <i class="fa-regular fa-heart"  data-id=${element._id}   onclick="LikesPost(this)"><span class="LikeSpan">اعجاب</span></i>
                   </div>
                    
                    <div class="fa-trash" data-id=${element._id}>
@@ -984,9 +985,6 @@ async function CountRepliess(idpost){
 
 /* _________________________________________________________________________________________________ */
 function ClikedPostComents(userid){
-
-
- 
   if(!userid){
     console.error("userid undefined!");
     return;
@@ -1065,13 +1063,11 @@ async function LikesPost(heart) {
  
   if (heart.dataset.loading === "true") return;
   heart.dataset.loading = "true";
-
   const postId = heart.dataset.id;
   const countEl = document.querySelector(`.LikesCount-${postId}`);
   const isLikedNow = heart.classList.contains('likedee');
-  heart.classList.toggle('likedee'); //// 
  heart.style.color = !isLikedNow ? "red" : "" ;
- 
+ heart.classList.toggle('likedee'); //// 
  try{
      const response = await axios.post(`http://localhost:3000/posts/${postId}/like` , {} ,{
 
@@ -1080,16 +1076,17 @@ async function LikesPost(heart) {
           Authorization : `Bearer ${localStorage.getItem('token')}`
         }
      })
-      heart.style.color = response.data.liked ? "red" : "#db4444" 
+      heart.style.color = response.data.liked ? "red" : "" 
     if(countEl) {
         
-       countEl.textContent = response.data.likes;
+        countEl.textContent = response.data.likes;
     }
  }catch(e){
 
 
 
- }heart.dataset.loading = "false";
+ }
+ heart.dataset.loading = "false";
 }
  function r(){
     let user = null

@@ -246,6 +246,10 @@ res.status(404).json({message:err.massege})
 }
 
 }
+const Get_post_Other_User = (req , res)=> {
+
+
+}
 module.exports = {
     createPost,
     getPosts,

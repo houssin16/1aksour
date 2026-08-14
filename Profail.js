@@ -302,20 +302,23 @@ if(sidebar){
    })
 
 }       */     
+ 
 document.addEventListener('click' , (e)=>{
  const IconrSendCoumment = e.target.closest('.Send-Comments')
 if (!IconrSendCoumment) return ;
 e.preventDefault()
 const PostId = IconrSendCoumment.dataset.id
 SendMessage(PostId)
+console.log(PostId)
 })
-function SendMessage(id){
+
+async function SendMessage(id){
   const Token = localStorage.getItem('token')
   const ParentInputPlace = document.querySelector(`[data-id="${id}"]`).closest('.BoxComments')
   const ResultText = ParentInputPlace.querySelector('.ComentsInput').value
-
+  
  
-   axios.post(`http://localhost:3000/posts/${id}/comments`,
+   const Res = await axios.post(`http://localhost:3000/posts/${id}/comments`,
     {
       text: ResultText
 
@@ -323,11 +326,11 @@ function SendMessage(id){
     {
      headers : {Authorization : `Bearer ${Token}`}
     }
-   ).then((ResponeComents)=>{
-  
+   )
+   console.log(Res);
    
-   })
 }
+
 async function GetComments(id) {
   const Token = localStorage.getItem('token');
   const Response = await  axios.get(`http://localhost:3000/posts/${id}/comments`,{headers: { Authorization: `Bearer ${Token}`}})
@@ -434,11 +437,12 @@ let Mood = "Create"
 console.log(CreatePost1);
 
 ////////////////////////////////////////////////////////////////Update///////////////////////////////////////////
-async function UdpatePost(object , img){  
-  console.log(object , img);
-  
+let Iduppdate = null
+async function UdpatePost(id){  
+  console.log(id);
+  Iduppdate = id
   Mood = "update"
-  const res = await axios.get(`${Url}posts/${object}`)
+  const res = await axios.get(`${Url}posts/${id}`)
   const  Objct = res.data 
   console.log(Objct);
  /*  console.log(`${Url}posts/${object}`); */
@@ -449,11 +453,12 @@ async function UdpatePost(object , img){
   document.querySelector('.ButtonCreateNewPost button').innerHTML ="حفض"
   document.getElementById('TextArea1').value = Objct.text
   document.getElementById('ImageInput2').src = Objct.image
-  
-     ButtonCreatet__Post.addEventListener('click' , async ()=>{  //  زر النشر  
-      
-    if (Mood == "update"){
 
+} 
+ButtonCreatet__Post.addEventListener('click' , async ()=>{  //  زر النشر  
+      
+    if (Mood !== "update") return ;
+    let id = Iduppdate
     const Token = localStorage.getItem('token');
     const  headers =  {Authorization: `Bearer ${Token}`}
     const TextArea1 = document.getElementById('TextArea1').value.trim()
@@ -461,28 +466,22 @@ async function UdpatePost(object , img){
     let formdata = new FormData();
     formdata.append('text', TextArea1);
     formdata.append('image', ImagePost);
-    if (TextArea1.length == 0 ||  !ImagePost){
+    if (TextArea1.length == 0  &&  !ImagePost){
      /*  ShowAltert("الرجاء كتابة نص أو اختيار صورة قبل النشر"); */
        console.log("dddddddddddddddddd");
       
         return;
     }
 
-       const urlxdown = `${Url}posts/${object}`
-      const rq =  await axios.put(urlxdown , formdata, {headers:headers})
+       const urlxdown = `${Url}posts/${id}`
+       const rq =  await axios.put(urlxdown , formdata, {headers:headers})
        CreatePost1.classList.remove('ClassVisibleContainer')
-       const containerAll = document.querySelector('.Cont');
-       if (containerAll) {
-         containerAll.innerHTML = ""; // تنظيف فقط قبل التحديث
-       }
-        document.getElementById(`${object}`).innerHTML = rq.data.text 
-        document.getElementById(`${img}`).src = rq.data.image
-        // ← تحديث حقيقي للبوستات من السيرفر
-       
-    } 
+        document.getElementById(`${id}`).innerHTML = rq.data.text 
+       const NewImage =  document.getElementById(`NewImage-${id}`)
+        if (NewImage) {
+         NewImage.src = `${Url}uploads/${rq.data.image}?t=${Date.now()}`;
+        }
  })
- 
-} 
 Img12.addEventListener('click' , function(){
   ImageInput2.click()
 })
@@ -534,6 +533,25 @@ if (ChengeFhoto) {
 
 
    /* ____________________________________________________________________________________________________________________________________________ */
+async function GetLengthToPosts(){
+  try {
+    const TokenLength = localStorage.getItem('token')
+    const res = await axios.get(`${Url}Posts_one_user/`,{
+      headers:{
+       Authorization : `Bearer ${TokenLength}`
+      }
+
+    })
+
+      return res.data.length 
+  }catch(e){
+   console.log(e);
+  
+  }
+
+ 
+   
+}
 
     /* ___________________________________________________________________________________________________________________________________________ */
   async function inti(){
@@ -543,7 +561,7 @@ if (ChengeFhoto) {
          }
          
          if(___Id){
-         const OthersPosts =  await  GetUsersFindById(___Id) 
+         const OthersPosts =  await  GetUsersFindById(___Id)
          RenderOthersPost(OthersPosts)
            
           }else{
@@ -564,12 +582,13 @@ if (ChengeFhoto) {
 
   async  function RenderSideBarUserPost(post , userdata){
   try{
-  
+
+  const lengthposts = await GetLengthToPosts()
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
   const CoverImage = userdata.coverImage
   const AvatarPoste = userdata.avatar
-  console.log(AvatarPoste);
+
   const varfyAvatar = AvatarPoste === "default.png" || AvatarPoste === "" ;
   const resultAvatar = varfyAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
   if (Container) {
@@ -578,7 +597,7 @@ if (ChengeFhoto) {
        for(const element of post){
            let ButtonDeletAndUpdate = "";
       // ✅ تحقق أولاً قبل استخدام user.id
-           console.log(element._id);
+      
            
            ButtonDeletAndUpdate = `
           <li onclick="UdpatePost('${element._id}','${element.image}')">
@@ -608,20 +627,20 @@ if (ChengeFhoto) {
           <p id="${element._id}">${element.text}</p>
         </div>
         <div class="ImagePost">
-          <img src="http://localhost:3000/uploads/${element.image}"> 
+          <img id="NewImage-${element._id}"  src="http://localhost:3000/uploads/${element.image}"> 
         </div>
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
           <div class="CommentsandLikes">
-            <h3>تعليق<span>182</span></h3>
-            <h3>اعجاب<span>1200</span></h3>
+                <h3>تعبيق<span >${element.CoummentsCount}</span></h3>                         
+                <h3>اعجاب<span class="LikesCount-${element._id}">${element.likes.length}</span></h3>
           </div>
         </div>
         <hr>
         <div class="IconeLikesComentSharing">
           <i class="fa-solid fa-share-nodes">مشاركة</i>
           <i class="fa-regular fa-message Coment">تعليق</i>
-          <i class="fa-regular fa-heart">اعجاب</i>
+          <i class="fa-regular fa-heart" data-id=${element._id} onclick="LikePostProfile(this)">اعجاب</i>
         </div>
         <div class="fa-trash">
           <ul>
@@ -634,7 +653,7 @@ if (ChengeFhoto) {
         <div class="BoxComments">
           <div class="InputINCoumments">
             <input type="text" class="ComentsInput" name="text">
-            <img src="houssin.jpg">
+            <img class="Border-Rud" src=http://localhost:3000/uploads/${userdata.avatar}>
           </div>
           <div class="ButtonCommentsSend">
             <div class="Box1Button">
@@ -652,6 +671,7 @@ if (ChengeFhoto) {
       `
 
       Container.appendChild(CreateDivElement)
+     
      const result = await GetComments(element._id)
      ResnderComments(result)  
      }
@@ -683,7 +703,7 @@ if (ChengeFhoto) {
             <span>الرياض، المملكة العربية السعودية<i class="fas fa-map-marker-alt"></i></span>
           </div>
           <div class="follow">
-            <div class="Boxing1"><span>127</span><p>منشور</p></div>
+            <div class="Boxing1"><span>${lengthposts}</span><p>منشور</p></div>
             <div class="Boxing1"><span>2,543</span><p>متابع</p></div>
             <div class="Boxing1"><span>389</span><p>يتابع</p></div>
           </div>
@@ -702,10 +722,20 @@ if (ChengeFhoto) {
     console.log(e)
   }
  }
+
+ 
+ /* __________________/-_________________________________/-____________________________________________________________________________________ */
+ async function GetLengthToPostsOtherUser(user_id){
+  const Res = await axios.get(`http://localhost:3000/user/${user_id}/posts`)
+  return Res.data.IU.length
+ }
+
 /* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ==Resnder To OthersPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
  
  async  function RenderOthersPost(OthersPosts){
-  try{
+  try{ 
+     
+   
      const RespOthersPosts    = OthersPosts.IU
      const RespNameandAvatar  = OthersPosts.user
      const CoverImage         = OthersPosts.user.coverImage
@@ -714,12 +744,14 @@ if (ChengeFhoto) {
      const ButtonAddCoverImeg = document.getElementById('DivButtonChengeFhotoTheProfile')
      const Id_                = w()
      const user_id            = OthersPosts.user._id
+     const lengthPosts        =  await GetLengthToPostsOtherUser(user_id)
+     
      if (Id_._id === user_id) {
-      ButtonAddCoverImeg.style.display ="block"
+     ButtonAddCoverImeg.style.display ="block"
      } else {
       ButtonAddCoverImeg.style.display ="none"
      }
-   
+     
      Container.innerHTML=""
      for(const element of RespOthersPosts) { 
         
@@ -801,7 +833,9 @@ if (ChengeFhoto) {
      Container.appendChild(CreateDivElement)  
     const result = await GetComments(element._id)
      ResnderComments(result)  
+      
     }
+     
        sidebar.innerHTML = `
         <div class="ImageProfile">
           <img src="http://localhost:3000/uploads/${CoverImage}" alt="">
@@ -826,7 +860,7 @@ if (ChengeFhoto) {
             <span>الرياض، المملكة العربية السعودية<i class="fas fa-map-marker-alt"></i></span>
           </div>
           <div class="follow">
-            <div class="Boxing1"><span>127</span><p>منشور</p></div>
+            <div class="Boxing1"><span>${lengthPosts}</span><p>منشور</p></div>
             <div class="Boxing1"><span>2,543</span><p>متابع</p></div>
             <div class="Boxing1"><span>389</span><p>يتابع</p></div>
           </div>
@@ -847,8 +881,10 @@ if (ChengeFhoto) {
     
       
  }
+  
 /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ==Resnder To Comments==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
  async function ResnderComments(Comment){
+     
       const Comments = Comment.comments
      const Postid  = Comment.PostId 
      const PlaceInComments = document.querySelector(`.placeCommentsPost-${Postid}`); /* 11111111111111111111111111 */
@@ -878,7 +914,7 @@ if (ChengeFhoto) {
   </div>
 
   <div class="PlaceAksourLikeAndSeconde">
-    <div class="Secondebox">
+    <div class="Secondebox" id="SecondeId">
       <span>منذ 30 دقيقة</span>
       <span>رد</span>
       <span>إعجاب</span>
@@ -939,3 +975,48 @@ console.log(error);
 } 
 
 }
+async function LikePostProfile(Hearts)  {
+if(Hearts.dataset.loading === "Aksour") return
+  Hearts.dataset.loading = "Aksour"
+  const PostId = Hearts.dataset.id
+  console.log(PostId)
+  const CountLike= document.querySelector(`.LikesCount-${PostId}`)
+  const isLikedNow = Hearts.classList.contains('likedee')
+   Hearts.style.color = !isLikedNow ?  "red" : ""; 
+  Hearts.classList.toggle('likedee') /// نخزن انتيجة فقط 
+ 
+   
+   try{
+        const ResponseLikes = await  axios.post(`http://localhost:3000/posts/${PostId}/like`
+          ,
+          {},
+          {
+            headers : {
+              Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+          }
+        )
+         Hearts.style.color = ResponseLikes.data.liked ? "red" : "";
+          console.log(ResponseLikes)
+          if(CountLike) {
+            CountLike.textContent = ResponseLikes.data.likes;
+           }
+   }catch(e){
+
+
+    console.log(e)
+
+   }
+Hearts.dataset.loading ="Houcine"
+} 
+async function GetLikeds (){
+       
+      const Reslikeds = await axios.get(`http://localhost:3000/posts/likes` ,{
+         headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+   console.log(Reslikeds.data);
+}
+GetLikeds()
