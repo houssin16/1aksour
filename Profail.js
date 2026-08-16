@@ -5,12 +5,12 @@ document.querySelector('.fa-house').addEventListener('click' , function(){
   window.location.href =`testDachbored.html` 
 })
  const PlaceInComments = document.querySelector(".placeCommentsPost"); 
-function ShowAltert(x ,){
+function ShowAltert(x){
      const div = document.createElement('h1')
      const text = document.createTextNode(`${x}`)
      div.classList = "alert"
      div.appendChild(text)
-     document.getElementById('Alert').appendChild(div)
+     document.querySelector('.AlertMessage').appendChild(div)
      setTimeout(()=>{
 
         div.style.display = "none"
@@ -303,6 +303,38 @@ if(sidebar){
 
 }       */     
  
+// عند تحميل الصفحة، فعّل مراقبة الكتابة لكل حقل تعليق
+/* document.addEventListener('input' , (e)=> {
+const button = document.querySelector('.Send-Comments')
+const input = e.target.closest('.ComentsInput')
+if (input.value.trim().length >  0 ) {
+console.log(button);
+
+  button.classList.add('Send-CommentsVissble')
+  
+}else{
+ 
+ button.classList.remove('Send-CommentsVissble')
+}
+
+}) */
+
+document.addEventListener('input', (e) => {
+  const input = e.target.closest('.ComentsInput')
+  if (!input) return  // تجاهل أي input مش من نوع التعليقات
+
+  const button = input.closest('.BoxComments').querySelector('.Send-Comments')
+
+  if (input.value.trim().length > 0) {
+    button.classList.add('Send-CommentsVissble')
+    console.log(button);
+    
+  } else {
+    button.classList.remove('Send-CommentsVissble')
+  }
+})
+
+
 document.addEventListener('click' , (e)=>{
  const IconrSendCoumment = e.target.closest('.Send-Comments')
 if (!IconrSendCoumment) return ;
@@ -314,10 +346,16 @@ console.log(PostId)
 
 async function SendMessage(id){
   const Token = localStorage.getItem('token')
-  const ParentInputPlace = document.querySelector(`[data-id="${id}"]`).closest('.BoxComments')
+  const ParentInputPlace = document.querySelector(`[data-box="${id}"]`).closest('.BoxComments')
   const ResultText = ParentInputPlace.querySelector('.ComentsInput').value
-  
- 
+  const button    = ParentInputPlace.querySelector('.Send-Comments')
+  if(ResultText.length > 0){
+  button.classList.add('Send-CommentsVissble')
+  }  
+  if (!ResultText) {
+    return ShowAltert('يجب املاء الحقل ')
+  }
+   
    const Res = await axios.post(`http://localhost:3000/posts/${id}/comments`,
     {
       text: ResultText
@@ -341,7 +379,6 @@ async function GetComments(id) {
 
   })
 }
-
 
 //////////////////////////////////////////////////////////////////comment///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  document.addEventListener('click', (e) => {
@@ -576,19 +613,19 @@ async function GetLengthToPosts(){
    console.log(e.message);                        
    
  })
+
 /* _____________________________________________________________________________________________________________________________________________ */
 
    /* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ == Resnder To RenderSideBarUserPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
-
+console.log("efzefz")
   async  function RenderSideBarUserPost(post , userdata){
   try{
-
+  console.log(post)
   const lengthposts = await GetLengthToPosts()
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
   const CoverImage = userdata.coverImage
   const AvatarPoste = userdata.avatar
-
   const varfyAvatar = AvatarPoste === "default.png" || AvatarPoste === "" ;
   const resultAvatar = varfyAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
   if (Container) {
@@ -596,9 +633,9 @@ async function GetLengthToPosts(){
    }
        for(const element of post){
            let ButtonDeletAndUpdate = "";
+           console.log(element.Count_Couments)
       // ✅ تحقق أولاً قبل استخدام user.id
-      
-           
+      /*   console.log(element); */
            ButtonDeletAndUpdate = `
           <li onclick="UdpatePost('${element._id}','${element.image}')">
             <i class="fa-solid fa-pen"></i> تعديل المنشور
@@ -632,7 +669,7 @@ async function GetLengthToPosts(){
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
           <div class="CommentsandLikes">
-                <h3>تعبيق<span >${element.CoummentsCount}</span></h3>                         
+                <h3>تعبيق<span>${element.Count_Couments}</span></h3>                         
                 <h3>اعجاب<span class="LikesCount-${element._id}">${element.likes.length}</span></h3>
           </div>
         </div>
@@ -650,7 +687,7 @@ async function GetLengthToPosts(){
             <li><i class="fa-solid fa-flag"></i>ابلاغ</li>
           </ul>
         </div>
-        <div class="BoxComments">
+        <div class="BoxComments" data-box="${element._id}">
           <div class="InputINCoumments">
             <input type="text" class="ComentsInput" name="text">
             <img class="Border-Rud" src=http://localhost:3000/uploads/${userdata.avatar}>
@@ -671,9 +708,10 @@ async function GetLengthToPosts(){
       `
 
       Container.appendChild(CreateDivElement)
-     
      const result = await GetComments(element._id)
      ResnderComments(result)  
+     GetLikeds()
+
      }
       const AvatarStatus = userdata.avatar
       const InvaliedAvatar = !AvatarStatus || AvatarStatus === "" || AvatarStatus ===  "default.png" ;
@@ -733,6 +771,7 @@ async function GetLengthToPosts(){
 /* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ==Resnder To OthersPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
  
  async  function RenderOthersPost(OthersPosts){
+  
   try{ 
      
    
@@ -884,8 +923,9 @@ async function GetLengthToPosts(){
   
 /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ==Resnder To Comments==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
  async function ResnderComments(Comment){
-     
-      const Comments = Comment.comments
+      /* console.log(Comment); */
+      
+     const Comments = Comment.comments
      const Postid  = Comment.PostId 
      const PlaceInComments = document.querySelector(`.placeCommentsPost-${Postid}`); /* 11111111111111111111111111 */
      if (!PlaceInComments) {
@@ -895,7 +935,12 @@ async function GetLengthToPosts(){
    
      PlaceInComments.innerHTML = "";
      if (Comments.length === 0) {
-      PlaceInComments.innerHTML = `<h4 style="color:gray">لا يوجد تعليقات 😔</h4>`;
+      const div = document.createElement('div')
+      div.className = "EmptyComments"
+      const Text = document.createElement('h4')
+      Text.textContent = "لا توجد تعليقات بعد، كن أول من يعلق!"
+      div.appendChild(Text)
+      PlaceInComments.appendChild(div)
       return;
      }
      Comments.forEach(commentsx =>{
@@ -1016,7 +1061,29 @@ async function GetLikeds (){
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
+  const likedPosts = await  Reslikeds.data; 
+ 
+    likedPosts.forEach(post => {
+      const heart = document.querySelector(`[data-id="${post._id}"]`);
+     
+   
+     
+      if (heart) {
+        heart.classList.add("liked");
+        heart.style.color = "red";
+       
+        
+      }
+     
+    });
 
-   console.log(Reslikeds.data);
+
+
 }
-GetLikeds()
+async function Profile_Id_Count_Comments (){
+
+    const result = await GetpostUseranyUsers()
+  
+}
+
+Profile_Id_Count_Comments ()

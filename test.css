@@ -351,10 +351,11 @@ margin-right: 5px ;
 }
 .CommentsandLikes {
   display: flex;
- 
+ /*  background-color: rgb(201, 178, 178); */
   width: 140px;
   justify-content: space-between;
   align-items: center;
+  gap: 7px;
 }
 .CommentsandLikes span {
   margin-right:4px
@@ -703,21 +704,20 @@ gap: 7px;
   border: none;
   color: rgb(255, 255, 255);
   background-color:#2a7cda; 
-  cursor: pointer;
+  cursor: no-drop;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.5;
-  cursor:no-drop;
   position: relative;
   bottom: 37px;
   right: 35px;
 
 }
- .Send-Comments.InputNotVid{
-opacity: 2;
+.ButtonCommentsSend button.Send-CommentsVissble{
+opacity: 1;
 cursor:pointer;
-} 
+}
 .Box1Button {
 width: 10%;
 border-radius: 50%;
@@ -2665,4 +2665,10 @@ margin: 70px;
 }
 .Border-Rud {
   border: 3px solid rgb(11, 127, 221);
+}
+.EmptyComments  {
+  text-align: center;
+  h4{
+  color: gray;
+  }
 }

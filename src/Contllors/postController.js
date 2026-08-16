@@ -44,7 +44,7 @@ const getPosts = async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-
+      
       const Result = await Promise.all(
       posts.map(async (p) => {
         const Count = await comment.countDocuments({
@@ -121,10 +121,21 @@ const GetMyPosts = async ( req , res) => {
       const Posts       = await Post.find({
       userId : decoded.id  
       })
-      
-      .populate('userId')
+       .populate('userId')
       .sort({createdAt: -1})
-       res.json(Posts)
+       const ResultPost  = await Promise.all(
+        Posts.map(async (A) =>{
+          const CoummentsCount = await comment.countDocuments({
+             postId :A._id
+          })  
+          return {
+            ...A.toObject(),
+            Count_Couments : CoummentsCount,
+          }
+        })
+       )
+     
+       res.json(ResultPost)
   }catch(e){
 
       return res.status(500).json({message:"Server error ", error:e.message})

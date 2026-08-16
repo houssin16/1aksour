@@ -31,17 +31,14 @@ res.json({
 const Get___Likes = async ( req , res) =>{
 
    try{
-
+ 
      const userId = req.user.id
      const Posta= await Post.find({likes : userId})
      res.json(Posta)
      }catch(e){
     console.log(e);
     res.status(500).json({message : e.message})
-    
-
+  
    }
-
 }
-
 module.exports = { PostLikess , Get___Likes}; 
