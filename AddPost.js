@@ -295,7 +295,7 @@ GetPostsAll()
      ;containerAll.innerHTML = ""
     }   
     posts.forEach(element => { 
-      console.log(posts)
+      console.log("/posts")
       const AvatarResponse   = element.userId.avatar 
       let   AvatarDefultOrNo = AvatarResponse === "default.png" || AvatarResponse === ""
       const AvatarORViody  = AvatarDefultOrNo ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${element.userId?.avatar}`

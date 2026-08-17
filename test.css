@@ -87,9 +87,11 @@ right: 0;
   align-items: center;
   justify-content: center;
  /*  background-color: green;  */
-  width: 120px;
-  gap: 18px;
-  height: 60px;
+  width: 180px;
+  gap: 15px;
+  h3{
+    margin-top: 15px;
+  }
 }
 .InputAndNameWebsite .InputAndIcon{
   /*  background-color: RED; */

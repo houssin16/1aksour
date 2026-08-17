@@ -41,7 +41,7 @@ function ScriteToSite(){
   window.location.href = 'index.html' 
  } 
 }
-ScriteToSite()
+
 
 /* _________________________________________________________________________________________________________________________________ */
 const logoutE = document.getElementById('Buttonlogout')
@@ -553,13 +553,49 @@ function FunctionDelete(id){
   } 
 
 /* ___________________________________________________________________________________________________________________________________________ */
+let page2 =1;
+let limit = 5;
 document.querySelector('.fa-building-user').addEventListener('click' ,GetpostUseranyUsers)
 
 async function  GetpostUseranyUsers(){ /////The  acount is login/////////////////////////////////////////////////////////
 const token = localStorage.getItem('token')
-const Respons = await axios.get(`http://localhost:3000/My_User_Post`,{headers:{Authorization:`Bearer ${token}`}})
+console.log("page2 داخل الدالة =", page2);
+const Respons = await axios.get(`http://localhost:3000/My_User_Post?page=${page2}&limit=${limit}`,
+{headers:{Authorization:`Bearer ${token}`}})
+
+console.log("الصفحة:", page2);
+console.log("عدد البوستات القادمة:", Respons.data.length);
+console.log("البوستات:", Respons.data);
+
 return Respons.data
 }
+let loading2 = false;
+
+window.addEventListener('scroll', async function () {
+
+    const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+
+    if (
+        scrollTop + clientHeight >= scrollHeight - 100 &&
+        !loading2
+    ) {
+
+        loading2 = true;
+
+        page2++;
+
+        console.log("وصلنا للنهاية");
+        console.log("نحن في الصفحة:", page2);
+
+        const NewPosts = await GetpostUseranyUsers();
+
+        await RenderSideBarUserPost(NewPosts , userdata);
+
+        loading2 = false;
+    }
+});
+ScriteToSite()
 const ChengeFhoto = document.getElementById('ChengeFhoto')
 if (ChengeFhoto) {
   ChengeFhoto.addEventListener('click' ,()=>{
@@ -591,6 +627,7 @@ async function GetLengthToPosts(){
 }
 
     /* ___________________________________________________________________________________________________________________________________________ */
+  let userdata ;
   async function inti(){
          const Container = document.querySelector('.Parent');
          if (Container) {
@@ -603,9 +640,8 @@ async function GetLengthToPosts(){
            
           }else{
           const posts       =  await GetpostUseranyUsers() 
-          const userdata    =  await GetMyDataUser() /////معلومات   الحساب الدي مسجل دخولو الاسم البريد الاكتروني 
+                userdata    =  await GetMyDataUser() /////معلومات   الحساب الدي مسجل دخولو الاسم البريد الاكتروني 
           RenderSideBarUserPost( posts, userdata) 
-          
           
           }
 }        
@@ -617,10 +653,9 @@ async function GetLengthToPosts(){
 /* _____________________________________________________________________________________________________________________________________________ */
 
    /* /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ == Resnder To RenderSideBarUserPost==== $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
-console.log("efzefz")
   async  function RenderSideBarUserPost(post , userdata){
   try{
-  console.log(post)
+ 
   const lengthposts = await GetLengthToPosts()
   const SideBar = document.querySelector('.Sidebar')
   const Container = document.querySelector('.Parent');
@@ -628,12 +663,12 @@ console.log("efzefz")
   const AvatarPoste = userdata.avatar
   const varfyAvatar = AvatarPoste === "default.png" || AvatarPoste === "" ;
   const resultAvatar = varfyAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
-  if (Container) {
+/*   if (Container) {
      Container.innerHTML = ""
-   }
+   } */
        for(const element of post){
            let ButtonDeletAndUpdate = "";
-           console.log(element.Count_Couments)
+         
       // ✅ تحقق أولاً قبل استخدام user.id
       /*   console.log(element); */
            ButtonDeletAndUpdate = `
@@ -708,6 +743,8 @@ console.log("efzefz")
       `
 
       Container.appendChild(CreateDivElement)
+      console.log("تمت إضافة بوست:", element._id);
+console.log("عدد البوستات الموجودة في الصفحة:", Container.children.length);
      const result = await GetComments(element._id)
      ResnderComments(result)  
      GetLikeds()
@@ -980,11 +1017,13 @@ console.log("efzefz")
             return name
           }
 w()
+
 window.GetMyDataUser =  async function (){
  
  const Tokene = localStorage.getItem('token')
  const userId = w()
- const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,{headers :{ Authorization :`Bearer ${Tokene}`}})
+ const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,
+{headers :{ Authorization :`Bearer ${Tokene}`}})
  const data = await Response.json()
  return data;
  
@@ -1080,10 +1119,3 @@ async function GetLikeds (){
 
 
 }
-async function Profile_Id_Count_Comments (){
-
-    const result = await GetpostUseranyUsers()
-  
-}
-
-Profile_Id_Count_Comments ()

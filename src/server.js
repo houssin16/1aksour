@@ -34,14 +34,11 @@ async function StartServer() {
 
   try{
        await Db() 
-       
        app.listen(PORT, () => {
        console.log("Server is running on port " + PORT);
 });
-
   }catch(Error){
    console.log(Error);
-   
 
   }
 }

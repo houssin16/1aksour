@@ -118,11 +118,16 @@ const GetMyPosts = async ( req , res) => {
       }
       const Token       =  authoHeader.split(" ") [1]
       const decoded     = jwt.verify(Token ,"my_secret_key")
+      const page = parseInt(req.query.page) || 1
+      const limit = parseInt(req.query.limit) || 5
+      const skip  = (page - 1) * limit
       const Posts       = await Post.find({
       userId : decoded.id  
       })
-       .populate('userId')
+      .populate('userId')
       .sort({createdAt: -1})
+       .skip(skip)
+       .limit(limit)
        const ResultPost  = await Promise.all(
         Posts.map(async (A) =>{
           const CoummentsCount = await comment.countDocuments({
@@ -134,13 +139,15 @@ const GetMyPosts = async ( req , res) => {
           }
         })
        )
-     
+       
        res.json(ResultPost)
-  }catch(e){
-
-      return res.status(500).json({message:"Server error ", error:e.message})
-  }
-
+  }catch (e) {
+    console.log(e);
+    return res.status(500).json({
+        message: "Server error",
+        error: e.message
+    });
+}
 }
 
 const ChengeImageUser = async (req, res) => {
