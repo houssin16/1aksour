@@ -23,6 +23,7 @@ const ResultSearch  = document.querySelector('.ResultSearch')
 } 
  const res = document.getElementById('Alert')
 let urlxdown = `${Url}/posts`
+
 const PlaceInComments = document.querySelector('.placeCommentsPost');
 const ButtonCreatet__Post =  document.getElementById('Buttonbox1') 
 const ImageInput = document.getElementById('ImageInput')
@@ -543,7 +544,7 @@ function UdpatePost(object){
         return;
      } 
     if (Mood == "Create") { 
-     urlxdown = `${Url}/posts`
+     urlxdown = `${Url}posts`
      axios.post(urlxdown , formdata, {headers:headers})
     .then((res) => {
       GetPostsAll();
