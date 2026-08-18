@@ -50,7 +50,7 @@ const token = localStorage.getItem("token");
 
 if (token) {
 
-  axios.get("http://localhost:3000/profile", {
+  axios.get("https://oneaksour-1.onrender.com/profile", {
   headers: {
     authorization: `Bearer ${token}`
   }
@@ -107,7 +107,7 @@ if (token) {
  
  function ProfileUser(id){
 
- axios.get(`http://localhost:3000/user/${id}/posts`)
+ axios.get(`https://oneaksour-1.onrender.com/user/${id}/posts`)
    .then((response)=>{
            const UserPost = response.data.posts
            console.log(response);
@@ -188,7 +188,7 @@ ButtonExit.addEventListener('click'  ,   ()=>{
  PostI.style.display = "none"
 })
  function PostClick(id){
-axios.get(`http://localhost:3000/user/${id}/posts`)
+axios.get(`https://oneaksour-1.onrender.com/user/${id}/posts`)
 .then((response)=>{
            const UserPost = response.data.posts
      

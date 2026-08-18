@@ -1,5 +1,5 @@
 
-const Url = `http://localhost:3000/`
+const Url = `https://oneaksour-1.onrender.com/`
 const Token = localStorage.getItem('token')
 document.querySelector('.fa-house').addEventListener('click' , function(){
   window.location.href =`testDachbored.html` 
@@ -49,7 +49,7 @@ const logoutE = document.getElementById('Buttonlogout')
  document.getElementById('Buttonlogout').addEventListener("click" , function(){
    
 
-        axios.post('http://localhost:3000/logout' , {
+        axios.post('https://oneaksour-1.onrender.com/logout' , {
 
            Headers :{
             Authorization:  `Bearer ${localStorage.getItem('token')}`
@@ -73,7 +73,7 @@ const token = localStorage.getItem("token");
 const DACHBORDE = document.getElementById('Dachbord')
 if (!DACHBORDE)  return 
 if (token){
-  axios.get("http://localhost:3000/profile", {
+  axios.get("https://oneaksour-1.onrender.com/profile", {
   headers: {
     authorization: `Bearer ${token}`
   }
@@ -118,7 +118,7 @@ function TokenCheking(){
 
  /* 8888888888888 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
 async  function GetUsersFindById(___Id){ ////h The Acount is no login //////////////////////////////////////////////
-  const Res = await axios.get(`http://localhost:3000/user/${___Id}/posts`)
+  const Res = await axios.get(`https://oneaksour-1.onrender.com/user/${___Id}/posts`)
   return Res.data
 /* 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888 */
 }
@@ -356,7 +356,7 @@ async function SendMessage(id){
     return ShowAltert('يجب املاء الحقل ')
   }
    
-   const Res = await axios.post(`http://localhost:3000/posts/${id}/comments`,
+   const Res = await axios.post(`https://oneaksour-1.onrender.com/posts/${id}/comments`,
     {
       text: ResultText
 
@@ -371,7 +371,7 @@ async function SendMessage(id){
 
 async function GetComments(id) {
   const Token = localStorage.getItem('token');
-  const Response = await  axios.get(`http://localhost:3000/posts/${id}/comments`,{headers: { Authorization: `Bearer ${Token}`}})
+  const Response = await  axios.get(`https://oneaksour-1.onrender.com/posts/${id}/comments`,{headers: { Authorization: `Bearer ${Token}`}})
   const res      = Response.data
   return ({
      PostId : id,
@@ -533,7 +533,7 @@ function FunctionDelete(id){
   /* const  */
   ContainerComnfirm.classList.add('ShowConfirm')
   ButtonDelete.onclick =  ()=>{
-  axios.delete(`http://localhost:3000/posts/${id}`,{
+  axios.delete(`https://oneaksour-1.onrender.com/posts/${id}`,{
      
      headers: {  Authorization: `Bearer ${Token}`},
 
@@ -560,7 +560,7 @@ document.querySelector('.fa-building-user').addEventListener('click' ,GetpostUse
 async function  GetpostUseranyUsers(){ /////The  acount is login/////////////////////////////////////////////////////////
 const token = localStorage.getItem('token')
 console.log("page2 داخل الدالة =", page2);
-const Respons = await axios.get(`http://localhost:3000/My_User_Post?page=${page2}&limit=${limit}`,
+const Respons = await axios.get(`https://oneaksour-1.onrender.com/My_User_Post?page=${page2}&limit=${limit}`,
 {headers:{Authorization:`Bearer ${token}`}})
 
 console.log("الصفحة:", page2);
@@ -662,7 +662,7 @@ async function GetLengthToPosts(){
   const CoverImage = userdata.coverImage
   const AvatarPoste = userdata.avatar
   const varfyAvatar = AvatarPoste === "default.png" || AvatarPoste === "" ;
-  const resultAvatar = varfyAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
+  const resultAvatar = varfyAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" : `https://oneaksour-1.onrender.com/uploads/${userdata.avatar}` ;
 /*   if (Container) {
      Container.innerHTML = ""
    } */
@@ -699,7 +699,7 @@ async function GetLengthToPosts(){
           <p id="${element._id}">${element.text}</p>
         </div>
         <div class="ImagePost">
-          <img id="NewImage-${element._id}"  src="http://localhost:3000/uploads/${element.image}"> 
+          <img id="NewImage-${element._id}"  src="https://oneaksour-1.onrender.com/uploads/${element.image}"> 
         </div>
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
@@ -725,7 +725,7 @@ async function GetLengthToPosts(){
         <div class="BoxComments" data-box="${element._id}">
           <div class="InputINCoumments">
             <input type="text" class="ComentsInput" name="text">
-            <img class="Border-Rud" src=http://localhost:3000/uploads/${userdata.avatar}>
+            <img class="Border-Rud" src=https://oneaksour-1.onrender.com/uploads/${userdata.avatar}>
           </div>
           <div class="ButtonCommentsSend">
             <div class="Box1Button">
@@ -752,12 +752,12 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
      }
       const AvatarStatus = userdata.avatar
       const InvaliedAvatar = !AvatarStatus || AvatarStatus === "" || AvatarStatus ===  "default.png" ;
-      const ResultStatusAvatar = InvaliedAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}` ;
-      document.getElementById('ImageHeader').src = InvaliedAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${userdata.avatar}`
+      const ResultStatusAvatar = InvaliedAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" : `https://oneaksour-1.onrender.com/uploads/${userdata.avatar}` ;
+      document.getElementById('ImageHeader').src = InvaliedAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" : `https://oneaksour-1.onrender.com/uploads/${userdata.avatar}`
        if (!sidebar) return ;
        sidebar.innerHTML = `
         <div class="ImageProfile">
-          <img id="CoverPhoto" src="http://localhost:3000/uploads/${CoverImage}" alt="">
+          <img id="CoverPhoto" src="https://oneaksour-1.onrender.com/uploads/${CoverImage}" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
@@ -801,7 +801,7 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
  
  /* __________________/-_________________________________/-____________________________________________________________________________________ */
  async function GetLengthToPostsOtherUser(user_id){
-  const Res = await axios.get(`http://localhost:3000/user/${user_id}/posts`)
+  const Res = await axios.get(`https://oneaksour-1.onrender.com/user/${user_id}/posts`)
   return Res.data.IU.length
  }
 
@@ -857,7 +857,7 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
               <h6>${element.createdAt}</h6>
             </div>
             <div class="ImageUserM">
-              <img src="http://localhost:3000/uploads/${element.userId.avatar}">
+              <img src="https://oneaksour-1.onrender.com/uploads/${element.userId.avatar}">
             </div>
           </div>
         </div>
@@ -865,7 +865,7 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
           <p>${element.text}</p>
         </div>
         <div class="ImagePost">
-          <img src="http://localhost:3000/uploads/${element.image}"> 
+          <img src="https://oneaksour-1.onrender.com/uploads/${element.image}"> 
         </div>
         <div class="CommentAndLikesAndshir">
           <div class="sharing"><h3>مشاركة<span>12</span></h3></div>
@@ -914,11 +914,11 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
      
        sidebar.innerHTML = `
         <div class="ImageProfile">
-          <img src="http://localhost:3000/uploads/${CoverImage}" alt="">
+          <img src="https://oneaksour-1.onrender.com/uploads/${CoverImage}" alt="">
         </div>
         <div class="ImageProfile2">
           <div class="UsernameAndPhoto">
-            <img id="CoverPhoto" src="http://localhost:3000/uploads/${RespNameandAvatar.avatar}" alt="">
+            <img id="CoverPhoto" src="https://oneaksour-1.onrender.com/uploads/${RespNameandAvatar.avatar}" alt="">
           </div>
         </div>
         <div class="Username">
@@ -986,7 +986,7 @@ console.log("عدد البوستات الموجودة في الصفحة:", Conta
       div.innerHTML = `
       <div class="titleimagenameANDUsernameAndComments">
       <div class="titleimagename">
-      <img src="http://localhost:3000/uploads/${commentsx.userId.avatar}">
+      <img src="https://oneaksour-1.onrender.com/uploads/${commentsx.userId.avatar}">
     </div>
     <div class="UsernameAndComments">
     <h3 onclick="ClikedPostComents('${commentsx.userId}')">${commentsx.userId.name}</h3>
@@ -1022,7 +1022,7 @@ window.GetMyDataUser =  async function (){
  
  const Tokene = localStorage.getItem('token')
  const userId = w()
- const Response = await fetch(`http://localhost:3000/GetUser/${userId._id}`,
+ const Response = await fetch(`https://oneaksour-1.onrender.com/GetUser/${userId._id}`,
 {headers :{ Authorization :`Bearer ${Tokene}`}})
  const data = await Response.json()
  return data;
@@ -1049,9 +1049,9 @@ const TokenaddcoverImage = localStorage.getItem('token')
 const Headers =  {Authorization :`Bearer ${TokenaddcoverImage}`}
 const Form_Data  = new FormData()
 Form_Data.append('coverImage' , Coverimage)
-const res  = await  axios.post('http://localhost:3000/AddCover-image' , Form_Data  ,{headers:Headers})
+const res  = await  axios.post('https://oneaksour-1.onrender.com/AddCover-image' , Form_Data  ,{headers:Headers})
 const CoverImage = res.data.coverImage
-CoverPhoto.src =`http://localhost:3000/uploads/${CoverImage}?t=${Date.now()}`
+CoverPhoto.src =`https://oneaksour-1.onrender.com/uploads/${CoverImage}?t=${Date.now()}`
  await AlertMessage("الغلاف تم تغيير الصورة ")
 return res.data
 }catch(error) {
@@ -1071,7 +1071,7 @@ if(Hearts.dataset.loading === "Aksour") return
  
    
    try{
-        const ResponseLikes = await  axios.post(`http://localhost:3000/posts/${PostId}/like`
+        const ResponseLikes = await  axios.post(`https://oneaksour-1.onrender.com/posts/${PostId}/like`
           ,
           {},
           {
@@ -1095,7 +1095,7 @@ Hearts.dataset.loading ="Houcine"
 } 
 async function GetLikeds (){
        
-      const Reslikeds = await axios.get(`http://localhost:3000/posts/likes` ,{
+      const Reslikeds = await axios.get(`https://oneaksour-1.onrender.com/posts/likes` ,{
          headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }

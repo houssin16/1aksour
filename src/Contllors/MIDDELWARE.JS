@@ -9,15 +9,10 @@ const SECRET_KEY = process.env.JWT_SECRET || "my_secret_key";
   if (req.method === "OPTIONS") {
     return next();
   }
-
   const authHeader = req.headers["authorization"];
-
   console.log("AUTH HEADER:", authHeader);
-
   const token = authHeader && authHeader.split(" ")[1];
-
   console.log("TOKEN:", token);
-
   if (!token) {
     return res.status(401).json({
       success: false,

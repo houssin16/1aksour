@@ -6,7 +6,7 @@ const Containerews = document.querySelector('.Parent');
  const containerAll = document.querySelector('.Cont');
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
-   const Url = "http://localhost:3000"  
+   const Url = "https://oneaksour-1.onrender.com/"  
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
     if(!Container){
@@ -70,7 +70,7 @@ passwordVissssibile.addEventListener('click' , () =>{
 document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
- axios.post(`${Url}/login`, {
+ axios.post(`${Url}login`, {
   email: email,
   password: password,
 }) 
@@ -104,7 +104,7 @@ if (re)
   {
    
   re.onclick = function(){  
-        axios.post('http://localhost:3000/logout' , 
+        axios.post('https://oneaksour-1.onrender.com/logout' , 
    
           {}, 
      {
@@ -157,7 +157,7 @@ InputCreatepost.addEventListener('click' , async  ()=>{   //////////////Inbut
   const ResAwait = await Profile()
   const Res_Thename_Avatar = ResAwait.data
 
-  document.getElementById('AvatarTheCreatePoste').src = `http://localhost:3000/uploads/${ Res_Thename_Avatar.avatar}`
+  document.getElementById('AvatarTheCreatePoste').src = `https://oneaksour-1.onrender.com/uploads/${ Res_Thename_Avatar.avatar}`
   document.getElementById('UsernameTheCreateposte').innerHTML = Res_Thename_Avatar.name
   document.querySelector('.TitleBox1 h2').innerHTML = "إنشاء منشور"
   document.querySelector('.TitleCreatePost h4').innerHTML = "اضافة الي منشورك"
@@ -208,7 +208,7 @@ InputSearch.addEventListener('input' , ()=>{
 
   if(InputSearch.value !== "" ){
     SetTimeOutX = true
-     axios.get(`http://localhost:3000/SearchUser?search=${InputSearch.value}`,
+     axios.get(`https://oneaksour-1.onrender.com/SearchUser?search=${InputSearch.value}`,
 
      ).then((res)=>{
        
@@ -223,7 +223,7 @@ InputSearch.addEventListener('input' , ()=>{
         
                <div class="BoxUsers1">
                    <div class="Userimge">
-                     <img class="ImgClass" src="http://localhost:3000/uploads/${e.avatar}" alt=""> 
+                     <img class="ImgClass" src="https://oneaksour-1.onrender.com/uploads/${e.avatar}" alt=""> 
                    </div>
                    <div class="NameUser">
                    <h2 style="font-size:20px;" class="TextUsername" onclick="GetOnepostPage('${e._id}')">${e.name}</h2>
@@ -277,7 +277,7 @@ GetPostsAll()
    if(loading) return;
      loading = true;  
      try{                               
-    const Response  = await axios.get(`http://localhost:3000/posts?page=${page}&limit=${limit}`,{
+    const Response  = await axios.get(`https://oneaksour-1.onrender.com/posts?page=${page}&limit=${limit}`,{
     
     headers: { Authorization: `Bearer ${token}`}
      })
@@ -298,7 +298,7 @@ GetPostsAll()
       console.log("/posts")
       const AvatarResponse   = element.userId.avatar 
       let   AvatarDefultOrNo = AvatarResponse === "default.png" || AvatarResponse === ""
-      const AvatarORViody  = AvatarDefultOrNo ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${element.userId?.avatar}`
+      const AvatarORViody  = AvatarDefultOrNo ? "https://oneaksour-1.onrender.com/images/defulte.png" : `https://oneaksour-1.onrender.com/uploads/${element.userId?.avatar}`
       const container = document.createElement('div');
       container.classList.add('content');
        let result =r() 
@@ -335,7 +335,7 @@ GetPostsAll()
                   
                    </div>
                   <div class="ImagePost">
-                  <img src="http://localhost:3000/uploads/${element.image}">
+                  <img src="https://oneaksour-1.onrender.com/uploads/${element.image}">
                   </div>
                   
                  <div class="CommentAndLikesAndshir">
@@ -368,7 +368,7 @@ GetPostsAll()
              <div class="BoxComments" data-box="${element._id}">
                  <div class="InputINCoumments">
                     <input type ="text" class="ComentsInput" name="text">
-                    <img src = http://localhost:3000/uploads/${result.avatar}>
+                    <img src = https://oneaksour-1.onrender.com/uploads/${result.avatar}>
               </div>
                  <div class="ButtonCommentsSend">
                   <div class="Box1Button">
@@ -581,7 +581,7 @@ function SendComments(postId){
     }
                             
    axios.post(
-    `http://localhost:3000/posts/${postId}/comments` ,
+    `https://oneaksour-1.onrender.com/posts/${postId}/comments` ,
     {
       text : Result,
     
@@ -620,7 +620,7 @@ return `مند ${Math.floor(diff  / 86400)} يوم`
 async  function GetComments(id) {
 try{
   
-   const response = await  axios.get(`http://localhost:3000/posts/${id}/comments`, {
+   const response = await  axios.get(`https://oneaksour-1.onrender.com/posts/${id}/comments`, {
     headers: { Authorization: `Bearer ${token}`}
   })
    
@@ -666,7 +666,7 @@ try{
       div.innerHTML = `
   <div class="titleimagenameANDUsernameAndComments">
     <div class="titleimagename">
-      <img src="http://localhost:3000/uploads/${comment.userId.avatar}">
+      <img src="https://oneaksour-1.onrender.com/uploads/${comment.userId.avatar}">
     </div>
          
     <div class="UsernameAndComments">
@@ -689,7 +689,7 @@ try{
                       <i class="fa-regular fa-paper-plane"></i>
                 </button>
                 <input type ="text" placeholder = "اكتب الرد"  class="Repond" name ="text" style="direction: rtl;">
-                    <img id="RepondImg" placeholder = "اكتب الرد"  src ="http://localhost:3000/uploads/${ImageCommentsReplay}">
+                    <img id="RepondImg" placeholder = "اكتب الرد"  src ="https://oneaksour-1.onrender.com/uploads/${ImageCommentsReplay}">
                 </div>
                
               <div class= "ReplayParghraf">
@@ -757,7 +757,7 @@ async function DeleteComments(id){
   })
   if (DeleteMod === "delete") {
        ButtonDelete.addEventListener( "click", async  ()=>{
-       await axios.delete(`http://localhost:3000/deletetcommenst/${id}`,{headers:{Authorization : `Bearer ${token}`},}) 
+       await axios.delete(`https://oneaksour-1.onrender.com/deletetcommenst/${id}`,{headers:{Authorization : `Bearer ${token}`},}) 
        ContainerComnfirm.classList.remove('ShowConfirm') 
        {once: true}})
       }
@@ -776,7 +776,7 @@ P.classList.add('DisplayNoNe')
 /* const Objects = JSON.parse(UpdateThisElement.dataset.object) */
 })
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-const BASE_URL = "http://localhost:3000" 
+const BASE_URL = "https://oneaksour-1.onrender.com" 
 // ✅ خارج أي دالة — يُسجَّل مرة واحدة فقط
 document.addEventListener('click', (e) => {
 
@@ -849,14 +849,14 @@ async  function Profile() {
    /*  Window_The_Profile.innerHTML ="" */
   if (token) {
     try{
-    const res = await axios.get("http://localhost:3000/profile", {  headers: {Authorization: `Bearer ${token}`  } })
+    const res = await axios.get("https://oneaksour-1.onrender.com/profile", {  headers: {Authorization: `Bearer ${token}`  } })
       
       const response      = res.data;
      
       const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
-      document.getElementById('ImageHeader').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" : `http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :`http://localhost:3000/uploads/${response.avatar}`;
-      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "http://localhost:3000/images/defulte.png" :  `http://localhost:3000/uploads/${response.avatar}`
+      document.getElementById('ImageHeader').src = ChekingAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" : `https://oneaksour-1.onrender.comuploads/${response.avatar}`;
+      document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" :`https://oneaksour-1.onrender.com/uploads/${response.avatar}`;
+      document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? "https://oneaksour-1.onrender.com/images/defulte.png" :  `https://oneaksour-1.onrender.com/uploads/${response.avatar}`
       document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
       document.getElementById('LengthPost').innerHTML = ` <span>${Result}</span>`
        console.log(Result);
@@ -872,7 +872,7 @@ async  function Profile() {
 console.log("terhgerthsrthsrth");
 async function GetPostsOFone_User(){
 
-  const res = await axios.get('http://localhost:3000/Posts_one_user' , {
+  const res = await axios.get('https://oneaksour-1.onrender.com/Posts_one_user' , {
     headers : {
       Authorization : `Bearer ${token}`
     }
@@ -886,7 +886,7 @@ GetPostsOFone_User()
 async function loadReplies(idpost) { 
 try{
 
-const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
+const data = await axios.get(`https://oneaksour-1.onrender.com/posts/${idpost}/reblies`,{
     headers: {
       Authorization: `Bearer ${token}`
     }})
@@ -903,7 +903,7 @@ const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
         const html =`
         <div class="reply">
         <div class= "uLIZICom">
-          <img src="http://localhost:3000/uploads/${reply.userId.avatar}">
+          <img src="https://oneaksour-1.onrender.com/uploads/${reply.userId.avatar}">
 
             <h4 class="Namethereplies">${reply.userId.name}</h4>
             </div>
@@ -951,7 +951,7 @@ document.querySelectorAll('.Classhidden').forEach((e)=>{
 }) 
  async function Getdatarplay(idpost){
 
-    const data = await axios.get(`http://localhost:3000/posts/${idpost}/reblies`,{
+    const data = await axios.get(`https://oneaksour-1.onrender.com/posts/${idpost}/reblies`,{
     headers: {
       Authorization: `Bearer ${token}`
     }})
@@ -1002,7 +1002,7 @@ const Canel1 = document.getElementById('Canel1')
    ContainerComnfirm.classList.remove("ShowConfirm")
   })
   ButtonDelete.addEventListener('click'  , ()=>{
-  axios.delete(`http://localhost:3000/posts/${id}`, {
+  axios.delete(`https://oneaksour-1.onrender.com/posts/${id}`, {
      
      headers: {  Authorization: `Bearer ${token}`} ,
 
@@ -1069,7 +1069,7 @@ async function LikesPost(heart) {
  heart.style.color = !isLikedNow ? "red" : "" ;
  heart.classList.toggle('likedee'); //// 
  try{
-     const response = await axios.post(`http://localhost:3000/posts/${postId}/like` , {} ,{
+     const response = await axios.post(`https://oneaksour-1.onrender.com/posts/${postId}/like` , {} ,{
 
         headers :{
 
@@ -1103,7 +1103,7 @@ async function LikesPost(heart) {
 
 async function loadLikedPosts(){
   try {
-    const res = await axios.get("http://localhost:3000/posts/likes",{
+    const res = await axios.get("https://oneaksour-1.onrender.com/posts/likes",{
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
@@ -1140,7 +1140,7 @@ if (Value.length === 0 ) {
   AlertMessage2('يجب اضاف التعليق')
   return ;
  }
- const res = await axios.put(`http://localhost:3000/comments/${objects._id}`,{ text : Value},{ headers:{ Authorization : `Bearer ${localStorage.getItem('token')}`},})
+ const res = await axios.put(`https://oneaksour-1.onrender.com/comments/${objects._id}`,{ text : Value},{ headers:{ Authorization : `Bearer ${localStorage.getItem('token')}`},})
 
      const Container = bTn.closest('.titleimagenameANDUsernameAndComments')
      Container.querySelector('.InputSaveValueNew').classList.remove('DiplayBlock')
@@ -1205,12 +1205,12 @@ window.location = `http://127.0.0.1:5501/testProfile.html?userid=${id}`
 
 async function GetUserdata2(){
   const userid =  r()
-  const ResUserdata = await  axios.get(`http://localhost:3000/GetUser/${userid._id}` ,{headers :{Authorization : `Bearer ${token}`}})
+  const ResUserdata = await  axios.get(`https://oneaksour-1.onrender.com/GetUser/${userid._id}` ,{headers :{Authorization : `Bearer ${token}`}})
   return ResUserdata.data
 }
 const GetProfilex =  async () =>{
    const TokenProfilex = localStorage.getItem('token');
-   const res = await axios.get("http://localhost:3000/profile" , {
+   const res = await axios.get("https://oneaksour-1.onrender.com/profile" , {
     headers: {
       authorization: `Bearer ${TokenProfilex}`
     }
