@@ -492,7 +492,7 @@ function UdpatePost(object){
         return;
     }
     
-     urlxdown = `${Url}/posts/${Objct._id}`
+     urlxdown = `${Url}posts/${Objct._id}`
              axios.put(urlxdown , formdata, {headers:headers})
       .then((res) => {
     
