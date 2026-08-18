@@ -55,7 +55,7 @@ ButtonRegster.addEventListener('click', async () => {
     formData.append('email', email);
     formData.append('password', password);
    formData.append("avatar", file);
-    axios.post('https://oneaksour-1.onrender.com/register', formData)
+    axios.post(`${BACKEND_LOCAL_URL}register`, formData)
         .then(res => {
             console.log(res.data);
             ShowAltert("تم إنشاء الحساب بنجاح");

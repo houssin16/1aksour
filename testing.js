@@ -123,7 +123,7 @@ async function ChengeFhotoInProfile() {
   Formdate.append("avatar", ValueFile);
 
   const response = await axios.put(
-    "https://oneaksour-1.onrender.com/ChengeImage",
+    `${BACKEND_LOCAL_URL}ChengeImage`,
     Formdate,
     {
       headers: {
@@ -142,8 +142,8 @@ const isDefault =
   newAvatar.trim() === "";
 
 const newSrc = isDefault
-  ? "https://oneaksour-1.onrender.com/images/defaulte.png"
-  : `https://oneaksour-1.onrender.com/uploads/${newAvatar}?t=${Date.now()}`;
+  ? `${BACKEND_LOCAL_URL}images/defaulte.png`
+  : `${BACKEND_LOCAL_URL}uploads/${newAvatar}?t=${Date.now()}`;
 
 ImageProfile.src = newSrc;
 ImageHeader.src = newSrc;
@@ -177,7 +177,7 @@ async function Profilex() {
     return;
   }
 
-  axios.get("https://oneaksour-1.onrender.com/profile", {
+  axios.get(`${BACKEND_LOCAL_URL}profile`, {
     headers: {
       authorization: `Bearer ${TokenProfile}`
     }
@@ -185,8 +185,8 @@ async function Profilex() {
     const AvatarDefaulteing = res.data.avatar
     const InviledAvatar     = !AvatarDefaulteing || AvatarDefaulteing === "default.png" ;
     if (ImageProfile && ImageHeader) {
-       ImageHeader.src  = InviledAvatar ?  "https://oneaksour-1.onrender.com/images/defaulte.png" : `https://oneaksour-1.onrender.com/uploads/${res.data.avatar}`
-       ImageProfile.src = InviledAvatar ?  "https://oneaksour-1.onrender.com/images/defaulte.png" : `https://oneaksour-1.onrender.com/uploads/${res.data.avatar}` 
+       ImageHeader.src  = InviledAvatar ?  `${BACKEND_LOCAL_URL}images/defaulte.png` : `${BACKEND_LOCAL_URL}uploads/${res.data.avatar}`
+       ImageProfile.src = InviledAvatar ?  `${BACKEND_LOCAL_URL}images/defaulte.png` : `${BACKEND_LOCAL_URL}uploads/${res.data.avatar}` 
     }
    
   });
