@@ -22,7 +22,7 @@ ButtonRegster.addEventListener('click', async () => {
     const ConfirmPassword = document.getElementById('ConfirmPassword').value.trim()
    const file = document.getElementById("avatarInput").files[0];
 
-   /*  if (!name.trim()) {
+    if (!name.trim()) {
         ShowAltert("الاسم فارغ")
         return;
     }
@@ -40,7 +40,7 @@ ButtonRegster.addEventListener('click', async () => {
       if (password !== ConfirmPassword) {
         ShowAltert('كلمة السر غير متطابقة')
         return
-    }  */
+    } 
       
 /* const AddUser = {
 
@@ -77,14 +77,14 @@ function Invaildtion(email){
 }
 
 
-/* function NvalidtionPassword(passwordV){
+function NvalidtionPassword(passwordV){
 
     const password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return password.test(passwordV)
 }
- */
 
-/* function ChekingPassowrdStrong(password){ //////////////// قوة كلمة المرور
+
+function ChekingPassowrdStrong(password){ //////////////// قوة كلمة المرور
 
     let StorngPssword = 0 ;
 
@@ -108,7 +108,7 @@ function Invaildtion(email){
   
     
 }
- */
+
 
 const PasswordInput = document.getElementById('password')
 const StrenghtText  = document.getElementById('StrenghtText')

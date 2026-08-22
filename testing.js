@@ -40,6 +40,7 @@ console.log();
        window.location = `index.html`
      }
  })
+ console.log(ImageHeaderClassAll)
  
 }) 
 
@@ -67,7 +68,7 @@ Usernameandimage.forEach((element,index)=> {
          window.location = `Notification.html`
         
     }else if(element.classList.contains('fa-message')){
-    
+    window.location = `Frindes.html`
     }else if(element.classList.contains('fa-user-group')){
 
     }else if(element.classList.contains('fa-building-user')){

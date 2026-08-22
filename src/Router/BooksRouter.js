@@ -21,6 +21,7 @@ const { ReplyComment, GetReplyComment } = require('../Contllors/ReplyComment');
 const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
 const { UpdateComment } = require('../Contllors/UpdateComments');
 const {Deletecommentee}  = require ('../Contllors/commentController')
+const {SendMessageprsone , GetMessages} = require('../Contllors/MessageControlls')
 // Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
@@ -58,6 +59,9 @@ Router.get('/posts/:postIdd/reblies', verifyToken, GetReplyComment);
 console.log(typeof GetUserprofile)
 Router.get('/user/:id/posts' , GetUserprofile)
 // Search
-Router.get('/SearchUser', SearchUsers);
+Router.get('/SearchUser', verifyToken , SearchUsers);
 Router.get('/My_User_Post' , verifyToken,GetMyPosts)
+// SendMessage 
+Router.post('/messages' ,verifyToken,SendMessageprsone )
+ 
 module.exports = Router; // ✅ export واحد فقط

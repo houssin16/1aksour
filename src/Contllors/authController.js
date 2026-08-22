@@ -59,14 +59,17 @@ const getProfile = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+////////             /////       /////          /////       /////
 const SearchUsers = async (req  ,  res)=>{
 
   try{
+     const user_id     = req.user.id
      const searchUsers = req.query.search
      if(!searchUsers) return res.json([])
      const users = await User.find({
-       name : {$regex:searchUsers , $options:"i"}
-     }).limit(20)
+       name : {$regex:searchUsers , $options:"i"},
+       _id  : {$ne:user_id}
+     }).limit(7)
      res.json(users)
     
   }catch(e){
@@ -74,7 +77,7 @@ const SearchUsers = async (req  ,  res)=>{
 
   }
 }
-
+//////  ////   ////   ///   ////    ////    ///     /////   //////
 /* ____________________________________GetUserspage_____________________________________________ */
 const GetUserprofile = async (req, res) => {
   try {

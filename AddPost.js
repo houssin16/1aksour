@@ -206,17 +206,17 @@ let SetTimeOutX = false
           }
          })
 InputSearch.addEventListener('input' , ()=>{
-
+ try{
   if(InputSearch.value !== "" ){
     SetTimeOutX = true
      axios.get(`${BACKEND_LOCAL_URL}SearchUser?search=${InputSearch.value}`,
-
+      {headers :{ Authorization:  `Bearer ${token}`},}
      ).then((res)=>{
        
        ResultSearch.classList.add('blockSearch')
       
        const responsestatus = res.data
-      
+          console.log(responsestatus)
        
        const responeS =  responsestatus.map(e =>{  
       
@@ -266,7 +266,12 @@ InputSearch.addEventListener('input' , ()=>{
      ResultSearch.innerHTML = ""
     }else{
     ResultSearch.classList.remove('SetTimeOut')
-  }      
+  }
+ }catch(e){
+  console.log(e.data)
+
+ }
+        
      
 })
 /* ______Stop Function________ */
@@ -809,7 +814,7 @@ document.addEventListener('click', (e) => {
     if (!text) return alert('لا يمكن إرسال رد فارغ');
 
     axios.post(
-      `${BACKEND_LOCAL_URL}/replies`,
+      `${BACKEND_LOCAL_URL}replies`,
       { text, commentId },
       {
         headers: {
@@ -855,7 +860,7 @@ async  function Profile() {
       const response      = res.data;
      
       const ChekingAvatar =  response.avatar === "default.png" || response.avatar === "" ;
-      document.getElementById('ImageHeader').src = ChekingAvatar ?`${BACKEND_LOCAL_URL}images/defulte.png` : `${BACKEND_LOCAL_URL}.uploads/${response.avatar}`;
+      document.getElementById('ImageHeader').src = ChekingAvatar ? `${BACKEND_LOCAL_URL}images/defulte.png` : `${BACKEND_LOCAL_URL}uploads/${response.avatar}`;
       document.getElementById('IamgePrifilpageprencbal').src = ChekingAvatar ? `${BACKEND_LOCAL_URL}images/defulte.png` :`${BACKEND_LOCAL_URL}uploads/${response.avatar}`;
       document.getElementById('MouhemdAksourImage').src = ChekingAvatar ? `${BACKEND_LOCAL_URL}images/defulte.png` :  `${BACKEND_LOCAL_URL}uploads/${response.avatar}`
       document.getElementById('UsernameMouhmedAksour').innerHTML = `${response.name}`
