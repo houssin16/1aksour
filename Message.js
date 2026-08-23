@@ -70,25 +70,26 @@ async function GetMessages (){
     )
 
 
-    
+      let result =""
+   
      console.log(res.data);
      let Position;
-     res.data.forEach(e => {
-        if(e.sender === Id_user._id ) {
+     res.data.forEach(e => { 
+        const date  = new Date(e.createdAt) 
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        if(e.sender === Id_user._id ){
           Position = 'right'
         }else{
           Position = 'left'
         }
-        let result =""
+      
        result += `
-                    <div class="message left">
-                          <p>السلام عليكم كيف حالك انت تمام</p>
-                          <span>ص 10:55</span>
+                    <div class="message ${Position}">
+                          <p>${e.message}</p>
+                          <span>${hour}</span>
                         </div>         
-                           <div class="message right " data-user_id="18853">
-                            <p>وعليكم السلام >السلام عليكم كيف حالك انت تما</p>  
-                            <span>ص 10:55</span>
-                            </div>
+                    
                        
                    ` 
              document.querySelector('.Chat').innerHTML = result                      
