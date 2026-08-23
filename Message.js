@@ -9,7 +9,7 @@ async function prsone() {
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}SearchUser?search=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
-    const res   = await axios.get('')
+   
     let  Result = ""
     response.data.forEach(element => {
         if(Searchinput.value !== ""){
@@ -52,7 +52,7 @@ async function SendMessage() {
     console.log(ResultPrsone)
    const ResultText = document.getElementById('PlaceMessage').value.trim()
    if (ResultText.value === "" && !ResultPrsone) return
-   const res = await axios.post(`http://localhost:3000/messages`,
+   const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
     { receiver:ResultPrsone,message: ResultText,},{
     headers :{ Authorization:  `Bearer ${TokenMessage}`}}) 
 }
@@ -60,7 +60,7 @@ document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMes
 
 async function GetMessages (){
    
-    const res = await axios.post(`http://localhost:3000/getmessage`
+    const res = await axios.post(`${BACKEND_LOCAL_URL}getmessage`
         ,
         {
         receiver : ResultPrsone
@@ -97,3 +97,4 @@ async function GetMessages (){
         })  
         
 }  
+
