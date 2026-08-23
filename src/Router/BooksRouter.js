@@ -64,5 +64,5 @@ Router.get('/My_User_Post' , verifyToken,GetMyPosts)
 // SendMessage 
 Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
- Router.post("/getmessage", GetMessages) 
+ Router.post("/getmessage",verifyToken, GetMessages) 
 module.exports = Router; // ✅ export واحد فقط

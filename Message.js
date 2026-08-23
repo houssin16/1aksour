@@ -2,7 +2,7 @@
 const TokenMessage         = localStorage.getItem('token');
 const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
-console.log(Id_user)
+
 async function prsone() {
     const Search = document.querySelector('.SearchFrindes').value.trim();
     const Searchinput = document.querySelector('.SearchFrindes')
@@ -47,6 +47,7 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
+    console.log("efdvczead")
 })
 async function SendMessage() {
     console.log(ResultPrsone)
