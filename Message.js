@@ -17,7 +17,7 @@ async function prsone() {
          <div class="BoxFrindesChat" data-prsone=${element._id} >
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
-                          <img  src="http://localhost:3000/uploads/${element.avatar}" alt="">
+                          <img  src="${BACKEND_LOCAL_URL}${element.avatar}" alt="">
                         </div>
                             <div class="Name_person">
                                 <h2>${element.name}<h2> 
