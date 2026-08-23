@@ -59,8 +59,9 @@ async function SendMessage() {
 document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage ) 
 
 async function GetMessages (){
-   
-    const res = await axios.post(`${BACKEND_LOCAL_URL}getmessage`
+   try{
+
+      const res = await axios.post(`${BACKEND_LOCAL_URL}getmessage`
         ,
         {
         receiver : ResultPrsone
@@ -69,10 +70,10 @@ async function GetMessages (){
 
     )
 
-
+      console.log(res.data);
       let result =""
    
-     console.log(res.data);
+  
      let Position;
      res.data.forEach(e => { 
         const date  = new Date(e.createdAt) 
@@ -96,5 +97,9 @@ async function GetMessages (){
       
         })  
         
+   }catch(e){
+        console.log(e)
+   }
+  
 }  
 
