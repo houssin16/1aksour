@@ -12,12 +12,14 @@ async function prsone() {
    
     let  Result = ""
     response.data.forEach(element => {
+        console.log(element);
+        
         if(Searchinput.value !== ""){
             Result += `
          <div class="BoxFrindesChat" data-prsone=${element._id} >
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
-                          <img  src="${BACKEND_LOCAL_URL}${element.avatar}" alt="">
+                          <img src="${BACKEND_LOCAL_URL}uploads/${encodeURIComponent(element.avatar)}" alt="">
                         </div>
                             <div class="Name_person">
                                 <h2>${element.name}<h2> 
@@ -47,7 +49,7 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
-    console.log("efdvczead")
+  
 })
 async function SendMessage() {
     console.log(ResultPrsone)
