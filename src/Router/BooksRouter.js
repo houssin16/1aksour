@@ -63,5 +63,5 @@ Router.get('/SearchUser', verifyToken , SearchUsers);
 Router.get('/My_User_Post' , verifyToken,GetMyPosts)
 // SendMessage 
 Router.post('/messages' ,verifyToken,SendMessageprsone )
- Router.post("/getmessage", GetMessage)
+ Router.post("/getmessage", GetMessages) 
 module.exports = Router; // ✅ export واحد فقط
