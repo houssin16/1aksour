@@ -1,12 +1,18 @@
 const FriendRequestModels = require('../Models/FriendRequest')
-
+const User                = require('../Models/UsersModel')
 const FriendRequest = async  ( req , res) => {
 
  try{
    const Sender = req.user.id
    const {receiver} = req.body
-     if (Sender === receiver) {
+   const UserReceiver    = await User.findById(receiver)
+   if (!UserReceiver) {
     return res.json({
+        message: "المستخدم غير موجود"
+    })
+}
+     if (Sender === receiver) {
+      return res.json({
         message: "لا يمكنك إرسال طلب صداقة لنفسك"
     })
 }
