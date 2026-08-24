@@ -14,7 +14,7 @@ async function prsone() {
     response.data.forEach(element => {
         console.log(element);
         
-        if(Searchinput.value !== ""){
+        
             Result += `
          <div class="BoxFrindesChat" data-prsone=${element._id} >
                         <div class="mage_Person_And_Name_person">
@@ -33,10 +33,7 @@ async function prsone() {
           </div>
         
         `
-        }else{
-             
-
-        }
+      
         
     });
 document.querySelector('.Friends_list_chat').innerHTML = Result
@@ -80,18 +77,37 @@ async function GetMessages (){
      let Position;
      res.data.forEach(e => { 
         const date  = new Date(e.createdAt) 
+        ///////ناخذ الساعة ودقائق ///
         let hour = date.getHours();
         let minute = date.getMinutes();
+        console.log(hour)
+         // هل الوقت صباح أم مساء؟
+        let period;
+        if(hour >= 12 ){
+            period = "م"
+        }else{
+             period = "ص"
+        }
+        // تحويل نظام 24 ساعة إلى نظام 12 ساعة
+        if(hour > 12){
+          hour = hour - 12
+        }
+        // الساعة 0 تعني 12 منتصف الليل
+        if(hour === 0) {
+         hour = 12
+        }
+        minute = minute.toString().padStart(2 , "0")
+        const time = `${hour}:${minute} ${period}`
         if(e.sender === Id_user._id ){
           Position = 'right'
         }else{
           Position = 'left'
         }
-      
+
        result += `
                     <div class="message ${Position}">
                           <p>${e.message}</p>
-                          <span>${hour}</span>
+                          <span>${time}</span>
                         </div>         
                     
                        
