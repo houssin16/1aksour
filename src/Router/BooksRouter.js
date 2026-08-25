@@ -22,7 +22,7 @@ const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
 const { UpdateComment } = require('../Contllors/UpdateComments');
 const {Deletecommentee}  = require ('../Contllors/commentController')
 const {SendMessageprsone , GetMessages} = require('../Contllors/MessageControlls')
-const {FriendRequest} = require("../Contllors/FriendRequest")
+const {FriendRequest , GetFrindesRequest} = require("../Contllors/FriendRequest")
 // Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
@@ -68,4 +68,6 @@ console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
  ////FrindesRequest  
 Router.post("/FrindesRequest" , verifyToken ,FriendRequest)
+Router.post("/getmessage",verifyToken, GetMessages) 
+Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 module.exports = Router; // ✅ export واحد فقط

@@ -12,7 +12,7 @@ async function prsone() {
    
     let  Result = ""
     response.data.forEach(element => {
-        console.log(element);
+
         
         
             Result += `
@@ -70,7 +70,7 @@ async function GetMessages (){
 
     )
 
-      console.log(res.data);
+    
       let result =""
    
   
@@ -80,7 +80,7 @@ async function GetMessages (){
         ///////ناخذ الساعة ودقائق ///
         let hour = date.getHours();
         let minute = date.getMinutes();
-        console.log(hour)
+   
          // هل الوقت صباح أم مساء؟
         let period;
         if(hour >= 12 ){
@@ -122,4 +122,20 @@ async function GetMessages (){
   
 }  
 
+async function GetRequestsFrindes (){
+ try {
 
+    const res = await axios.get(`${BACKEND_LOCAL_URL}GetRequiest` ,
+    {
+        headers :{ Authorization:  `Bearer ${TokenMessage}`}
+    }
+  )
+  console.log(res);
+ }catch(e){
+   console.log(e)
+ }
+
+  
+}
+
+GetRequestsFrindes()

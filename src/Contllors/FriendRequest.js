@@ -1,3 +1,4 @@
+
 const FriendRequestModels = require('../Models/FriendRequest')
 const User                = require('../Models/UsersModel')
 const FriendRequest = async  ( req , res) => {
@@ -47,4 +48,18 @@ console.log(erorrs)
 
  }
 }
-module.exports = {FriendRequest}
+const GetFrindesRequest = async  (req , res) => {
+
+try{
+  const User_id = req.user.id
+  const GetRequest = await FriendRequestModels.find({
+   receiver : User_id
+  })
+ return res.json({
+    requests : GetRequest
+ })
+}catch(e){
+console.log(e)
+}
+} 
+module.exports = {FriendRequest , GetFrindesRequest}
