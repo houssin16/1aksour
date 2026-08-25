@@ -130,12 +130,11 @@ async function GetRequestsFrindes (){
         headers :{ Authorization:  `Bearer ${TokenMessage}`}
     }
   )
-  console.log(res);
+  console.log(res.data);
  }catch(e){
    console.log(e)
  }
 
-  
 }
 
 GetRequestsFrindes()

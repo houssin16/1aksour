@@ -54,9 +54,12 @@ try{
   const User_id = req.user.id
   const GetRequest = await FriendRequestModels.find({
    receiver : User_id
-  })
+   
+  }).populate("sender")
+   
  return res.json({
     requests : GetRequest
+    
  })
 }catch(e){
 console.log(e)
