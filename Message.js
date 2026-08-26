@@ -122,19 +122,3 @@ async function GetMessages (){
   
 }  
 
-async function GetRequestsFrindes (){
- try {
-
-    const res = await axios.get(`${BACKEND_LOCAL_URL}GetRequiest` ,
-    {
-        headers :{ Authorization:  `Bearer ${TokenMessage}`}
-    }
-  )
-  console.log(res.data);
- }catch(e){
-   console.log(e)
- }
-
-}
-
-GetRequestsFrindes()
