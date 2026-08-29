@@ -12,7 +12,23 @@ async function GetRequestsFrindes (){
   const Create_At    = new Date(element.createdAt)
   const now = new Date()
   const diff = now - Create_At 
-  const hour = Math.floor(diff / (60 * 60 * 1000))
+  let hour = Math.floor(diff / (60 * 60 * 1000))
+  let munets =Math.floor(diff / 60000)
+  let seconde =""
+  let Day = parseInt(hour / 24)
+  let ResultDayandHour = ""
+  if(hour === 48) {
+      ResultDayandHour =`<span class="TimeCreate"> مند يومين </span>`
+  }else if(hour === 24){
+ ResultDayandHour =`<span class="TimeCreate"> مند يوم </span>`
+  }else if(hour >= 24){
+ResultDayandHour = `<span class="TimeCreate"> مند ${Day}ايام</span>` 
+  }else if(hour < 24){
+ ResultDayandHour =`<span class="TimeCreate"> مند ${hour} ساعات</span>` 
+  }else if (hour < 1){
+ResultDayandHour =`<span class="TimeCreate"> مند ${munets} دقايق</span>` 
+  }
+
   const CreateDiding = document.createElement('div')
   CreateDiding.classList.add('ListLikesAndFollowing')
   CreateDiding.innerHTML =`
@@ -28,7 +44,7 @@ async function GetRequestsFrindes (){
             
                 <div class="CardAksour2">
                     <h3>${element.sender.name}<span>اعجب بمنشورك</span></h3>
-                     <span class="TimeCreate">${hour}</span>
+                     ${ResultDayandHour}
                 </div>
                 <div class="CaredImageUser">
                     <img src="${BACKEND_LOCAL_URL}./uploads/${element.sender.avatar}" alt="">
