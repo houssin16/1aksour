@@ -2682,3 +2682,194 @@ margin: 70px;
   color: gray;
   }
 }
+.ListingToInvition {
+  background-color: #0565d3;
+  margin: 10px auto;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  color: white;
+  .Title-Boxing {
+    width: 100%;
+    /* background-color: red; */
+    padding: 50px;
+  
+    h3 {
+
+      letter-spacing :0.3em;
+      font-size: 23px;
+      
+    
+    }
+    h1{
+margin: 0;
+      font-size: 50px;
+    }
+  }
+  .IndexTobox {
+  /*   background: #2a8b04; */
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    width: 35%;
+    height: 80px;
+    
+    .index1 {
+
+    /*   background-color: rgb(247, 243, 4); */
+     width: 100px;
+     
+      margin-left:5px ;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-left: 30px;
+     
+      span{
+        font-size: 40px;
+        margin: 0;
+      }
+      h6{
+        margin: 0;
+        font-size: 20px;
+        font-weight: 200;
+      }
+    }
+  }
+}
+.inputSearching {
+ 
+  width: 100%;
+  height: 150px;
+  margin: 0;
+  direction: rtl;
+  input {
+    margin-right: 40px;
+    height:60px;
+    width: 80%;
+    border-radius: 15px;
+    outline: 0;
+    border: 0;
+  }
+  
+  ul{
+    width: 100%;
+    list-style: none;
+    display: flex; 
+    gap: 50px;
+    li {
+      width: 120px;
+      height: 50px;
+      display:flex;
+      background-color:#0565d3;
+      margin-left: 12PX;
+      justify-content: center;
+      align-items: center;
+      border-radius: 7px;
+      color: white;
+      i{
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+}
+#InputSeaRch1:focus{
+border: 3px solid #0565d3;
+
+}
+.Aksour-Friends{
+  display: flex;
+  position: relative;
+  flex-direction: row-reverse;
+  height: 160px;
+  box-shadow: 0px 2px 0px 0px rgb(210, 210, 214);
+   /* background-color: rgb(4, 169, 180);  */
+   
+  h1 , h6{
+   margin: 0;
+  }
+  .Avatar-user{
+   /*  background-color: #850303; */
+    width: 180px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 85px;
+      height:85px;
+      border-radius: 7px;
+    }
+  }
+}
+.AksourCurd{ 
+ span:last-child {
+ margin-bottom: 18px;
+ }
+/* background-color: #082649; */
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  #TiminAgo {
+  /*   background-color: red; */
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+    .CreateAt {
+      margin: 0;
+      color: #8595a7;
+    }
+  }
+ 
+}
+#InputSeaRch1::placeholder {
+  font-size: 25px;
+ padding-right: 20px;
+}
+.AccebteAnvition {
+ /*  background-color: #350d06; */
+  position: absolute;
+  width: 300px;
+  heighT:80px;
+  left: 50px;
+  top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center; 
+  flex-direction: row-reverse;
+  button{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    color:#ffffff;
+    background-color: rgb(4, 169, 180);
+    outline: 0;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    
+  }
+  button:last-child {
+    
+    background-color: white;
+    color: #515253;
+
+  }
+   
+}
+#Rejcted:hover{
+color: red;
+}
+#user-plus {
+  background-color:#0565d3 ;
+  color: white;
+}

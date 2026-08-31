@@ -13,8 +13,10 @@ async function GetRequestsFrindes (){
   const now = new Date()
   const diff = now - Create_At 
   let hour = Math.floor(diff / (60 * 60 * 1000))
-  let munets =Math.floor(diff / 60000)
-  let seconde =""
+  let munets =Math.floor(diff / (60 * 1000))
+  let seconde = Math.floor(diff / (1000))
+  console.log(seconde);
+  
   let Day = parseInt(hour / 24)
   let ResultDayandHour = ""
   if(hour === 48) {
@@ -25,9 +27,17 @@ async function GetRequestsFrindes (){
 ResultDayandHour = `<span class="TimeCreate"> مند ${Day}ايام</span>` 
   }else if(hour < 24){
  ResultDayandHour =`<span class="TimeCreate"> مند ${hour} ساعات</span>` 
-  }else if (hour < 1){
-ResultDayandHour =`<span class="TimeCreate"> مند ${munets} دقايق</span>` 
+   if (hour < 1){
+   ResultDayandHour =`<span class="TimeCreate"> مند ${munets} دقايق</span>`
+    if(munets < 1){
+      ResultDayandHour =`<span class="TimeCreate"> مند ${seconde} ثانية</span>`
+    }
+    } 
   }
+
+  console.log(hour)
+console.log(munets)
+console.log(ResultDayandHour)
 
   const CreateDiding = document.createElement('div')
   CreateDiding.classList.add('ListLikesAndFollowing')
@@ -53,7 +63,7 @@ ResultDayandHour =`<span class="TimeCreate"> مند ${munets} دقايق</span>`
            </div>
   `
  Container.appendChild(CreateDiding)
- console.log(element)
+
   })
  }catch(e){
    console.log(e)
