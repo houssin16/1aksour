@@ -29,6 +29,5 @@ const SuggestionsFriends = await user.find({
 
 console.log(SuggestionsFriends)
 res.json(SuggestionsFriends)
- res.json(SuggestionsFriends)
 }
 module.exports = {GetUserSuggestions}
