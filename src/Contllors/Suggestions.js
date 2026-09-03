@@ -20,17 +20,15 @@ const GetUserSuggestions = async (req , res)=> {
  } )
 
 
-const SuggestionsFriends = await user.find(
-  {
-    _id: {
-      $ne: user_id,
-      $nin: result
-    }
-  },
-  {
-    password: 0
+const SuggestionsFriends = await user.find({
+  _id: {
+    $ne: user_id,
+    $nin: result
   }
-).select('-password')
+}).select('-password')
+
+console.log(SuggestionsFriends)
+res.json(SuggestionsFriends)
  res.json(SuggestionsFriends)
 }
 module.exports = {GetUserSuggestions}
