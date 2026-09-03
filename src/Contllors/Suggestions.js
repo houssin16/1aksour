@@ -30,7 +30,7 @@ const SuggestionsFriends = await user.find(
   {
     password: 0
   }
-);
+).select('-password')
  res.json(SuggestionsFriends)
 }
 module.exports = {GetUserSuggestions}
