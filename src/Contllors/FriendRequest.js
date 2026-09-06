@@ -65,4 +65,15 @@ try{
 console.log(e)
 }
 } 
-module.exports = {FriendRequest , GetFrindesRequest}
+const AccptedRequestFrineds = async (req , res)=>{
+const id_user_Now   = req.user.id
+const Id_Requesting = req.body.id
+const result  = await FriendRequestModels.findById(Id_Requesting)
+if(id_user_Now === result.receiver.toString()) {
+ result.status = "accepted"
+
+}
+ await result.save()
+ res.json(result)
+}
+module.exports = {FriendRequest , GetFrindesRequest ,AccptedRequestFrineds}

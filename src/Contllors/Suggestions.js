@@ -25,9 +25,35 @@ const SuggestionsFriends = await user.find({
     $ne: user_id,
     $nin: result
   }
-}).select('-password')
+})
+const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async result => {
+  const requset = await FriendRequest.find({
+    $or: [
+   {
+      sender: user_id,
+      receiver: result._id,
+   
+   },
+   {
+      sender: result._id,
+      receiver: user_id,
+   
+   }
+  
+]
+ 
+  })
+ return {
+      requset,
+      request2 : result,
+      
+ } 
 
-console.log(SuggestionsFriends)
-res.json(SuggestionsFriends)
+})
+) 
+
+res.json({Users_Bettwen , currentUserId : user_id})
+
 }
+
 module.exports = {GetUserSuggestions}
