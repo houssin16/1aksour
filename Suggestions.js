@@ -1,5 +1,5 @@
 async function GetUserSuggestionss(){
- const resGetUserSuggestionss = await  axios.get(`https://oneaksour.onrender.com/GetUserSuggestions`, {
+ const resGetUserSuggestionss = await  axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`, {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
     },
@@ -9,7 +9,6 @@ async function GetUserSuggestionss(){
 const user_idNow = resGetUserSuggestionss.data.currentUserId
 
 resGetUserSuggestionss.data.Users_Bettwen.forEach(element => {
-  
 console.log(element)
 const receiver = element.requset[0].receiver
 console.log(receiver)
@@ -41,7 +40,7 @@ ButtonSendInv =`
    Container = `
     <div class="Aksour-Friends">
                   <div class="Avatar-user">
-                    <img src="https://oneaksour.onrender.com/uploads/${element.request2.avatar}" alt="">
+                    <img src="${BACKEND_LOCAL_URL}uploads/${element.request2.avatar}" alt="">
                   </div>
                     <div class="AksourCurd">
                       <div id="TiminAgo">
@@ -63,7 +62,7 @@ ButtonSendInv =`
 }
 GetUserSuggestionss()
 async function AccptedRequestFrineds(id){
-const Response_the_AccptedRequest =await axios.post(`https://oneaksour.onrender.com/AccptedRequestFrineds`,
+const Response_the_AccptedRequest =await axios.post(`${BACKEND_LOCAL_URL}AccptedRequestFrineds`,
   {id: id},
 {
 
