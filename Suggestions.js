@@ -1,5 +1,5 @@
 async function GetUserSuggestionss(){
- const resGetUserSuggestionss = await  axios.get("http://localhost:3000/GetUserSuggestions", {
+ const resGetUserSuggestionss = await  axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`, {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
     },
@@ -40,7 +40,7 @@ ButtonSendInv =`
    Container = `
     <div class="Aksour-Friends">
                   <div class="Avatar-user">
-                    <img src="http://localhost:3000/uploads/${element.request2.avatar}" alt="">
+                    <img src="${BACKEND_LOCAL_URL}uploads/${element.request2.avatar}" alt="">
                   </div>
                     <div class="AksourCurd">
                       <div id="TiminAgo">
@@ -62,7 +62,7 @@ ButtonSendInv =`
 }
 GetUserSuggestionss()
 async function AccptedRequestFrineds(id){
-const Response_the_AccptedRequest =await axios.post(`http://localhost:3000/AccptedRequestFrineds`,
+const Response_the_AccptedRequest =await axios.post(`${BACKEND_LOCAL_URL}AccptedRequestFrineds`,
   {id: id},
 {
 

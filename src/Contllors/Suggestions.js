@@ -10,11 +10,10 @@ const GetUserSuggestions = async (req , res)=> {
         {receiver :user_id}
     ]
  })
-  const result = Frindes.map(f =>{
+  const result = Frindes.map(f =>{   /// الان اصبح لدينا [Array : 200 , 300 , 500]
     if (f.sender.toString() === user_id.toString()) {
     return  f.receiver
     }else{
-
         return f.sender
     }
  } )
@@ -26,29 +25,23 @@ const SuggestionsFriends = await user.find({
     $nin: result
   }
 })
-const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async result => {
+const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte => {
   const requset = await FriendRequest.find({
     $or: [
    {
       sender: user_id,
-      receiver: result._id,
-   
+      receiver: resulte._id,
    },
    {
-      sender: result._id,
+      sender: resulte._id,
       receiver: user_id,
-   
    }
-  
 ]
- 
   })
  return {
-      requset,
-      request2 : result,
-      
- } 
-
+      req      : requset,
+      request2 : resulte,  
+ }
 })
 ) 
 
