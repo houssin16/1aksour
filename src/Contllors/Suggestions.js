@@ -10,7 +10,8 @@ const GetUserSuggestions = async (req , res)=> {
         {receiver :user_id}
     ]
  })
-  const result = Frindes.map(f =>{   /// الان اصبح لدينا [Array : 200 , 300 , 500]
+  const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]
+    
     if (f.sender.toString() === user_id.toString()) {
     return  f.receiver
     }else{
@@ -47,7 +48,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 })
 ) 
 
-res.json({Users_Bettwen , currentUserId : user_id , Frindes})
+res.json({Users_Bettwen , currentUserId : user_id})
 
 }
 
