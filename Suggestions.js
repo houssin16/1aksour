@@ -11,7 +11,6 @@ const user_idNow = resGetUserSuggestionss.data.currentUserId
 resGetUserSuggestionss.data.Users_Bettwen.forEach(element => {
 console.log(element)
 const receiver = element.requset[0].receiver
-console.log(receiver)
 const sender = element.requset[0].sender
 const person_who_sent_the_request =  element.requset[0]._id
 let ButtonSendInv;

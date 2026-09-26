@@ -25,6 +25,8 @@ const SuggestionsFriends = await user.find({
     $nin: result
   }
 })
+console.log("SuggestionsFriends:", SuggestionsFriends);
+console.log("Count:", SuggestionsFriends.length);
 const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte => {
   const requset = await FriendRequest.find({
     $or: [
