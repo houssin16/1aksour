@@ -24,10 +24,14 @@ const SuggestionsFriends = await user.find({  //// هنا استبعدنا ال�
   _id: {
     $ne: user_id,
     $nin: result
-  }
-})
-console.log("SuggestionsFriends:", SuggestionsFriends);
-console.log("Count:", SuggestionsFriends.length);
+  },
+   
+  password: 0
+    
+}
+
+)
+
 const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte => {   ////// هنا الصدقاء المقترحون 
   const requset = await FriendRequest.find({
     $or:[
