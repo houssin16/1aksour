@@ -20,16 +20,16 @@ const GetUserSuggestions = async (req , res)=> {
  } )
 
 
-const SuggestionsFriends = await user.find({  //// هنا استبعدنا الايدي المستخدم الحالي  ////
+const SuggestionsFriends = await user.find( 
+  {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
     $ne: user_id,
     $nin: result
+  }
   },
-   
-
-    
-}
-
+   {
+        password: 0
+    }
 )
 
 const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte => {   ////// هنا الصدقاء المقترحون 
@@ -43,7 +43,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
       sender: resulte._id,
       receiver: user_id,
    }
-] 
+]
   })
  return {
       requset,
