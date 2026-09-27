@@ -19,14 +19,14 @@ const GetUserSuggestions = async (req , res)=> {
     }
  } )
 
-
+ console.log("SuggestionsFriends:", SuggestionsFriends); 
 const SuggestionsFriends = await user.find({  //// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
     $ne: user_id,
     $nin: result
   },
    
-  password: 0
+
     
 }
 
