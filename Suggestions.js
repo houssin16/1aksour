@@ -1,5 +1,5 @@
 async function GetUserSuggestionss(){
- const resGetUserSuggestionss = await  axios.get(`${BACKEND_URL}GetUserSuggestions`, {
+ const resGetUserSuggestionss = await  axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`, {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
     },
