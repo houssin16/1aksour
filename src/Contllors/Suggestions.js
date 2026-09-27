@@ -3,14 +3,14 @@ const user = require('../Models/UsersModel')
 const FriendRequest = require('..//Models/FriendRequest')
 const GetUserSuggestions = async (req , res)=> {
  const user_id = req.user.id
-   const Frindes = await FriendRequest.find({
+   const Frindes = await FriendRequest.find({ /////// هنا جبنا الاصدقاء للحساب الحالي وشكرا  
     status : "accepted",
     $or :[
         {sender :user_id },
         {receiver :user_id}
     ]
  })
-  const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]
+  const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]  ////الان استخرجنا معرف الاشخص الالاصدقاء ////
     
     if (f.sender.toString() === user_id.toString()) {
     return  f.receiver
@@ -20,7 +20,7 @@ const GetUserSuggestions = async (req , res)=> {
  } )
 
 
-const SuggestionsFriends = await user.find({
+const SuggestionsFriends = await user.find({  //// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
     $ne: user_id,
     $nin: result
@@ -30,7 +30,7 @@ console.log("SuggestionsFriends:", SuggestionsFriends);
 console.log("Count:", SuggestionsFriends.length);
 const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte => {
   const requset = await FriendRequest.find({
-    $or: [
+    $or:[
    {
       sender: user_id,
       receiver: resulte._id,
@@ -39,7 +39,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
       sender: resulte._id,
       receiver: user_id,
    }
-]
+] 
   })
  return {
       requset,
@@ -48,7 +48,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 })
 ) 
 
-res.json({Users_Bettwen , currentUserId : user_id})
+res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result})
 
 }
 
