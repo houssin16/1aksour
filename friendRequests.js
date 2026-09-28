@@ -12,7 +12,8 @@ headers :{
 console.log(Response_the_AccptedRequest)
 }
  async function SendInvition(id , button){
-
+   console.log("TOKEN:", localStorage.getItem('token'));
+    console.log("ID:", id);
 const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`,
   {
     receiver:id
@@ -24,11 +25,13 @@ const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`,
     }
   }
  )  
+ console.log(Invition);
+ 
  button.textContent = "تم ارسال الطلب"
 }
 
 
-async function RejectedInvition (){
+async function RejectedInvition(){
 
 
 }
