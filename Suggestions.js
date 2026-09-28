@@ -9,33 +9,31 @@ async function GetUserSuggestionss(){
 }); 
 const container =  document.querySelector('.container')
 const user_idNow = resGetUserSuggestionss.data.currentUserId
+
 console.log(resGetUserSuggestionss);
 resGetUserSuggestionss.data.Users_Bettwen.forEach(element => {
 console.log(element);
- 
 const  ContainerDiv = document.createElement('div')
 let ButtonSendInv;
 if(element.requset.length) {
   const receiver = element.requset[0].receiver
 const sender = element.requset[0].sender
 const person_who_sent_the_request =  element.requset[0]._id
-
-
  if(user_idNow === receiver) {
    ButtonSendInv = `
      <button id="user-plus" onclick="AccptedRequestFrineds('${person_who_sent_the_request}')">قبول <i class="fa-solid fa-check" ></i></button>
-    <button>رفض<i class="fa-solid fa-xmark"></i></button>
+     <button>رفض<i class="fa-solid fa-xmark"></i></button>
   `
  }else if(user_idNow === sender) {
-  
     ButtonSendInv = `
-   <button id="user-plus">تم ارسال الطلب</button>
-  `
+    <button id="user-plus">تم ارسال الطلب</button>
+    `
+
  }
 
 }else{
 ButtonSendInv =`
-<button id="user-plus" onclick = "SendInvition('${element.request2._id}')">اضافة صديق<i class="fa-solid fa-user-plus"></i></button>`
+<button id="user-plus" onclick = "SendInvition('${element.request2._id}' , this)">اضافة صديق<i class="fa-solid fa-user-plus"></i></button>`
 
 } 
 /* console.log(element.requset); */

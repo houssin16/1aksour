@@ -11,19 +11,25 @@ headers :{
 
 console.log(Response_the_AccptedRequest)
 }
- async function SendInvition(id){
+ async function SendInvition(id , button){
 
-const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest` ,
+const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`,
   {
     receiver:id
   },
 
   {
-     headers: {Authorization :`Bearer ${localStorage.getItem('token')}`
+     headers:{Authorization :`Bearer ${localStorage.getItem('token')}`
     
     }
   }
  )  
- console.log(Invition);
- 
+ button.textContent = "تم ارسال الطلب"
 }
+
+
+async function RejectedInvition (){
+
+
+}
+

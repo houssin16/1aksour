@@ -38,7 +38,7 @@ const SendFriendRequest = async  ( req , res) => {
    }
    const NewRequest = await FriendRequestModels.create({
      sender : SenderMyAcount,
-     receiver : receiver,
+     receiver : receiver, /////الايدي المستخدم الدي ضغطنا عليه/////
    })
 return res.json({
     message: "تم إرسال طلب الصداقة بنجاح"
@@ -69,6 +69,9 @@ const AccptedRequestFrineds = async (req , res)=>{
 const id_user_Now   = req.user.id
 const Id_Requesting = req.body.id
 const result  = await FriendRequestModels.findById(Id_Requesting)
+/* if(!result) {
+  return res.json("لا يوجد طلب")   
+} */
 if(id_user_Now === result.receiver.toString()) {
  result.status = "accepted"
 }
