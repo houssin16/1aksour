@@ -2,7 +2,9 @@
 const FriendRequestModels = require('../Models/FriendRequest')
 const User                = require('../Models/UsersModel')
 const SendFriendRequest = async  ( req , res) => {
-
+  console.log("🔥 ENTERED SendFriendRequest");
+        console.log("USER:", req.user);
+        console.log("BODY:", req.body)
  try{
    const SenderMyAcount = req.user.id
    const {receiver} = req.body
@@ -44,7 +46,13 @@ return res.json({
     message: "تم إرسال طلب الصداقة بنجاح"
 })
  }catch(erorrs){
-console.log(erorrs)
+  console.log("SEND FRIEND REQUEST ERROR:", errors);
+
+    return res.status(500).json({
+        success: false,
+        message: "حدث خطأ في السيرفر",
+        error: errors.message
+    });
 
  }
 }
