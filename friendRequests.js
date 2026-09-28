@@ -13,7 +13,17 @@ console.log(Response_the_AccptedRequest)
 }
  async function SendInvition(id){
 
-const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`)
-console.log(id);
+const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest` ,
+  {
+    receiver:id
+  },
 
- }
+  {
+     headers: {Authorization :`Bearer ${localStorage.getItem('token')}`
+    
+    }
+  }
+ )  
+ console.log(Invition);
+ 
+}

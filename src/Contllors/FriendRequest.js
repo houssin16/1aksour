@@ -4,7 +4,7 @@ const User                = require('../Models/UsersModel')
 const SendFriendRequest = async  ( req , res) => {
 
  try{
-   const Sender = req.user.id
+   const SenderMyAcount = req.user.id
    const {receiver} = req.body
    const UserReceiver    = await User.findById(receiver)
    if (!UserReceiver) {
@@ -12,7 +12,7 @@ const SendFriendRequest = async  ( req , res) => {
         message: "المستخدم غير موجود"
     })
 }
-     if (Sender === receiver) {
+     if (SenderMyAcount === receiver) {
       return res.json({
         message: "لا يمكنك إرسال طلب صداقة لنفسك"
     })
@@ -20,12 +20,12 @@ const SendFriendRequest = async  ( req , res) => {
    const ExistingRequest = await FriendRequestModels.findOne({
     $or: [
         {
-            sender: Sender,
+            sender: SenderMyAcount,
             receiver: receiver
         },
         {
             sender: receiver,
-            receiver: Sender
+            receiver: SenderMyAcount
         }
     ]
    })
@@ -37,8 +37,8 @@ const SendFriendRequest = async  ( req , res) => {
      
    }
    const NewRequest = await FriendRequestModels.create({
-     sender : Sender,
-    receiver : receiver,
+     sender : SenderMyAcount,
+     receiver : receiver,
    })
 return res.json({
     message: "تم إرسال طلب الصداقة بنجاح"
