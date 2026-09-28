@@ -2,9 +2,7 @@
 const FriendRequestModels = require('../Models/FriendRequest')
 const User                = require('../Models/UsersModel')
 const SendFriendRequest = async  ( req , res) => {
-  console.log("🔥 ENTERED SendFriendRequest");
-        console.log("USER:", req.user);
-        console.log("BODY:", req.body)
+ console.log("🔥🔥 RENDER TEST - SendFriendRequest");
  try{
    const SenderMyAcount = req.user.id
    const {receiver} = req.body
