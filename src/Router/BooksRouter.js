@@ -68,7 +68,7 @@ Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
  ////FrindesRequest  
-Router.post("/FrindesRequest" , verifyToken ,FriendRequest)
+Router.post("/FrindesRequest" , verifyToken ,SendFriendRequest)
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions)

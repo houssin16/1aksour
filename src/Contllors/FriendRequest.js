@@ -1,7 +1,7 @@
 
 const FriendRequestModels = require('../Models/FriendRequest')
 const User                = require('../Models/UsersModel')
-const FriendRequest = async  ( req , res) => {
+const SendFriendRequest = async  ( req , res) => {
 
  try{
    const Sender = req.user.id
@@ -71,9 +71,8 @@ const Id_Requesting = req.body.id
 const result  = await FriendRequestModels.findById(Id_Requesting)
 if(id_user_Now === result.receiver.toString()) {
  result.status = "accepted"
-
 }
  await result.save()
  res.json(result)
 }
-module.exports = {FriendRequest , GetFrindesRequest ,AccptedRequestFrineds}
+module.exports = {SendFriendRequest , GetFrindesRequest ,AccptedRequestFrineds}

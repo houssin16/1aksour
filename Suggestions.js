@@ -1,3 +1,5 @@
+
+
 async function GetUserSuggestionss(){
  const resGetUserSuggestionss = await  axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`, {
     headers: {
@@ -5,16 +7,20 @@ async function GetUserSuggestionss(){
     },
    
 }); 
- 
+const container =  document.querySelector('.container')
 const user_idNow = resGetUserSuggestionss.data.currentUserId
-
+console.log(resGetUserSuggestionss);
 resGetUserSuggestionss.data.Users_Bettwen.forEach(element => {
-console.log(element)
-const receiver = element.requset[0].receiver
-const sender = element.requset[0].sender
-const person_who_sent_the_request =  element.requset[0]._id
+console.log(element);
+ 
+const  ContainerDiv = document.createElement('div')
 let ButtonSendInv;
 if(element.requset.length) {
+  const receiver = element.requset[0].receiver
+const sender = element.requset[0].sender
+const person_who_sent_the_request =  element.requset[0]._id
+
+
  if(user_idNow === receiver) {
    ButtonSendInv = `
      <button id="user-plus" onclick="AccptedRequestFrineds('${person_who_sent_the_request}')">قبول <i class="fa-solid fa-check" ></i></button>
@@ -29,15 +35,15 @@ if(element.requset.length) {
 
 }else{
 ButtonSendInv =`
-<button id="user-plus">اضافة صديق<i class="fa-solid fa-user-plus"></i></button>`
+<button id="user-plus" onclick = "SendInvition('${element.request2._id}')">اضافة صديق<i class="fa-solid fa-user-plus"></i></button>`
 
 } 
 /* console.log(element.requset); */
 
-    let Container = document.createElement('div')
-    Container.classList.add('Aksour-Friends')
-   Container = `
-    <div class="Aksour-Friends">
+   
+    ContainerDiv.classList.add('Aksour-Friends')
+   ContainerDiv.innerHTML = `
+   
                   <div class="Avatar-user">
                     <img src="${BACKEND_LOCAL_URL}uploads/${element.request2.avatar}" alt="">
                   </div>
@@ -53,10 +59,10 @@ ButtonSendInv =`
                    <div class="AccebteAnvition">
                     ${ButtonSendInv}
                    </div>
-                   </div>
+                  
                 
    `
-  document.querySelector('.container').innerHTML += Container
+  container.appendChild(ContainerDiv)
 });
 }
 GetUserSuggestionss()
@@ -64,7 +70,6 @@ async function AccptedRequestFrineds(id){
 const Response_the_AccptedRequest =await axios.post(`${BACKEND_LOCAL_URL}AccptedRequestFrineds`,
   {id: id},
 {
-
 headers :{
   Authorization : `Bearer ${localStorage.getItem('token')}`
 }
@@ -74,3 +79,9 @@ headers :{
 )
 console.log(Response_the_AccptedRequest)
 }
+ async function SendInvition(id){
+
+const Invition = await axios.post(`${BACKEND_LOCAL_URL}`)
+console.log(id);
+
+ }
