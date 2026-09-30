@@ -29,6 +29,7 @@ const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`,
  
  button.textContent = "تم ارسال الطلب"
 } */
+console.log("🔥 دخلت SendInvition");
 async function SendInvition(id, button) {
 
     console.log("🔥 دخلت SendInvition");
