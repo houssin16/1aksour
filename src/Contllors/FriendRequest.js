@@ -84,4 +84,4 @@ if(id_user_Now === result.receiver.toString()) {
  await result.save()
  res.json(result)
 }
-module.exports = {SendFriendRequest , GetFrindesRequest ,AccptedRequestFrineds}
+module.exports = {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds}

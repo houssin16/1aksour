@@ -22,7 +22,7 @@ const { PostLikess, Get___Likes } = require('../Contllors/LikesPost');
 const { UpdateComment } = require('../Contllors/UpdateComments');
 const {Deletecommentee}  = require ('../Contllors/commentController')
 const {SendMessageprsone , GetMessages} = require('../Contllors/MessageControlls')
-const {SendFriendRequest , GetFrindesRequest ,AccptedRequestFrineds} = require("../Contllors/FriendRequest")
+const {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds} = require("../Contllors/FriendRequest")
 const {GetUserSuggestions} = require('../Contllors/Suggestions')
 // Multer
 const storageAvatar = multer.diskStorage({
@@ -68,7 +68,7 @@ Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
  ////FrindesRequest  
-Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequest)   ///// ارسال طلب صداقة 
+Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions)
