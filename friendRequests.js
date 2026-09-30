@@ -29,7 +29,7 @@ const Invition = await axios.post(`${BACKEND_LOCAL_URL}SendFriendRequest`,
  
  button.textContent = "تم ارسال الطلب"
 } */
-console.log("🔥 دخلت SendInvition");
+/* console.log("🔥 دخلت SendInvition");
 async function SendInvition(id, button) {
 
     console.log("🔥 دخلت SendInvition");
@@ -58,3 +58,27 @@ async function RejectedInvition(){
 
 }
 
+ */
+
+async function SendInvition(id, button) {
+
+    console.log("🔥 دخلت SendInvition");
+    console.log("TOKEN موجود:", !!localStorage.getItem("token"));
+    console.log("ID:", id);
+
+    const Invition = await axios.post(
+        `${BACKEND_LOCAL_URL}SendFriendRequest`,
+        {
+            receiver: id
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        }
+    );
+
+    console.log(Invition);
+
+    button.textContent = "تم ارسال الطلب";
+}
