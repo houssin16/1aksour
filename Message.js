@@ -1,8 +1,9 @@
 
+
 const TokenMessage         = localStorage.getItem('token');
 const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
-prsone()
+
 async function prsone() {
     const Search = document.querySelector('.SearchFrindes').value.trim();
     const Searchinput = document.querySelector('.SearchFrindes')
@@ -35,6 +36,8 @@ async function prsone() {
     });
 document.querySelector('.Friends_list_chat').innerHTML = Result
 }
+const button = document.getElementById('ButtonSendMessage')
+const Input_Send =document.querySelector('.Input_Send')
 document.addEventListener('input' ,prsone)
 let ResultPrsone;
 document.addEventListener('click' , (e)=>{
@@ -43,16 +46,31 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
-  
+ 
 
 })
+async function Kia (){
+
+  if (!ResultPrsone) {
+        document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
+                      <i class="fa-solid fa-paper-plane"></i>
+                       <h1>ابدأ محادثة</h1>
+                       <h2>اختر صديقاً من القائمة لبدء المحادثة</h2>
+                     </div>
+                  `
+    document.querySelector('.Chat').classList.add('ChatingAddclass') 
+    Input_Send.style.visibility = "hidden"
+  }
+}
+Kia()
 async function SendMessage() {
     console.log(ResultPrsone)
    const ResultText = document.getElementById('PlaceMessage').value.trim()
    if (ResultText.value === "" && !ResultPrsone) return
-   const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
+    const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
     { receiver:ResultPrsone,message: ResultText,},{
     headers :{ Authorization:  `Bearer ${TokenMessage}`}}) 
+
 }
 document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage ) 
 async function GetMessages (){
@@ -66,19 +84,24 @@ async function GetMessages (){
         headers :{ Authorization:  `Bearer ${TokenMessage}`}}
 
     )
-   
+  console.log(res)
+     if (res.data) {
+           document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
+                      <i class="fa-solid fa-paper-plane"></i>
+                       <h1>ابدأ محادثة</h1>
+                       <h2>اختر صديقاً من القائمة لبدء المحادثة</h2>
+                     </div>
+                     `
+            document.querySelector('.Chat').classList.add('ChatingAddclass')
+          
+    }
     
       let result =""
       
        
      let Position;
      res.data.forEach(e => { 
-      console.log(e);
-      
-        if (e.receiver) {
-          /*  alert("'rfgergerg") */
-        }
-    
+  
         const date  = new Date(e.createdAt) 
         ///////ناخذ الساعة ودقائق ///
         let hour = date.getHours();
@@ -101,6 +124,7 @@ async function GetMessages (){
         }
         minute = minute.toString().padStart(2 , "0")
         const time = `${hour}:${minute} ${period}`
+      
         if(e.sender === Id_user._id ){
           Position = 'right'
         }else{
@@ -116,9 +140,12 @@ async function GetMessages (){
                        
                    ` 
              document.querySelector('.Chat').innerHTML = result                      
-      
+           
         })  
         
+      if (ResultPrsone) {
+         Input_Send.style.visibility = "visible"
+        }
    }catch(e){
         console.log(e)
    }

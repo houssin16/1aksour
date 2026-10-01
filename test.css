@@ -2396,6 +2396,8 @@ top: 20px;
  /*  background-color: #271313; */
   width: 60%;
   height: 300PX;
+ 
+
 }
 .Box_Chating {
   width:80%;
@@ -2595,7 +2597,7 @@ position: relative;
 }
 .Chat {
 
-  /* background-color: #295686; */
+/*   background-color: #295686; */
   display: flex;
   flex-direction: column;
   height: 500px;
@@ -2645,6 +2647,9 @@ margin: 70px;
    flex-direction: row-reverse;
    align-items: center;
    gap: 50px;
+   border: 2PX SOLID rgba(3, 112, 185, 0.301);
+   border-radius: 12PX;
+   visibility: hidden;
 }
 .Input_Send input {
   width:80%;
@@ -2657,7 +2662,8 @@ margin: 70px;
  font-size: 25px;
  outline: 0;
  border: 0;
-
+ border: 1PX SOLID rgb(3, 112, 185);
+border-radius: 12PX;
 }
 .Input_Send button {
   width: 65px;
@@ -2877,4 +2883,12 @@ color: red;
 }
 .grthb {
   background-color: red;
+}
+.ChatingAddclass{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.ButtonVisible {
+color: #0565d3;
 }
