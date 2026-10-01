@@ -9,14 +9,12 @@ async function prsone() {
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}SearchUser?search=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
+   console.log(response);
    
     let  Result = ""
     response.data.forEach(element => {
-
-        
-        
             Result += `
-         <div class="BoxFrindesChat" data-prsone=${element._id} >
+         <div class="BoxFrindesChat" data-prsone=${element._id}>
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
                           <img src="${BACKEND_LOCAL_URL}uploads/${encodeURIComponent(element.avatar)}" alt="">
@@ -46,9 +44,8 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
-    console.log("eeeeeeeeeeeeeeee");
-    
   
+
 })
 async function SendMessage() {
     console.log(ResultPrsone)
@@ -59,10 +56,9 @@ async function SendMessage() {
     headers :{ Authorization:  `Bearer ${TokenMessage}`}}) 
 }
 document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage ) 
-
 async function GetMessages (){
    try{
-
+       
       const res = await axios.post(`${BACKEND_LOCAL_URL}getmessage`
         ,
         {
@@ -72,10 +68,15 @@ async function GetMessages (){
 
     )
 
+    if(!res)  {
+
+      return "noe"
+      
+    }
     
       let result =""
-   
-  
+      
+       
      let Position;
      res.data.forEach(e => { 
         const date  = new Date(e.createdAt) 
