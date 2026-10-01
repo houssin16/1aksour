@@ -9,7 +9,6 @@ async function prsone() {
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}SearchUser?search=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
-   console.log(response);
    
     let  Result = ""
     response.data.forEach(element => {
@@ -67,18 +66,19 @@ async function GetMessages (){
         headers :{ Authorization:  `Bearer ${TokenMessage}`}}
 
     )
-
-    if(!res)  {
-
-      return "noe"
-      
-    }
+   
     
       let result =""
       
        
      let Position;
      res.data.forEach(e => { 
+      console.log(e);
+      
+        if (e.receiver) {
+          /*  alert("'rfgergerg") */
+        }
+    
         const date  = new Date(e.createdAt) 
         ///////ناخذ الساعة ودقائق ///
         let hour = date.getHours();
