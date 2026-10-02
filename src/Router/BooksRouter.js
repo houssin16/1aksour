@@ -4,7 +4,7 @@ const path = require("path");
 const multer = require("multer");
 
 // Controllers
-const { registerUser, loginUser, getProfile, SearchUsers  , GetUserprofile,  } = require("../Contllors/authController");
+const { registerUser, loginUser, getProfile, GetUserprofile,  } = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
 const { 
     createPost,
@@ -65,7 +65,7 @@ Router.get('/user/:id/posts' , GetUserprofile)
 console.log("GetUserprofile:", typeof GetUserprofile);
 
 // Search
-Router.get('/SearchUser', verifyToken , SearchUsers);
+/* Router.get('/SearchUser', verifyToken , SearchUsers); */
 console.log("SearchUsers:", typeof SearchUsers);
 Router.get('/My_User_Post' , verifyToken,GetMyPosts)
 console.log("GetMyPosts:", typeof GetMyPosts);
