@@ -5,16 +5,18 @@ const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
 const button = document.querySelector('.ButtonSendig')
 const Input_Send =document.querySelector('.Input_Send')
-/* async function prsone() {
+ async function prsone() {
     const Search = document.querySelector('.SearchFrindes').value.trim();
     const Searchinput = document.querySelector('.SearchFrindes')
     if(!Search) return 
-    const response = await axios.get(`${BACKEND_LOCAL_URL}SearchUser?search=${Search}`,
+    const response = await axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions?Searching=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
+   console.log(response);
    
-    let  Result = ""
-    response.data.forEach(element => {
-            Result += `
+   
+   const Resulting = response.data.ResFrindes.map(element => {
+    console.log(response.data.ResFrindes)
+        let   Result = `
          <div class="BoxFrindesChat" data-prsone=${element._id}>
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
@@ -32,13 +34,15 @@ const Input_Send =document.querySelector('.Input_Send')
           </div>
         
         `
-      
-        
-});
-document.querySelector('.Friends_list_chat').innerHTML = Result
+     
+       return Result
+}); 
+
+
+document.querySelector('.Friends_list_chat').innerHTML = Resulting
 }
 
-document.addEventListener('input' ,prsone) */
+document.addEventListener('input' ,prsone) 
 let ResultPrsone;
 document.addEventListener('click' , (e)=>{
     const Person    = e.target.closest(".BoxFrindesChat")
@@ -165,7 +169,7 @@ async function GetJustFrined (){
     ,
     {headers :{ Authorization:  `Bearer ${TokenMessage}`},}
   )
-  console.log(res);
+/*   console.log(res.data.ResFrindes); */
   
 }
 GetJustFrined()

@@ -60,7 +60,7 @@ const getProfile = async (req, res) => {
   }
 };
 ////////             /////       /////          /////       /////
-const SearchUsers = async (req  ,  res)=>{
+/* const SearchUsers = async (req  ,  res)=>{
 
   try{
      const user_id     = req.user.id
@@ -76,7 +76,7 @@ const SearchUsers = async (req  ,  res)=>{
   
 
   }
-}
+} */
 //////  ////   ////   ///   ////    ////    ///     /////   //////
 /* ____________________________________GetUserspage_____________________________________________ */
 const GetUserprofile = async (req, res) => {
