@@ -20,7 +20,11 @@ const GetUserSuggestions = async (req , res)=> {
     }
  } )
 
-const ResultUserFineds = await  user.find(result) 
+const ResultUserFineds = await  user.find({
+  _id:{
+    $in: result
+  }
+}) 
 console.log( "user" ,  result)
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
