@@ -73,4 +73,6 @@ Router.post("/getmessage",verifyToken, GetMessages)
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions ,SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
+console.log(typeof GetUserSuggestions);
+console.log(typeof SearchFrindes);
 module.exports = Router; // ✅ export واحد فقط
