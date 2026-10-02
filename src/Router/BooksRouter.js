@@ -67,12 +67,13 @@ Router.get('/My_User_Post' , verifyToken,GetMyPosts)
 Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
- ////FrindesRequest  
+ ////FrindesRequest //
+  console.log("GetUserSuggestions:", typeof GetUserSuggestions);
+console.log("SearchFrindes:", typeof SearchFrindes); 
 Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions ,SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
-console.log("GetUserSuggestions:", typeof GetUserSuggestions);
-console.log("SearchFrindes:", typeof SearchFrindes);
+
 module.exports = Router; // ✅ export واحد فقط
