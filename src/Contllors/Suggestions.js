@@ -58,7 +58,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 })
 ) 
 
-res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,eee: ResultUserFineds})
+res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,ResFrindes: ResultUserFineds})
 
 }
 
