@@ -21,7 +21,7 @@ const GetUserSuggestions = async (req , res)=> {
  } )
 
 const ResultUserFineds = user.findById(result) 
-console.log(result)
+console.log( "user" ,  result)
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
