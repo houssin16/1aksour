@@ -20,8 +20,8 @@ const GetUserSuggestions = async (req , res)=> {
     }
  } )
 
-const ResultUserFineds = user.findById(result) 
-console.log( "user" ,  result)
+/* const ResultUserFineds = user.findById(result) 
+console.log( "user" ,  result) */
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
@@ -54,7 +54,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 })
 ) 
 
-res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result , ResultUserFineds})
+res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result , relz : ResultUserFineds})
 
 }
 
