@@ -26,24 +26,7 @@ const ResultUserFineds = await  user.find({
   }
 }) 
 
-const SearchFrindes = (res , req) =>{
 
-  try{
-     const iduser = req.user.id
-     const Search_Result_FrontEnd = req.query.Searching
-     if(!Search_Result_FrontEnd) return res.json([])
-     const Result_user = await user.find({
-       name : {$regex:Result_user , $options:'i'},
-       _id  : {$ne:iduser}
-
-    }).limit(7)
-  res.json(Result_user)
-
-  }catch(error){
-   console.log(error)
-  }
-
-}
 console.log( "user" ,  result)
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
@@ -80,5 +63,22 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,SearchFrindes})
 
 }
+const SearchFrindes = async   (res , req) =>{
 
-module.exports = {GetUserSuggestions}
+  try{
+     const iduser = req.user.id
+     const Search_Result_FrontEnd = req.query.Searching
+     if(!Search_Result_FrontEnd) return res.json([])
+     const Result_user = await user.find({
+       name : {$regex:Result_user , $options:'i'},
+       _id  : {$ne:iduser}
+
+    }).limit(7)
+  res.json(Result_user)
+
+  }catch(error){
+   console.log(error)
+  }
+
+}
+module.exports = {GetUserSuggestions ,SearchFrindes}

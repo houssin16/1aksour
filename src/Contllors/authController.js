@@ -99,4 +99,4 @@ const GetUserprofile = async (req, res) => {
 };
 
 
-module.exports = { SearchUsers, registerUser, loginUser, getProfile, GetUserprofile,  };
+module.exports = {registerUser, loginUser, getProfile, GetUserprofile,  };
