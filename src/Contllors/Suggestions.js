@@ -19,7 +19,7 @@ const GetUserSuggestions = async (req , res)=> {
         return f.sender
     }
  } )
-
+console.log(result)
 const ResultUserFineds = await  user.find({
   _id:{
     $in: result
