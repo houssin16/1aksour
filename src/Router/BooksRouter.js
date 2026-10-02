@@ -73,7 +73,8 @@ console.log("SearchFrindes:", typeof SearchFrindes);
 Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
-Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions ,SearchFrindes)
+Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions)
+Router.get('/ResultuserFrindes' ,verifyToken , SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
 
 module.exports = Router; // ✅ export واحد فقط

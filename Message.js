@@ -9,7 +9,7 @@ const Input_Send =document.querySelector('.Input_Send')
     const Search = document.querySelector('.SearchFrindes').value.trim();
     const Searchinput = document.querySelector('.SearchFrindes')
     if(!Search) return 
-    const response = await axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions?Searching=${Search}`,
+    const response = await axios.get(`${BACKEND_LOCAL_URL}ResultuserFrindes?Searching=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
    console.log(response);
    
