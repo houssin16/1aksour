@@ -3,8 +3,9 @@
 const TokenMessage         = localStorage.getItem('token');
 const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
-
-async function prsone() {
+const button = document.querySelector('.ButtonSendig')
+const Input_Send =document.querySelector('.Input_Send')
+/* async function prsone() {
     const Search = document.querySelector('.SearchFrindes').value.trim();
     const Searchinput = document.querySelector('.SearchFrindes')
     if(!Search) return 
@@ -33,12 +34,11 @@ async function prsone() {
         `
       
         
-    });
+});
 document.querySelector('.Friends_list_chat').innerHTML = Result
 }
-const button = document.getElementById('ButtonSendMessage')
-const Input_Send =document.querySelector('.Input_Send')
-document.addEventListener('input' ,prsone)
+
+document.addEventListener('input' ,prsone) */
 let ResultPrsone;
 document.addEventListener('click' , (e)=>{
     const Person    = e.target.closest(".BoxFrindesChat")
@@ -46,11 +46,21 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
- 
-
+    
 })
 async function Kia (){
+   const ResultText = document.getElementById('PlaceMessage')
+   ResultText.addEventListener('input' , ()=>{
+  if (ResultText.value.trim().length > 0) {
+    button.classList.add('ButtonVisible')
+    document.querySelector('.fa-paper-plane').classList.add('ColorWhiteIcone')
+   }else{
+     button.classList.remove('ButtonVisible')
+    document.querySelector('.fa-paper-plane').classList.add('ColorWhiteIcone')
 
+   }
+  console.log(button.className);
+   })
   if (!ResultPrsone) {
         document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
@@ -59,13 +69,14 @@ async function Kia (){
                      </div>
                   `
     document.querySelector('.Chat').classList.add('ChatingAddclass') 
-    Input_Send.style.visibility = "hidden"
+    Input_Send.classList.remove('DisplayNonDivInputAndbutton')
   }
-}
+  
+} 
 Kia()
 async function SendMessage() {
-    console.log(ResultPrsone)
-   const ResultText = document.getElementById('PlaceMessage').value.trim()
+      console.log(ResultPrsone)
+      const ResultText = document.getElementById('PlaceMessage').value.trim()
    if (ResultText.value === "" && !ResultPrsone) return
     const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
     { receiver:ResultPrsone,message: ResultText,},{
@@ -85,7 +96,7 @@ async function GetMessages (){
 
     )
   console.log(res)
-     if (res.data) {
+     if(res.data){
            document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
                        <h1>ابدأ محادثة</h1>
@@ -93,9 +104,8 @@ async function GetMessages (){
                      </div>
                      `
             document.querySelector('.Chat').classList.add('ChatingAddclass')
-          
-    }
-    
+            Input_Send.classList.add('DisplayNonDivInputAndbutton')
+      }
       let result =""
       
        
@@ -143,12 +153,16 @@ async function GetMessages (){
            
         })  
         
-      if (ResultPrsone) {
-         Input_Send.style.visibility = "visible"
-        }
+
    }catch(e){
         console.log(e)
    }
   
 }  
+async function GetJustFrined (){
 
+  const res = await axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`)
+  console.log(res);
+  
+}
+GetJustFrined()

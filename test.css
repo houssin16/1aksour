@@ -2509,8 +2509,8 @@ border-radius: 50%;
   background-color: #ffffff;
   margin: 150px auto;
   display: flex;
-  border-radius: 10px;
-/*   border: 1px solid rgb(30, 113, 223); */
+  border-radius: 2px;
+ border: 1px solid rgba(2, 111, 253, 0.212);
   flex-direction: column;
 }
 #TwoDivChating {
@@ -2662,19 +2662,27 @@ margin: 70px;
  font-size: 25px;
  outline: 0;
  border: 0;
- border: 1PX SOLID rgb(3, 112, 185);
 border-radius: 12PX;
 }
+.Input_Send input:focus {
+  border: 2px solid rgba(74, 156, 233, 0.644);
+}
 .Input_Send button {
-  width: 65px;
-  height: 65px;
+  background-color: rgba(74, 156, 233, 0.644);
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   outline:0;
   border: 0;
-  i{
-    font-size: 35px;
-    color: gray;
-  }
+
+   i{
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.384);
+  } 
+  transition: 0.3s;
+}
+.Input_Send button:hover {
+  cursor: pointer;
 }
 #DivButtonChengeFhotoTheProfile {
  position: absolute;
@@ -2890,5 +2898,12 @@ justify-content: center;
 align-items: center;
 }
 .ButtonVisible {
-color: #0565d3;
+background-color: rgb(74, 156, 233) !important;
+opacity: 1;
+}
+.DisplayNonDivInputAndbutton{
+ visibility: visible ;
+}
+.ColorWhiteIcone{
+ color: white !important;
 }

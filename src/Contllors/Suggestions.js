@@ -25,7 +25,7 @@ const SuggestionsFriends = await user.find(
   _id: {
     $ne: user_id,
     $nin: result
-  }
+  },
   },
    {
         password: 0
