@@ -58,11 +58,17 @@ Router.get('/Posts_one_user' ,verifyToken ,GetPost_one_user)
 // Replies
 Router.post("/replies", verifyToken, ReplyComment);
 Router.get('/posts/:postIdd/reblies', verifyToken, GetReplyComment);
-console.log(typeof GetUserprofile)
+console.log("GetReplyComment:", typeof GetReplyComment);
+
+
 Router.get('/user/:id/posts' , GetUserprofile)
+console.log("GetUserprofile:", typeof GetUserprofile);
+
 // Search
 Router.get('/SearchUser', verifyToken , SearchUsers);
+console.log("SearchUsers:", typeof SearchUsers);
 Router.get('/My_User_Post' , verifyToken,GetMyPosts)
+console.log("GetMyPosts:", typeof GetMyPosts);
 // SendMessage 
 Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
