@@ -10,8 +10,7 @@ const GetUserSuggestions = async (req , res)=> {
         {receiver :user_id}
     ]
  })
- console.log("USER ID:", user_id)
-console.log("FRIENDS:", Frindes)
+
   const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]  ////الان استخرجنا معرف الاشخص الالاصدقاء ////
     
     if (f.sender.toString() === user_id.toString()) {
@@ -20,7 +19,7 @@ console.log("FRIENDS:", Frindes)
         return f.sender
     }
  } )
-
+console.log(result)
 
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
