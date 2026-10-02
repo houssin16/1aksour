@@ -161,7 +161,10 @@ async function GetMessages (){
 }  
 async function GetJustFrined (){
 
-  const res = await axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`)
+  const res = await axios.get(`${BACKEND_URL}GetUserSuggestions`
+    ,
+    {headers :{ Authorization:  `Bearer ${TokenMessage}`},}
+  )
   console.log(res);
   
 }
