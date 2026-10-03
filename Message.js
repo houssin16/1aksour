@@ -11,12 +11,11 @@ const Input_Send =document.querySelector('.Input_Send')
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}ResultuserFrindes?Searching=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
-   console.log(response);
-   
-   
-   /* const Resulting = response.data.ResFrindes.map(element => {
-    console.log(response.data.ResFrindes)
-        let   Result = `
+  console.log(response);
+   let Result;
+    response.data.forEach(element => {
+    
+         Result += `
          <div class="BoxFrindesChat" data-prsone=${element._id}>
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
@@ -35,11 +34,14 @@ const Input_Send =document.querySelector('.Input_Send')
         
         `
      
-       return Result
+ 
 }); 
 
+   document.querySelector('.Friends_list_chat').innerHTML = Result 
+   if (!Result) {
+    
+   } 
 
-document.querySelector('.Friends_list_chat').innerHTML = Resulting */
 }
 
 document.addEventListener('input' ,prsone) 
