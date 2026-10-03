@@ -71,7 +71,7 @@ const SearchFrindes = async   (req , res) =>{
      if(!Search_Result_FrontEnd) return res.json([])
      const Result_user = await user.find({
        name : {$regex:Search_Result_FrontEnd , $options:'i'},
-       _id  : {$ne:iduser}
+       _id  : {$in:result}
 
     }).limit(7)
   res.json(Result_user)

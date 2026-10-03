@@ -14,7 +14,7 @@ const Input_Send =document.querySelector('.Input_Send')
    console.log(response);
    
    
-   const Resulting = response.data.ResFrindes.map(element => {
+   /* const Resulting = response.data.ResFrindes.map(element => {
     console.log(response.data.ResFrindes)
         let   Result = `
          <div class="BoxFrindesChat" data-prsone=${element._id}>
@@ -39,7 +39,7 @@ const Input_Send =document.querySelector('.Input_Send')
 }); 
 
 
-document.querySelector('.Friends_list_chat').innerHTML = Resulting
+document.querySelector('.Friends_list_chat').innerHTML = Resulting */
 }
 
 document.addEventListener('input' ,prsone) 
