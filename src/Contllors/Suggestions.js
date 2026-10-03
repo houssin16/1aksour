@@ -18,8 +18,10 @@ const GetUserSuggestions = async (req , res)=> {
     }else{
         return f.sender
     }
-    return result
- })
+   
+ }) 
+ 
+ return result
 /* console.log(result)
 const ResultUserFineds = await  user.find({
   _id:{
@@ -27,7 +29,7 @@ const ResultUserFineds = await  user.find({
   }
 }) 
  */
- 
+
 console.log( "user" ,  result)
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
