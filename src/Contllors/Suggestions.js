@@ -30,7 +30,7 @@ const ResultUserFineds = await  user.find({
 }) 
  */
 
-console.log( "user" ,  result)
+
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
