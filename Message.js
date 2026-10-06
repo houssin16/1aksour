@@ -7,14 +7,15 @@ const button = document.querySelector('.ButtonSendig')
 const Input_Send =document.querySelector('.Input_Send')
  async function prsone() {
     const Search = document.querySelector('.SearchFrindes').value.trim();
-    const Searchinput = document.querySelector('.SearchFrindes')
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}ResultuserFrindes?Searching=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
-  console.log(response);
-   let Result;
+ const SearchVoidvalue = document.querySelector('.SearchFrindes').value.trim();
+   if (!SearchVoidvalue) return ;
+   let Result =""
     response.data.forEach(element => {
-    
+     console.log(element);
+     
          Result += `
          <div class="BoxFrindesChat" data-prsone=${element._id}>
                         <div class="mage_Person_And_Name_person">
@@ -35,14 +36,25 @@ const Input_Send =document.querySelector('.Input_Send')
         `
      
  
-}); 
-
-   document.querySelector('.Friends_list_chat').innerHTML = Result 
-   if (!Result) {
-    
-   } 
-
+});  
+document.querySelector('.Friends_list_chat').innerHTML = Result  
+   
 }
+
+document.addEventListener("DOMContentLoaded" , ()=> {
+  document.addEventListener('input' , (e)=>{
+  const input = e.target.closest('.SearchFrindes')
+   if (!input) return;
+   if (input.value.trim().length === 0) {
+       document.querySelector('.Friends_list_chat').innerHTML = ""
+  
+  }
+})
+
+})
+
+
+
 
 document.addEventListener('input' ,prsone) 
 let ResultPrsone;

@@ -2334,11 +2334,13 @@ height: 201px;
   flex-direction: row-reverse;
 }
 .Friends_list_chat {
-  background-color: white;
+  /* background-color: white; */
+  background-color: #0565d3;
   overflow-y: auto;
   overflow-x: hidden;
   direction: rtl;
  height:580px;
+ width: 90%;
 
 }
 .Title_And_Search {

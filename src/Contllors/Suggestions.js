@@ -10,7 +10,7 @@ const GetUserSuggestions = async (req , res)=> {
         {receiver :user_id}
     ]
  })
-
+return Frindes
   const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]  ////الان استخرجنا معرف الاشخص الالاصدقاء ////
     
     if (f.sender.toString() === user_id.toString()) {
@@ -22,15 +22,12 @@ const GetUserSuggestions = async (req , res)=> {
  }) 
  
  return result
-/* console.log(result)
-const ResultUserFineds = await  user.find({
-  _id:{
-    $in: result
+const FindesAccepted = await  user.find({
+  _id : {
+  $in : result
   }
-}) 
- */
 
-
+})
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
@@ -63,7 +60,7 @@ const Users_Bettwen =await Promise.all( SuggestionsFriends.map( async resulte =>
 })
 ) 
 
-res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,SearchFrindes})
+res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,SearchFrindes , FindesAccepted})
 
 }
 const SearchFrindes = async   (req , res) =>{
