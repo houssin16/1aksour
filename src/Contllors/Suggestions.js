@@ -73,11 +73,15 @@ const SearchFrindes = async   (req , res) =>{
      const iduser = req.user.id
      const Search_Result_FrontEnd = req.query.Searching
      if(!Search_Result_FrontEnd) return res.json([])
+     
      const Result_user = await user.find({
        name : {$regex:Search_Result_FrontEnd , $options:'i'},
        _id  : {$in:result}
 
     }).limit(7)
+     console.log("Frindes =", Frindes)
+      console.log("result =", result)
+     console.log("Search =", Search_Result_FrontEnd)
   res.json(Result_user)
 
   }catch(error){
