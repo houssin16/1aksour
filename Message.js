@@ -195,7 +195,7 @@ async function GetFrindesAllReq (){
  const res = await  axios.get(`${BACKEND_LOCAL_URL}GetFrindesAll`,
   {headers :{ Authorization:  `Bearer ${TokenMessage}`},}
  )
-  console.log(res);
+  console.log(res.data);
   
 }
 GetFrindesAllReq()

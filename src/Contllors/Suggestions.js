@@ -86,7 +86,7 @@ const SearchFrindes = async   (req , res) =>{
 
 }
 const GetJustFrinedAll =  async (req , res)=>  {
-const {result} = GetUserSuggestions(req)
+const {result} = await  GetUserSuggestions(req)
 const FindesAccepted = await  user.find({
   _id : {
   $in : result
