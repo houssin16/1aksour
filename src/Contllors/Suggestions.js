@@ -21,16 +21,12 @@ const GetUserSuggestions = async (req , res)=> {
    
  }) 
  
+
  return{
    Frindes,
-   result
+   result,
+  
  }
-const FindesAccepted = await  user.find({
-  _id : {
-  $in : result
-  }
-
-})
 const SuggestionsFriends = await user.find( 
   {//// هنا استبعدنا الايدي المستخدم الحالي  ////
   _id: {
@@ -79,9 +75,9 @@ const SearchFrindes = async   (req , res) =>{
        _id  : {$in:result}
 
     }).limit(7)
-     console.log("Frindes =", Frindes)
+   /*   console.log("Frindes =", Frindes)
       console.log("result =", result)
-     console.log("Search =", Search_Result_FrontEnd)
+     console.log("Search =", Search_Result_FrontEnd) */
   res.json(Result_user)
 
   }catch(error){
@@ -89,4 +85,14 @@ const SearchFrindes = async   (req , res) =>{
   }
 
 }
+/* const GetJustFrinedAll = ()=>  {
+const {}
+const FindesAccepted = await  user.find({
+  _id : {
+  $in : result
+  }
+
+})
+
+} */
 module.exports = {GetUserSuggestions ,SearchFrindes}
