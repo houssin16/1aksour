@@ -86,10 +86,10 @@ const SearchFrindes = async   (req , res) =>{
 
 }
 const GetJustFrinedAll =  async (req , res)=>  {
-const {Frindes} = GetUserSuggestions(req)
+const {result} = GetUserSuggestions(req)
 const FindesAccepted = await  user.find({
   _id : {
-  $in : Frindes
+  $in : result
   }
 
 })
