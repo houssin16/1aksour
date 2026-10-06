@@ -2335,7 +2335,7 @@ height: 201px;
 }
 .Friends_list_chat {
   /* background-color: white; */
-  background-color: #0565d3;
+ 
   overflow-y: auto;
   overflow-x: hidden;
   direction: rtl;
@@ -2429,7 +2429,7 @@ background-color: #ffffff;
 
 }
 .Name_person {
-/*   background-color: yellow; */
+ /*  background-color: yellow; */
   width: fit-content;
  display: flex;
 flex-direction: column;

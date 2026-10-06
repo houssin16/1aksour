@@ -6,7 +6,9 @@ const Id_user              = JSON.parse(localStorageId)
 const button = document.querySelector('.ButtonSendig')
 const Input_Send =document.querySelector('.Input_Send')
  async function prsone() {
-    const Search = document.querySelector('.SearchFrindes').value.trim();
+  try{
+
+   const Search = document.querySelector('.SearchFrindes').value.trim();
     if(!Search) return 
     const response = await axios.get(`${BACKEND_LOCAL_URL}ResultuserFrindes?Searching=${Search}`,
         {headers :{ Authorization:  `Bearer ${TokenMessage}`},})
@@ -42,6 +44,14 @@ const Input_Send =document.querySelector('.Input_Send')
 }); 
  console.log(Result);
 document.querySelector('.Friends_list_chat').innerHTML = Result  
+
+}catch(erorrs){
+
+ console.log(erorrs);
+ 
+
+}
+ 
  
 }
 
@@ -52,7 +62,7 @@ document.addEventListener("DOMContentLoaded" , ()=> {
    if (!input) return;
    if (input.value.trim().length === 0) {
        document.querySelector('.Friends_list_chat').innerHTML = ""
-  
+       GetFrindesAllReq()
   }
 })
 
@@ -177,8 +187,7 @@ async function GetMessages (){
    }catch(e){
         console.log(e)
    }
-  
-}  
+  }
 async function GetJustFrined (){
 
   const res = await axios.get(`${BACKEND_LOCAL_URL}GetUserSuggestions`
@@ -189,13 +198,45 @@ async function GetJustFrined (){
   
 }
 GetJustFrined()
-
 async function GetFrindesAllReq (){
-
- const res = await  axios.get(`${BACKEND_LOCAL_URL}GetFrindesAll`,
+  try{
+   const res = await  axios.get(`${BACKEND_LOCAL_URL}GetFrindesAll`,
   {headers :{ Authorization:  `Bearer ${TokenMessage}`},}
- )
-  console.log(res.data);
+  )
+ let Result =""
+    res.data.forEach(element => {
+     console.log(element);
+     
+         Result += `
+         <div class="BoxFrindesChat" data-prsone=${element._id}>
+                        <div class="mage_Person_And_Name_person">
+                        <div class="Image_Person"> 
+                          <img src="${BACKEND_LOCAL_URL}uploads/${encodeURIComponent(element.avatar)}" alt="">
+                        </div>
+                            <div class="Name_person">
+                                <h2>${element.name}<h2> 
+                                 <h3>السلام عليكم كيف حالكم</h3>
+                            </div>
+                            </div>
+                             <div class="TimingMessage">
+                        <h3>مند ساعيتن</h3>
+                        <h3 class="Message_Chat">2</h3>
+                       </div>
+          </div>
+        
+        `
+  
+     
+ 
+}); 
+ console.log(Result);
+document.querySelector('.Friends_list_chat').innerHTML = Result  
+
+  }catch(er){
+   console.log(er);
+
+  }
+
   
 }
 GetFrindesAllReq()
