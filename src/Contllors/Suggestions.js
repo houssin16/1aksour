@@ -69,13 +69,13 @@ res.json({Users_Bettwen , currentUserId : user_id , Frindes ,result ,SearchFrind
 const SearchFrindes = async   (req , res) =>{
 
   try{    
-    const resultFrindes = await GetUserSuggestions(req)
+     const {Frindes , result} = await GetUserSuggestions(req)
      const iduser = req.user.id
      const Search_Result_FrontEnd = req.query.Searching
      if(!Search_Result_FrontEnd) return res.json([])
      const Result_user = await user.find({
        name : {$regex:Search_Result_FrontEnd , $options:'i'},
-       _id  : {$in:resultFrindes}
+       _id  : {$in:result}
 
     }).limit(7)
   res.json(Result_user)
