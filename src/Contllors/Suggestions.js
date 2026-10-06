@@ -85,14 +85,14 @@ const SearchFrindes = async   (req , res) =>{
   }
 
 }
-/* const GetJustFrinedAll = ()=>  {
-const {}
+const GetJustFrinedAll =  async (req , res)=>  {
+const {Frindes} = GetUserSuggestions(req)
 const FindesAccepted = await  user.find({
   _id : {
-  $in : result
+  $in : Frindes
   }
 
 })
-
-} */
-module.exports = {GetUserSuggestions ,SearchFrindes}
+res.json(FindesAccepted)
+}
+module.exports = {GetUserSuggestions ,SearchFrindes ,GetJustFrinedAll}
