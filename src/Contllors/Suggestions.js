@@ -10,8 +10,8 @@ const GetUserSuggestions = async (req , res)=> {
         {receiver :user_id}
     ]
  })
-return Frindes
-  const result = Frindes.map(f =>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]  ////الان استخرجنا معرف الاشخص الالاصدقاء ////
+
+  const result = Frindes.map(f=>{  /// الان اصبح لدينا [Array : 200 , 300 , 500]  ////الان استخرجنا معرف الاشخص الالاصدقاء ////
     
     if (f.sender.toString() === user_id.toString()) {
     return  f.receiver
@@ -21,7 +21,10 @@ return Frindes
    
  }) 
  
- return result
+ return{
+   Frindes,
+   result
+ }
 const FindesAccepted = await  user.find({
   _id : {
   $in : result
