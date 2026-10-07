@@ -80,7 +80,7 @@ document.addEventListener('click' , (e)=>{
     if (ResultPrsone) {
         document.querySelector('.LisT-Onther-user').classList.remove('visibilityToheader')
     }
-   GetFrindesContact(Person_id)
+   GetFrindesContactAk(Person_id)
  
   
 })
@@ -253,7 +253,8 @@ async function GetFrindesAllReq (){   ////// جلب الاصدقاء
 }
 GetFrindesAllReq()
 
-async  function GetFrindesContact(id){
+async  function GetFrindesContactAk(id){
+try{
 
 const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
  {
@@ -262,6 +263,13 @@ const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
 
 )
 console.log(response);
+
+}catch(e){
+console.log(e);
+
+
+}
+
 
 
 }
