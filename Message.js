@@ -255,6 +255,6 @@ GetFrindesAllReq()
 
 async  function GetFrindesContact(id){
 
-const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact${id}`)
+const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}`)
 
 }

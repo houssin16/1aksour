@@ -84,14 +84,17 @@ if(id_user_Now === result.receiver.toString()) {
  await result.save()
  res.json(result)
 }
-const GetFrindesContacts = (req , res)=> {
+const GetFrindesContacts = async  (req , res)=> {
 try{
-   const id = req.params
-   console.log(id)
-
+   const id = req.params.id
+   const resultfrindecontact = await user.find({
+   _id : id
+     
+   })
+ res.json(resultfrindecontact)
 }catch(e){
 console.log(e)
-}
 
+}
 }
 module.exports = {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds ,GetFrindesContacts}
