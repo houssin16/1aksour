@@ -252,7 +252,7 @@ async function GetFrindesAllReq (){   ////// جلب الاصدقاء
   }
 }
 GetFrindesAllReq()
-
+const LisTOntheruser = document.querySelector('.NamePerson_Chat')
 async  function GetFrindesContactAk(id){
 try{
 
@@ -262,8 +262,23 @@ const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
  }
 
 )
-console.log(response.data);
 
+response.data.forEach(el => {
+const divelemenet = document.createElement('div')
+divelemenet.classList.add('name_Image-To-Person')
+divelemenet.innerHTML += `
+<div class="name_Image-To-Person">
+                           <img class="ImageContact" src="${BACKEND_LOCAL_URL}uploads/1762074942659.jpg" alt="">
+                        </div>
+                        <div class="NamePersonContact">
+                           <h2> حسين</h2>
+                           <h3>متصل الان</h3>
+                        </div>
+
+`
+
+})
+LisTOntheruser.innerHTML = divelemenet
 }catch(e){
 console.log(e);
 
