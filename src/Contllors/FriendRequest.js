@@ -87,7 +87,7 @@ if(id_user_Now === result.receiver.toString()) {
 const GetFrindesContacts = async  (req , res)=> {
 try{
    const id = req.params.id
-   const resultfrindecontact = await user.find({
+   const resultfrindecontact = await User.find({
    _id : id
      
    })
