@@ -83,5 +83,5 @@ Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions)
 Router.get('/ResultuserFrindes' ,verifyToken , SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
 Router.get('/GetFrindesAll' ,verifyToken, GetJustFrinedAll)
-Router.get('GetFrindesContact/:id' ,verifyToken , GetFrindesContacts )
+Router.get('/GetFrindesContact/:id' ,verifyToken , GetFrindesContacts )
 module.exports = Router; // ✅ export واحد فقط
