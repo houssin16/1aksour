@@ -262,7 +262,7 @@ const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
  }
 
 )
-console.log(response);
+console.log(response.data);
 
 }catch(e){
 console.log(e);
