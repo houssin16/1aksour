@@ -2334,14 +2334,15 @@ height: 201px;
   flex-direction: row-reverse;
 }
 .Friends_list_chat {
-  /* background-color: white; */
- 
+  background-color: rgb(250, 239, 239);
+  border:  1px solid rgba(73, 153, 245, 0.322);
   overflow-y: auto;
   overflow-x: hidden;
   direction: rtl;
  height:580px;
  width: 90%;
-
+ border-radius: 7px;
+ box-shadow: 0px 2px 0px 0px rgb(194, 194, 223);
 }
 .Title_And_Search {
 /*   background-color: rgb(95, 189, 2); */
@@ -2361,9 +2362,9 @@ height: 201px;
  color:  rgb(121, 121, 124);
 }
 .Title_And_Search .SearchFrindes {
-  width: 87%;
+  width: 90%;
   height: 60px;
-  border-radius: 25px;
+  border-radius: 7px;
   margin-right: 75px;
   margin-top: 40px;
   padding-right: 50px;
@@ -2426,7 +2427,6 @@ background-color: #ffffff;
  margin-top: 30px;
  cursor: pointer;
 
-
 }
 .Name_person {
  /*  background-color: yellow; */
@@ -2477,10 +2477,10 @@ justify-content: center;
 border-radius: 50%;
 }
 .mage_Person_And_Name_person {
- /*  background-color: #df2222; */
+/*   background-color: #df2222; */
   display: flex;
   gap:25px;
-  margin-right: 50px;
+  /* margin-right: 50px; */
 }
 .TimingMessage h3 {
   margin-left: 7px;
@@ -2512,14 +2512,17 @@ border-radius: 50%;
   margin: 150px auto;
   display: flex;
   border-radius: 2px;
- border: 1px solid rgba(2, 111, 253, 0.212);
+/*  border: 1px solid rgba(2, 111, 253, 0.212); */
   flex-direction: column;
+   border-radius: 7px;
+ box-shadow: 0px 2px 0px 0px rgb(194, 194, 223);
+ border:  1px solid rgba(73, 153, 245, 0.322);
 }
 #TwoDivChating {
   height:100px ;
   /* background-color: #0565d3; */
   width: 100%;
-  display: flex;
+  display:flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   box-shadow: 0 3px 0px 0 rgb(219, 218, 218) ;
@@ -2908,4 +2911,20 @@ opacity: 1;
 }
 .ColorWhiteIcone{
  color: white !important;
+}
+.visibilityToheader {
+  visibility: hidden;
+}
+.Friends_list_chat .Not_found_Frindes{
+/* background-color: red; */
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.Not_found_Frindes P {
+ font-size: 25px;
+ letter-spacing: 0.2cm;
+ color:#6b6d70;
 }

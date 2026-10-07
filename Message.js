@@ -5,6 +5,7 @@ const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
 const button = document.querySelector('.ButtonSendig')
 const Input_Send =document.querySelector('.Input_Send')
+const name_Image_To_Person = document.querySelector('.name_Image-To-Person')
  async function prsone() {
   try{
 
@@ -20,7 +21,7 @@ const Input_Send =document.querySelector('.Input_Send')
     response.data.forEach(element => {
      console.log(element);
      
-         Result += `
+         Result +=`
          <div class="BoxFrindesChat" data-prsone=${element._id}>
                         <div class="mage_Person_And_Name_person">
                         <div class="Image_Person"> 
@@ -43,7 +44,7 @@ const Input_Send =document.querySelector('.Input_Send')
  
 }); 
  console.log(Result);
-document.querySelector('.Friends_list_chat').innerHTML = Result  
+document.querySelector('.Friends_list_chat').innerHTML = Result 
 
 }catch(erorrs){
 
@@ -76,7 +77,12 @@ document.addEventListener('click' , (e)=>{
     const Person_id = Person.dataset.prsone
     ResultPrsone = Person_id
     GetMessages()
-    
+    if (ResultPrsone) {
+        document.querySelector('.LisT-Onther-user').classList.remove('visibilityToheader')
+    }
+   GetFrindesContact(Person_id)
+ 
+  
 })
 async function Kia (){
    const ResultText = document.getElementById('PlaceMessage')
@@ -92,6 +98,7 @@ async function Kia (){
   console.log(button.className);
    })
   if (!ResultPrsone) {
+
         document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
                        <h1>ابدأ محادثة</h1>
@@ -99,6 +106,7 @@ async function Kia (){
                      </div>
                   `
     document.querySelector('.Chat').classList.add('ChatingAddclass') 
+    document.querySelector('.LisT-Onther-user').classList.add('visibilityToheader')
     Input_Send.classList.remove('DisplayNonDivInputAndbutton')
   }
   
@@ -125,7 +133,7 @@ async function GetMessages (){
         headers :{ Authorization:  `Bearer ${TokenMessage}`}}
 
     )
-  console.log(res)
+ 
      if(res.data){
            document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
@@ -198,14 +206,15 @@ async function GetJustFrined (){
   
 }
 GetJustFrined()
-async function GetFrindesAllReq (){
+async function GetFrindesAllReq (){   ////// جلب الاصدقاء
   try{
    const res = await  axios.get(`${BACKEND_LOCAL_URL}GetFrindesAll`,
   {headers :{ Authorization:  `Bearer ${TokenMessage}`},}
   )
- let Result =""
+  if (res.data.length > 0) {
+     let Result =""
     res.data.forEach(element => {
-     console.log(element);
+    /*  console.log(element); */
      
          Result += `
          <div class="BoxFrindesChat" data-prsone=${element._id}>
@@ -228,15 +237,24 @@ async function GetFrindesAllReq (){
   
      
  
-}); 
- console.log(Result);
-document.querySelector('.Friends_list_chat').innerHTML = Result  
+  }); 
+  document.querySelector('.Friends_list_chat').innerHTML = Result  
+  }else{
 
+   document.querySelector('.Friends_list_chat').innerHTML = `
+                          <div class="Not_found_Frindes">
+                        <p>لم تقم بإضافة أي أصدقاء بعد</p>
+                    </div>
+   `
+  }
   }catch(er){
    console.log(er);
-
   }
-
-  
 }
 GetFrindesAllReq()
+
+async  function GetFrindesContact(id){
+
+const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact${id}`)
+
+}

@@ -84,4 +84,14 @@ if(id_user_Now === result.receiver.toString()) {
  await result.save()
  res.json(result)
 }
-module.exports = {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds}
+const GetFrindesContacts = (req , res)=> {
+try{
+   const id = req.params
+   console.log(id)
+
+}catch(e){
+console.log(e)
+}
+
+}
+module.exports = {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds ,GetFrindesContacts}
