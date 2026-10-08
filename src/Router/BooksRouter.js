@@ -23,7 +23,7 @@ const { UpdateComment } = require('../Contllors/UpdateComments');
 const {Deletecommentee}  = require ('../Contllors/commentController')
 const {SendMessageprsone , GetMessages} = require('../Contllors/MessageControlls')
 const {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds ,GetFrindesContacts} = require("../Contllors/FriendRequest")
-const {GetUserSuggestions ,SearchFrindes ,GetJustFrinedAll} = require('../Contllors/Suggestions')
+const {SuggestionsFriends ,SearchFrindes ,GetJustFrinedAll} = require('../Contllors/Suggestions')
 // Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
@@ -79,7 +79,7 @@ console.log("SearchFrindes:", typeof SearchFrindes);
 Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
-Router.get('/GetUserSuggestions', verifyToken, GetUserSuggestions)
+Router.get('/GetUserSuggestions', verifyToken, SuggestionsFriends)
 Router.get('/ResultuserFrindes' ,verifyToken , SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
 Router.get('/GetFrindesAll' ,verifyToken, GetJustFrinedAll)
