@@ -87,4 +87,4 @@ res.json(FindesAccepted)
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 }
-module.exports = {GetUserSuggestions ,SearchFrindes ,GetJustFrinedAll ,SuggestionsFriends}
+module.exports = {GetUserSuggestions  ,GetJustFrinedAll ,SuggestionsFriends}
