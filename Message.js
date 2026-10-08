@@ -1,5 +1,6 @@
 
 
+
 const TokenMessage         = localStorage.getItem('token');
 const localStorageId       = localStorage.getItem('username')
 const Id_user              = JSON.parse(localStorageId)
@@ -260,25 +261,24 @@ const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
  {
   headers : {Authorization : `Bearer ${TokenMessage}`}
  }
-
 )
+console.log(response);
 
-response.data.forEach(el => {
-const divelemenet = document.createElement('div')
-divelemenet.classList.add('name_Image-To-Person')
-divelemenet.innerHTML += `
+LisTOntheruser.innerHTML = ""
+const Creatediv = document.createElement('div')
+Creatediv.classList.add('NamePerson_Chat')
+
+Creatediv.innerHTML = `
 <div class="name_Image-To-Person">
-                           <img class="ImageContact" src="${BACKEND_LOCAL_URL}uploads/1762074942659.jpg" alt="">
+                           <img class="ImageContact" src="${BACKEND_LOCAL_URL}uploads/${response.data.avatar}" alt="">
                         </div>
                         <div class="NamePersonContact">
-                           <h2> حسين</h2>
-                           <h3>متصل الان</h3>
+                           <h2>${response.data.name}</h2>
+                            <h3>متصل الان</h3>
                         </div>
-
 `
-
-})
-LisTOntheruser.innerHTML = divelemenet
+LisTOntheruser.appendChild(Creatediv)
+console.log(Creatediv);
 }catch(e){
 console.log(e);
 
