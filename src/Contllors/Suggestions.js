@@ -97,12 +97,12 @@ try{
       $in:result
     }
    })
-      
+    res.json(x)  
   }catch(e){
   console.log(e);
 
 }
-res.json(x)
+
 
 }
 module.exports = {GetUserSuggestions ,SearchFrindes ,GetJustFrinedAll ,SuggestionsFriends}
