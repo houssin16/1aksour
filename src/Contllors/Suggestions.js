@@ -105,4 +105,4 @@ try{
 res.json(x)
 
 }
-module.exports = {GetUserSuggestions  ,GetJustFrinedAll ,SuggestionsFriends}
+module.exports = {GetUserSuggestions ,SearchFrindes ,GetJustFrinedAll ,SuggestionsFriends}

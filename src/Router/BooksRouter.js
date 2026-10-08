@@ -23,7 +23,7 @@ const { UpdateComment } = require('../Contllors/UpdateComments');
 const {Deletecommentee}  = require ('../Contllors/commentController')
 const {SendMessageprsone , GetMessages} = require('../Contllors/MessageControlls')
 const {SendFriendRequestQ , GetFrindesRequest ,AccptedRequestFrineds ,GetFrindesContacts} = require("../Contllors/FriendRequest")
-const {SuggestionsFriends /* ,SearchFrindes  */,GetJustFrinedAll} = require('../Contllors/Suggestions')
+const {SuggestionsFriends ,SearchFrindes ,GetJustFrinedAll} = require('../Contllors/Suggestions')
 // Multer
 const storageAvatar = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads"),
