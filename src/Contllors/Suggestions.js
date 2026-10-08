@@ -82,9 +82,27 @@ const FindesAccepted = await  user.find({
 
 })
 res.json(FindesAccepted)
+}
 
+const SearchFrindes = async (req , res)=> {
+try{
+   const {result} = await GetUserSuggestions(req)
+   const ResultSearch = req.query.Searching
+   const x = await user.find({
+    name: {
+      $regex:ResultSearch,
+      $options: "i",
+    },
+    _id:{
+      $in:result
+    }
+   })
+      
+  }catch(e){
+  console.log(e);
 
-////////////////////////////////////////////////////////////////////////////////////////////
+}
+res.json(x)
 
 }
 module.exports = {GetUserSuggestions  ,GetJustFrinedAll ,SuggestionsFriends}

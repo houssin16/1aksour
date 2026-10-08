@@ -80,7 +80,7 @@ Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ار
 Router.post("/getmessage",verifyToken, GetMessages) 
 Router.get('/GetRequiest', verifyToken,GetFrindesRequest)
 Router.get('/GetUserSuggestions', verifyToken, SuggestionsFriends)
-/* Router.get('/ResultuserFrindes' ,verifyToken , SearchFrindes) */
+Router.get('/ResultuserFrindes' ,verifyToken , SearchFrindes)
 Router.post('/AccptedRequestFrineds' ,verifyToken,AccptedRequestFrineds)
 Router.get('/GetFrindesAll' ,verifyToken, GetJustFrinedAll)
 Router.get('/GetFrindesContact/:id' ,verifyToken , GetFrindesContacts )
