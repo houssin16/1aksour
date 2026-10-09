@@ -197,9 +197,7 @@ async function GetMessages (){
         })  
          
             document.querySelector('.Chat').innerHTML = result  
-const Chat = document.querySelector('.Chat');
 
-Chat.scrollTop = Chat.scrollHeight;
 
    }catch(e){
         console.log(e)
