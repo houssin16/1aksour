@@ -120,13 +120,13 @@ async function SendMessage() {
     const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
     { receiver:ResultPrsone,message: ResultText,},{
     headers :{ Authorization:  `Bearer ${TokenMessage}`}}) 
-   /* if (res) {
+   if (res) {
     document.getElementById('PlaceMessage').value = ""
     GetMessages()
-
-   } */
+   } 
 }
-document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage ) 
+document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage )
+ GetMessages()
 async function GetMessages (){
    try{
        
@@ -139,7 +139,7 @@ async function GetMessages (){
 
     )
  
-     if(res.data){
+     if(res.data.length === 0){
            document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
                        <h1>ابدأ محادثة</h1>
@@ -148,13 +148,13 @@ async function GetMessages (){
                      `
             document.querySelector('.Chat').classList.add('ChatingAddclass')
             Input_Send.classList.add('DisplayNonDivInputAndbutton')
+            return
+        
       }
       let result =""
-      
-       
-     let Position;
+     let Position ;
      res.data.forEach(e => { 
-  
+
         const date  = new Date(e.createdAt) 
         ///////ناخذ الساعة ودقائق ///
         let hour = date.getHours();
@@ -183,7 +183,7 @@ async function GetMessages (){
         }else{
           Position = 'left'
         }
-
+        console.log('sender:', e.sender, 'Position:', Position)
        result += `
                     <div class="message ${Position}">
                           <p>${e.message}</p>
@@ -192,11 +192,14 @@ async function GetMessages (){
                     
                        
                    ` 
-             document.querySelector('.Chat').innerHTML = result                      
+                             
            
         })  
-        console.log(result);
-        
+         
+            document.querySelector('.Chat').innerHTML = result  
+const Chat = document.querySelector('.Chat');
+
+Chat.scrollTop = Chat.scrollHeight;
 
    }catch(e){
         console.log(e)
@@ -259,7 +262,7 @@ async function GetFrindesAllReq (){   ////// جلب الاصدقاء
 }
 GetFrindesAllReq()
 const LisTOntheruser = document.querySelector('.NamePerson_Chat')
-async  function GetFrindesContactAk(id){
+ async  function GetFrindesContactAk(id){
 try{
 
 const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
@@ -267,7 +270,7 @@ const response = await axios.get(`${BACKEND_LOCAL_URL}GetFrindesContact/${id}` ,
   headers : {Authorization : `Bearer ${TokenMessage}`}
  }
 )
-console.log(response);
+
 
 LisTOntheruser.innerHTML = ""
 const Creatediv = document.createElement('div')
@@ -283,7 +286,7 @@ Creatediv.innerHTML = `
                         </div>
 `
 LisTOntheruser.appendChild(Creatediv)
-console.log(Creatediv);
+
 }catch(e){
 console.log(e);
 
@@ -292,4 +295,4 @@ console.log(e);
 
 
 
-}
+} 

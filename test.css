@@ -2603,19 +2603,37 @@ position: relative;
 .Chat {
 
 /*   background-color: #295686; */
-  display: flex;
+/*   display: flex;
   flex-direction: column;
   height: 500px;
    overflow-y: auto;
-  
+   */
+    display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
 }
+/* ////////////////////////////////////////////// */
+.Chat {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow-y: auto;
+  align-items: stretch;
+}
+
+
+
+/* ////////////////////////////////////////////// */
 .left {
     align-self: flex-start;
     background-color: #f0ebeb;
     margin: 70px;
     padding: 15px;
     border-radius: 7px;
-    direction: rtl;
+   direction: rtl; 
      color: rgb(34, 34, 34);
     
     p{
@@ -2627,6 +2645,7 @@ position: relative;
      color: rgb(34, 34, 34);
     }
 }
+
 .right {
   color: white;
 align-self: flex-end;
@@ -2644,6 +2663,21 @@ margin: 70px;
        color: white;
     }
 }
+/* .left,
+.right {
+  box-sizing: border-box;
+  max-width: 80%;
+  overflow-wrap: anywhere;
+}
+.Chat .message.left {
+  font-size: 20px !important;
+  width: fit-content !important;
+  min-width: 150px;
+  max-width: 80%;
+  margin: 10px !important;
+  flex-shrink: 0;
+  background: red !important;
+} */
 .Input_Send {
  width: 100%;
  /*  background-color: rgb(39, 143, 204); */
@@ -2899,7 +2933,7 @@ color: red;
 }
 .ChatingAddclass{
 display: flex;
-justify-content: center;
+/* justify-content: center; */
 align-items: center;
 }
 .ButtonVisible {
