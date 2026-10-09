@@ -98,7 +98,7 @@ async function Kia (){
    }
   console.log(button.className);
    })
-  if (!ResultPrsone) {
+  if (!ResultPrsone){
 
         document.querySelector('.Chat').innerHTML = ` <div class="StartingChat">
                       <i class="fa-solid fa-paper-plane"></i>
@@ -107,8 +107,8 @@ async function Kia (){
                      </div>
                   `
     document.querySelector('.Chat').classList.add('ChatingAddclass') 
-    document.querySelector('.LisT-Onther-user').classList.add('visibilityToheader')
-    Input_Send.classList.remove('DisplayNonDivInputAndbutton')
+    /* document.querySelector('.LisT-Onther-user').classList.add('visibilityToheader')
+    Input_Send.classList.remove('DisplayNonDivInputAndbutton') */
   }
   
 } 
@@ -146,8 +146,8 @@ async function GetMessages (){
                        <h2>اختر صديقاً من القائمة لبدء المحادثة</h2>
                      </div>
                      `
-            document.querySelector('.Chat').classList.add('ChatingAddclass')
-            Input_Send.classList.add('DisplayNonDivInputAndbutton')
+           /*  document.querySelector('.Chat').classList.add('ChatingAddclass') */
+           /*  Input_Send.classList.add('DisplayNonDivInputAndbutton') */
             return
         
       }
