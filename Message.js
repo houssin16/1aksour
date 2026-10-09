@@ -120,7 +120,11 @@ async function SendMessage() {
     const res = await axios.post(`${BACKEND_LOCAL_URL}messages`,
     { receiver:ResultPrsone,message: ResultText,},{
     headers :{ Authorization:  `Bearer ${TokenMessage}`}}) 
+   /* if (res) {
+    document.getElementById('PlaceMessage').value = ""
+    GetMessages()
 
+   } */
 }
 document.getElementById('ButtonSendMessage').addEventListener('click' ,  SendMessage ) 
 async function GetMessages (){
@@ -191,6 +195,7 @@ async function GetMessages (){
              document.querySelector('.Chat').innerHTML = result                      
            
         })  
+        console.log(result);
         
 
    }catch(e){
