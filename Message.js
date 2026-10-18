@@ -80,6 +80,7 @@ document.addEventListener('click' , (e)=>{
     GetMessages()
     if (ResultPrsone) {
         document.querySelector('.LisT-Onther-user').classList.remove('visibilityToheader')
+        document.querySelector('.Input_Send').classList.add('DisplayNonDivInputAndbutton')
     }
    GetFrindesContactAk(Person_id)
  
@@ -109,8 +110,9 @@ async function Kia (){
     document.querySelector('.Chat').classList.add('ChatingAddclass') 
     /* document.querySelector('.LisT-Onther-user').classList.add('visibilityToheader')
     Input_Send.classList.remove('DisplayNonDivInputAndbutton') */
+
   }
-  
+ 
 } 
 Kia()
 async function SendMessage() {
@@ -146,8 +148,8 @@ async function GetMessages (){
                        <h2>اختر صديقاً من القائمة لبدء المحادثة</h2>
                      </div>
                      `
-           /*  document.querySelector('.Chat').classList.add('ChatingAddclass') */
-           /*  Input_Send.classList.add('DisplayNonDivInputAndbutton') */
+            document.querySelector('.Chat').classList.add('ChatingAddclass')
+            
             return
         
       }

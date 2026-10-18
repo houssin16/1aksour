@@ -5,8 +5,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   avatar: { type: String, default: "" },
-  coverImage: { type: String, default: "" }
-});
-
+  coverImage: { type: String, default: "" },
+  status : { type : String, default:"offline"}
+})
 module.exports = mongoose.model("User", UserSchema);
 

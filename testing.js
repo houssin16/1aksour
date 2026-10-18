@@ -66,6 +66,7 @@ Usernameandimage.forEach((element,index)=> {
     
     if (element.classList.contains('fa-bell')) {
          window.location = `Notification.html`
+        console.log("yesssssssssss");
         
     }else if(element.classList.contains('fa-message')){
     window.location = `Frindes.html`
@@ -75,6 +76,8 @@ Usernameandimage.forEach((element,index)=> {
      window.location = `testProfile.html`
     }else if (element.classList.contains('fa-house')) {
      window.location = `testDachbored.html`
+     console.log('rgergergerg');
+     
     }else if(element.classList.contains('fa-right-from-bracket')){
          
     }

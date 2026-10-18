@@ -1,4 +1,3 @@
-
 const token = localStorage.getItem('token');  
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
@@ -6,7 +5,7 @@ const Containerews = document.querySelector('.Parent');
  const containerAll = document.querySelector('.Cont');
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
-  
+
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
     if(!Container){

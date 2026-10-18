@@ -32,15 +32,22 @@ const loginUser = async (req, res) => {
 
   try {
     const { email, password } = req.body;
-    
+    const userid = req.user.id
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "المستخدم غير موجود" });
-
+/* _____________________________________________________________________________________ */
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ message: "كلمة المرور خاطئة" });
-
+    /* _____________________________________________________________________________________ */
+       await  User.findByIdAndUpdate(
+      user._id,
+     {status : "online"}
+    
+     )
+     /* _____________________________________________________________________________________ */
+     user.status = "online";
     const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: "7d" });
-   
+    
     res.json({ success: true, token, user });
        
   } catch (err) {
