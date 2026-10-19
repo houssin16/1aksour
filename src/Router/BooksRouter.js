@@ -77,7 +77,7 @@ Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
  ////FrindesRequest //
-Router.post('/Lougut' ,  verifyToken ,logoutUser)
+Router.post('/Lougut', verifyToken,logoutUser)
 console.log("SearchFrindes:", typeof SearchFrindes); 
 Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 

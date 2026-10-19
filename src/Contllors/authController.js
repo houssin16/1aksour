@@ -109,6 +109,10 @@ const GetUserprofile = async (req, res) => {
     await User.findByIdAndUpdate(userid,{
     status: "offline"
    });
+   return res.status(200).json({
+  success: true,
+  message: "تم تسجيل الخروج بنجاح"
+});
   } catch (err) {
     return res.status(500).json({
       message: err.message
