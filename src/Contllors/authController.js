@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
     console.log(err)
     res.status(500).json({ message: err.message });
   }
-
+ 
 };
 
 // جلب بيانات المستخدم الحالي
@@ -103,6 +103,17 @@ const GetUserprofile = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+ const logoutUser = async (req, res) => {
+  try {
+    const userid = req.user.id
+    await User.findByIdAndUpdate(userid,{
+    status: "offline"
+   });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message
+    });
+  }
+};
 
-
-module.exports = {registerUser, loginUser, getProfile, GetUserprofile,  };
+module.exports = {registerUser, loginUser, getProfile, GetUserprofile, logoutUser };

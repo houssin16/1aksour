@@ -5,7 +5,7 @@ const Containerews = document.querySelector('.Parent');
  const containerAll = document.querySelector('.Cont');
 const Container     = document.querySelector('.container')
 const ResultSearch  = document.querySelector('.ResultSearch')
-
+const Logout        = document.getElementById('Logout')
    function ShowAltert(Msg){
    const Container = document.getElementById('Alert')
     if(!Container){
@@ -20,6 +20,7 @@ const ResultSearch  = document.querySelector('.ResultSearch')
      Div.remove()
      }, 4500);
 } 
+
  const res = document.getElementById('Alert')
 let urlxdown = `${BACKEND_LOCAL_URL}posts`
 
@@ -98,44 +99,30 @@ const password = document.getElementById('passwordlOGIN').value.trim()
  
 });
  }
-/* ********************************************************************************End login***************************************************************************************** */
+ Logout.addEventListener('click' , async  ()=> {
 
-/* ************************************************************************ Logout start************************************************************************************************************************************* */   const re = document.getElementById('Logout')
-/* if (re) 
-  { */
-   
- /*  re.onclick = function(){  
-        axios.post(`${BACKEND_LOCAL_URL}/logouttt` , 
-   
-          {}, 
-     {
-           headers :{
-            Authorization:  `Bearer ${localStorage.getItem('token')}`
-           } ,
-          
-
-      }).then((respone) =>{ 
-        localStorage.clear()
-        localStorage.removeItem('token') 
-       ShowAltert('تم التسجيل الخروج بنجاح')
-        localStorage.removeItem('username')
-           window.location.href = `index.html`
-      })
-     } */
-//////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
-
- if (re) {
-    re.onclick = function() {
-        // حذف كل بيانات الدخول
-        localStorage.removeItem('token')
+const res = await axios.post(`${BACKEND_LOCAL_URL}/Lougut` ,
+  {},
+  {
+     headers : {
+     Authorization : `Bearer ${localStorage.getItem('token')}`
+  
+     }
+   }
+ )
+  if (res) {
+     localStorage.clear()
+     localStorage.removeItem('token')
         sessionStorage.removeItem('token')
         localStorage.removeItem('username')
         sessionStorage.removeItem('username')
 
         // توجيه المستخدم للصفحة الرئيسية بدون إمكانية الرجوع
-        window.location.replace('index.html') 
-    }
-  } 
+        window.location.replace('index.html')
+  }
+
+})
+
      /* ************************************************************************ Logout end************************************************************************************************************************************* */
 Img12.addEventListener('click'  , function(){
   ImageInput2.click()

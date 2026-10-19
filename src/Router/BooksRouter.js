@@ -4,7 +4,7 @@ const path = require("path");
 const multer = require("multer");
 
 // Controllers
-const { registerUser, loginUser, getProfile, GetUserprofile,  } = require("../Contllors/authController");
+const { registerUser, loginUser, getProfile, GetUserprofile, logoutUser } = require("../Contllors/authController");
 const { verifyToken } = require("../Contllors/MIDDELWARE.JS");
 const { 
     createPost,
@@ -77,7 +77,7 @@ Router.post('/messages' ,verifyToken,SendMessageprsone )
 console.log("🔥 GETMESSAGE ROUTE LOADED");
  Router.post("/getmessage",verifyToken, GetMessages) 
  ////FrindesRequest //
-
+Router.post('/Lougut' ,  verifyToken ,logoutUser)
 console.log("SearchFrindes:", typeof SearchFrindes); 
 Router.post("/SendFriendRequest" , verifyToken ,SendFriendRequestQ)   ///// ارسال طلب صداقة 
 Router.post("/getmessage",verifyToken, GetMessages) 

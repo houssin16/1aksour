@@ -416,7 +416,7 @@ document.addEventListener("mousedown" ,function(e){
 
 //////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
 
-/*   const re = document.getElementById('Logout')
+  const re = document.getElementById('Logout')
 
 if (re) {
     re.onclick = function() {
@@ -429,7 +429,7 @@ if (re) {
         // توجيه المستخدم للصفحة الرئيسية بدون إمكانية الرجوع
         window.location.replace('index.html')
     }
-} */
+}
  window.addEventListener('load', () => {
     // جلب token من sessionStorage
     const sessionToken = localStorage.getItem('token')
