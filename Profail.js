@@ -415,21 +415,29 @@ document.addEventListener("mousedown" ,function(e){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
+ Logout.addEventListener('click' , async  ()=> {
 
-  const re = document.getElementById('Logout')
-
-if (re) {
-    re.onclick = function() {
-        // حذف كل بيانات الدخول
-        localStorage.removeItem('token')
+const res = await axios.post(`${BACKEND_LOCAL_URL}Lougut` ,
+  {},
+  {
+     headers : {
+     Authorization : `Bearer ${localStorage.getItem('token')}`
+  
+     }
+   }
+ )
+  if (res) {
+     localStorage.clear()
+     localStorage.removeItem('token')
         sessionStorage.removeItem('token')
         localStorage.removeItem('username')
         sessionStorage.removeItem('username')
 
         // توجيه المستخدم للصفحة الرئيسية بدون إمكانية الرجوع
         window.location.replace('index.html')
-    }
-}
+  }
+
+})
  window.addEventListener('load', () => {
     // جلب token من sessionStorage
     const sessionToken = localStorage.getItem('token')

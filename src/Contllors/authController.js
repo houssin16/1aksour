@@ -103,7 +103,7 @@ const GetUserprofile = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-/*  const logoutUser = async (req, res) => {
+ const logoutUser = async (req, res) => {
   try {
     const userid = req.user.id
     await User.findByIdAndUpdate(userid,{
@@ -118,26 +118,8 @@ const GetUserprofile = async (req, res) => {
       message: err.message
     });
   }
-}; */
+}; 
 
-const logoutUser = async (req, res) => {
-  try {
-    const userid = req.user.id;
 
-    await User.findByIdAndUpdate(userid, {
-      status: "offline"
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "تم تسجيل الخروج بنجاح"
-    });
-
-  } catch (err) {
-    return res.status(500).json({
-      message: err.message
-    });
-  }
-};
 
 module.exports = {registerUser, loginUser, getProfile, GetUserprofile, logoutUser };

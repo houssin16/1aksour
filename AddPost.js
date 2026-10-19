@@ -101,7 +101,7 @@ const password = document.getElementById('passwordlOGIN').value.trim()
  }
  Logout.addEventListener('click' , async  ()=> {
 
-const res = await axios.post(`${BACKEND_LOCAL_URL}/Lougut` ,
+const res = await axios.post(`${BACKEND_LOCAL_URL}Lougut` ,
   {},
   {
      headers : {
