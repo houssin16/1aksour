@@ -78,6 +78,8 @@ const password = document.getElementById('passwordlOGIN').value.trim()
    ;
      
      if (respone) { 
+        console.log(respone);
+        
         const res = respone.data.user
          localStorage.setItem("imge", JSON.stringify(res.avatar));
         const Token = respone.data.token
@@ -98,13 +100,12 @@ const password = document.getElementById('passwordlOGIN').value.trim()
  }
 /* ********************************************************************************End login***************************************************************************************** */
 
-/* ************************************************************************ Logout start************************************************************************************************************************************* */
- const re = document.getElementById('Logout')
-if (re) 
-  {
+/* ************************************************************************ Logout start************************************************************************************************************************************* */   const re = document.getElementById('Logout')
+/* if (re) 
+  { */
    
-  re.onclick = function(){  
-        axios.post(`${BACKEND_LOCAL_URL}/logout` , 
+ /*  re.onclick = function(){  
+        axios.post(`${BACKEND_LOCAL_URL}/logouttt` , 
    
           {}, 
      {
@@ -120,8 +121,7 @@ if (re)
         localStorage.removeItem('username')
            window.location.href = `index.html`
       })
-     }
-} 
+     } */
 //////////////////////////////الحماية عند تسجيل الخروج/////////////////////////////////////////////
 
  if (re) {

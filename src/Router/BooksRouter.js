@@ -35,6 +35,9 @@ const upload = multer({ storage: storageAvatar });
 Router.post("/register", upload.single("avatar"),registerUser);
 Router.post("/login", loginUser);
 Router.get("/profile", verifyToken, getProfile);
+
+
+
 Router.get('/posts/user/:id', GetPostById);
 // Posts
 Router.post("/posts", verifyToken, upload.single("image"),createPost);
