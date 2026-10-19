@@ -32,7 +32,6 @@ const loginUser = async (req, res) => {
 
   try {
     const { email, password } = req.body;
-    const userid = req.user.id
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "المستخدم غير موجود" });
 /* _____________________________________________________________________________________ */
