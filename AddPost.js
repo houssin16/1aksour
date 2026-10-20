@@ -67,7 +67,7 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
  
 })
-
+const Status1 = ""
 document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
@@ -80,7 +80,8 @@ const password = document.getElementById('passwordlOGIN').value.trim()
   
     const res = respone.data.user;
     const Token = respone.data.token;
-    console.log(res.status);
+    Status1 = res.status
+     window.location="testDachbored.html"
     
     localStorage.setItem("imge", JSON.stringify(res.avatar));
     localStorage.setItem("username", JSON.stringify(res));
@@ -95,6 +96,8 @@ const password = document.getElementById('passwordlOGIN').value.trim()
 });
  
 });
+console.log(Status1);
+
  }
  Logout.addEventListener('click' , async  ()=> {
 
