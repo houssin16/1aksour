@@ -1,5 +1,5 @@
 
-
+console.log("rfazerf");
 
 const TokenMessage         = localStorage.getItem('token');
 const localStorageId       = localStorage.getItem('username')
@@ -79,7 +79,8 @@ document.addEventListener('click' , (e)=>{
     ResultPrsone = Person_id
     GetMessages()
     if (ResultPrsone) {
-        document.querySelector('.LisT-Onther-user').classList.remove('visibilityToheader')
+        console.log("zerfzefze");
+        /* document.getElementById('#TwoDivChating').style.visibility ="visible" */
         document.querySelector('.Input_Send').classList.add('DisplayNonDivInputAndbutton')
     }
    GetFrindesContactAk(Person_id)
@@ -261,6 +262,7 @@ async function GetFrindesAllReq (){   ////// جلب الاصدقاء
   }
 }
 GetFrindesAllReq()
+
 const LisTOntheruser = document.querySelector('.NamePerson_Chat')
  async  function GetFrindesContactAk(id){
 try{
@@ -292,7 +294,6 @@ console.log(e);
 
 
 }
-
-
-
 } 
+
+

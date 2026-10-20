@@ -67,38 +67,29 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
  
 })
-let  Status1 = ""
-document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
+async function  SendStatus() {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
- axios.post(`${BACKEND_LOCAL_URL}login`, {
+const respone = await  axios.post(`${BACKEND_LOCAL_URL}login`, {
   email: email,
   password: password,
 }) 
-.then((respone) => {
+
     console.log("LOGIN DATA:", respone.data);
-  window.location="testDachbored.html"
+   
     const res = respone.data.user;
     const Token = respone.data.token;
-    Status1 = res.status
-     
-    
     localStorage.setItem("imge", JSON.stringify(res.avatar));
     localStorage.setItem("username", JSON.stringify(res));
     localStorage.setItem("user", JSON.stringify(res.name));
     localStorage.setItem("token", Token);
+    window.location="testDachbored.html"
+    return res
 
-    console.log("تم حفظ البيانات بنجاح");
-})
-.catch((e) => {
-    console.log("LOGIN ERROR:", e);
-    ShowAltert(e.response?.data?.message || "حدث خطأ");
-});
- 
-});
-console.log(Status1);
+}
+SendStatus()
+}
 
- }
  Logout.addEventListener('click' , async  ()=> {
 
 const res = await axios.post(`${BACKEND_LOCAL_URL}Lougut` ,
@@ -205,7 +196,7 @@ InputSearch.addEventListener('input' , ()=>{
           console.log(responsestatus)
        
        const responeS =  responsestatus.map(e =>{  
-      
+        
          return `
         
                <div class="BoxUsers1">

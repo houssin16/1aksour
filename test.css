@@ -2520,12 +2520,13 @@ border-radius: 50%;
 }
 #TwoDivChating {
   height:100px ;
-  /* background-color: #0565d3; */
+  /* background-color: #266bb9; */
   width: 100%;
   display:flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   box-shadow: 0 3px 0px 0 rgb(219, 218, 218) ;
+  visibility: hidden;
 }
 .PlaceTheChatFrindes .NamePerson_Chat {
 /*   background-color: chartreuse; */
