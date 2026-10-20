@@ -75,27 +75,23 @@ const password = document.getElementById('passwordlOGIN').value.trim()
   email: email,
   password: password,
 }) 
-.then((respone)=>{
-    /*  setTimeout(()=> {window.location="testDachbored.html";},2000);*/
-    /*  if (respone) { 
-        console.log("LOGIN DATA:", JSON.stringify(respone.data, null, 2));
-console.log("USER:", respone.data.user);
-console.log("TOKEN:", respone.data.token);
-        
-        const res = respone.data.user
-         localStorage.setItem("imge", JSON.stringify(res.avatar));
-        const Token = respone.data.token
-        localStorage.setItem('username' ,JSON.stringify(res))
-        localStorage.setItem('user' ,JSON.stringify(res.name))
-        localStorage.setItem("token" , (Token))
-        ShowAltert("تم تسجيل الدخول بنجاح");
-  
-     } */
-     console.log(respone);
-     
-   }).catch((e) =>{
-  ShowAltert(e.response?.data?.message || "حدث خطأ");
-}) 
+.then((respone) => {
+    console.log("LOGIN DATA:", respone.data);
+
+    const res = respone.data.user;
+    const Token = respone.data.token;
+
+    localStorage.setItem("imge", JSON.stringify(res.avatar));
+    localStorage.setItem("username", JSON.stringify(res));
+    localStorage.setItem("user", JSON.stringify(res.name));
+    localStorage.setItem("token", Token);
+
+    console.log("تم حفظ البيانات بنجاح");
+})
+.catch((e) => {
+    console.log("LOGIN ERROR:", e);
+    ShowAltert(e.response?.data?.message || "حدث خطأ");
+});
  
 });
  }
