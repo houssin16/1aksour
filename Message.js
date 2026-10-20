@@ -296,7 +296,7 @@ console.log(e);
 }
 } 
 async function GetStatus (){
-const Result =  await SendStatus()
+const Result =  await SendS()
 console.log(Result);
 console.log('Result');
 
