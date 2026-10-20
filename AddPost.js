@@ -62,7 +62,7 @@ passwordVissssibile.addEventListener('click' , () =>{
   }else{
 
     Inpitpassword.type ="password"
-   /*  Inpitpassword.classList.remove('fa-eye-slash')
+   /* Inpitpassword.classList.remove('fa-eye-slash')
     Inpitpassword.classList.add('fa-eye') */
   }
  
@@ -76,9 +76,8 @@ const password = document.getElementById('passwordlOGIN').value.trim()
   password: password,
 }) 
 .then((respone)=>{
-   ;
-     
-     if (respone) { 
+    /*  setTimeout(()=> {window.location="testDachbored.html";},2000);*/
+    /*  if (respone) { 
         console.log("LOGIN DATA:", JSON.stringify(respone.data, null, 2));
 console.log("USER:", respone.data.user);
 console.log("TOKEN:", respone.data.token);
@@ -90,13 +89,12 @@ console.log("TOKEN:", respone.data.token);
         localStorage.setItem('user' ,JSON.stringify(res.name))
         localStorage.setItem("token" , (Token))
         ShowAltert("تم تسجيل الدخول بنجاح");
-       setTimeout(()=> {  window.location = "testDachbored.html" ; },2000 ); 
-     }
   
+     } */
+     console.log(respone);
+     
    }).catch((e) =>{
   ShowAltert(e.response?.data?.message || "حدث خطأ");
-  
-
 }) 
  
 });
