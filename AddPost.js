@@ -77,11 +77,11 @@ const password = document.getElementById('passwordlOGIN').value.trim()
 }) 
 .then((respone) => {
     console.log("LOGIN DATA:", respone.data);
-  
+  window.location="testDachbored.html"
     const res = respone.data.user;
     const Token = respone.data.token;
     Status1 = res.status
-     window.location="testDachbored.html"
+     
     
     localStorage.setItem("imge", JSON.stringify(res.avatar));
     localStorage.setItem("username", JSON.stringify(res));
