@@ -79,7 +79,9 @@ const password = document.getElementById('passwordlOGIN').value.trim()
    ;
      
      if (respone) { 
-        console.log(respone);
+        console.log("LOGIN DATA:", JSON.stringify(respone.data, null, 2));
+console.log("USER:", respone.data.user);
+console.log("TOKEN:", respone.data.token);
         
         const res = respone.data.user
          localStorage.setItem("imge", JSON.stringify(res.avatar));
@@ -88,7 +90,7 @@ const password = document.getElementById('passwordlOGIN').value.trim()
         localStorage.setItem('user' ,JSON.stringify(res.name))
         localStorage.setItem("token" , (Token))
         ShowAltert("تم تسجيل الدخول بنجاح");
-       setTimeout(()=> {  window.location = "testDachbored.html" ; },100 ); 
+       setTimeout(()=> {  window.location = "testDachbored.html" ; },2000 ); 
      }
   
    }).catch((e) =>{
