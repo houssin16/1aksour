@@ -295,5 +295,9 @@ console.log(e);
 
 }
 } 
-console.log("rfazerf");
+async function GetStatus (){
+const Result =  await SendStatus()
+console.log(Result);
+}
+GetStatus()
 
