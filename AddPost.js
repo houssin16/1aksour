@@ -67,7 +67,7 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
  
 })
-const Status1 = ""
+let  Status1 = ""
 document.querySelector('.buttonlogin').addEventListener("click",  function ()  {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
