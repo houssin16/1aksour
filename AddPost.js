@@ -69,7 +69,7 @@ passwordVissssibile.addEventListener('click' , () =>{
 })
 
 }
-document.getElementById('buttonlogin').addEventListener('click' ,SendStatus )
+document.getElementById('buttonlogin').addEventListener('click' ,SendStatus)
 async function  SendStatus() {
 const email = document.getElementById('username').value.trim()
 const password = document.getElementById('passwordlOGIN').value.trim()
