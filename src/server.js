@@ -10,7 +10,7 @@ const methodOverride = require("method-override");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json())
-app.use(express.static("public"));
+app.use(express.static("public"));+
 // ✅ 1. Middleware أولاً (الترتيب مهم جداً)
 app.use(cors({
   origin: "*",
