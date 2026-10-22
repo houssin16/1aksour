@@ -1,3 +1,4 @@
+console.log("Logi pom!yiom!io:m!ijolm:n");
 const token = localStorage.getItem('token');  
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
@@ -48,9 +49,14 @@ let Mood = "Create"
    }
 }
 ScriteToSite2() */
-const Login = document.querySelector('.buttonlogin')
-
-
+async function nameLogin() {
+   const email = document.getElementById('username').value.trim()
+   const password = document.getElementById('passwordlOGIN').value.trim()
+   const respone = await  axios.post(`${BACKEND_LOCAL_URL}login`, {
+  email: email,
+  password: password,
+}) 
+  const Login = document.querySelector('.buttonlogin')
  if (Login) {
   const passwordVissssibile = document.getElementById('Icones') ////Icone
 const Inpitpassword = document.getElementById('passwordlOGIN') ///Input
@@ -65,21 +71,10 @@ passwordVissssibile.addEventListener('click' , () =>{
    /* Inpitpassword.classList.remove('fa-eye-slash')
     Inpitpassword.classList.add('fa-eye') */
   }
- 
-})
-document.getElementById('buttonlogin').addEventListener('click' ,SendStatus , console.log('z'))
-async function  SendStatus() {
-const email = document.getElementById('username').value.trim()
-const password = document.getElementById('passwordlOGIN').value.trim()
-const respone = await  axios.post(`${BACKEND_LOCAL_URL}login`, {
-  email: email,
-  password: password,
-}) 
-}
 
+})
 
     console.log("LOGIN DATA:", respone.data);
-   
     const res = respone.data.user;
     const Token = respone.data.token;
     localStorage.setItem("imge", JSON.stringify(res.avatar));
@@ -90,6 +85,8 @@ const respone = await  axios.post(`${BACKEND_LOCAL_URL}login`, {
     return res
 
 }
+}
+document.querySelector('.buttonlogin').addEventListener("click" , nameLogin)
 
  Logout.addEventListener('click' , async  ()=> {
 
