@@ -67,8 +67,6 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
  
 })
-
-}
 document.getElementById('buttonlogin').addEventListener('click' ,SendStatus , console.log('z'))
 async function  SendStatus() {
 const email = document.getElementById('username').value.trim()
@@ -77,6 +75,8 @@ const respone = await  axios.post(`${BACKEND_LOCAL_URL}login`, {
   email: email,
   password: password,
 }) 
+}
+
 
     console.log("LOGIN DATA:", respone.data);
    
