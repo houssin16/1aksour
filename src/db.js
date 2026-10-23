@@ -1,8 +1,9 @@
+
 const mongoose = require("mongoose");
 
 async function Db() {
   try {
-    await mongoose.connect("mongodb+srv://AksourHoucine-Data-base:0662164980@aksourapi.zuxdjn8.mongodb.net/?appName=AksourApi");
+    await mongoose.connect("mongodb://127.0.0.1:27017/test");
     console.log("Database Connected Ok ✅");
   } catch (err) {
     console.log(err);
@@ -10,4 +11,3 @@ async function Db() {
 }
 
 module.exports = Db;
-

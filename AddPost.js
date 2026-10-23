@@ -56,8 +56,23 @@ async function nameLogin() {
   email: email,
   password: password,
 }) 
-  const Login = document.querySelector('.buttonlogin')
- if (Login) {
+
+
+
+    console.log("LOGIN DATA:", respone.data);
+    const res = respone.data.user;
+    const Token = respone.data.token;
+    localStorage.setItem("imge", JSON.stringify(res.avatar));
+    localStorage.setItem("username", JSON.stringify(res));
+    localStorage.setItem("user", JSON.stringify(res.name));
+    localStorage.setItem("token", Token);
+    window.location="testDachbored.html"
+    return res
+
+
+}
+document.querySelector('.buttonlogin').addEventListener("click" , nameLogin)
+
   const passwordVissssibile = document.getElementById('Icones') ////Icone
 const Inpitpassword = document.getElementById('passwordlOGIN') ///Input
 passwordVissssibile.addEventListener('click' , () =>{
@@ -73,21 +88,6 @@ passwordVissssibile.addEventListener('click' , () =>{
   }
 
 })
-
-    console.log("LOGIN DATA:", respone.data);
-    const res = respone.data.user;
-    const Token = respone.data.token;
-    localStorage.setItem("imge", JSON.stringify(res.avatar));
-    localStorage.setItem("username", JSON.stringify(res));
-    localStorage.setItem("user", JSON.stringify(res.name));
-    localStorage.setItem("token", Token);
-    window.location="testDachbored.html"
-    return res
-
-}
-}
-document.querySelector('.buttonlogin').addEventListener("click" , nameLogin)
-
  Logout.addEventListener('click' , async  ()=> {
 
 const res = await axios.post(`${BACKEND_LOCAL_URL}Lougut` ,
