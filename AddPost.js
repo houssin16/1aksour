@@ -865,10 +865,9 @@ async  function Profile() {
 
 }
 
-function ProfileClicked(userId){
-  window.location = `${BACKEND_LOCAL_URL}testProfile.html?id=${userId}`
-  console.log(userId);
-  
+function ProfileClicked(userId) {
+    window.location.href = `testProfile.html?id=${encodeURIComponent(userId)}`;
+    console.log(userId);
 }
 async function GetPostsOFone_User(){
 
