@@ -49,6 +49,29 @@ let Mood = "Create"
    }
 }
 ScriteToSite2() */
+
+ const passwordVissssibile = document.getElementById('Icones')
+   ////Icone
+const Inpitpassword = document.getElementById('passwordlOGIN') 
+if(Inpitpassword) {passwordVissssibile.addEventListener('click' , () =>{
+  if (Inpitpassword.type === "password") {
+     Inpitpassword.type = "text"
+     /*  Inpitpassword.classList.remove('fa-eye')
+     Inpitpassword.classList.add('fa-eye-slash')  */
+  }else{
+
+    Inpitpassword.type ="password"
+   /* Inpitpassword.classList.remove('fa-eye-slash')
+    Inpitpassword.classList.add('fa-eye') */
+  }
+
+})
+}
+
+const LoginVX_Aksour =  document.querySelector('.buttonlogin')
+if(LoginVX_Aksour) {
+   LoginVX_Aksour.addEventListener("click" , nameLogin)
+}
 async function nameLogin() {
    const email = document.getElementById('username').value.trim()
    const password = document.getElementById('passwordlOGIN').value.trim()
@@ -71,24 +94,11 @@ async function nameLogin() {
 
 
 }
-document.querySelector('.buttonlogin').addEventListener("click" , nameLogin)
 
-  const passwordVissssibile = document.getElementById('Icones') ////Icone
-const Inpitpassword = document.getElementById('passwordlOGIN') ///Input
-passwordVissssibile.addEventListener('click' , () =>{
-  if (Inpitpassword.type === "password") {
-     Inpitpassword.type = "text"
-     /*  Inpitpassword.classList.remove('fa-eye')
-     Inpitpassword.classList.add('fa-eye-slash')  */
-  }else{
 
-    Inpitpassword.type ="password"
-   /* Inpitpassword.classList.remove('fa-eye-slash')
-    Inpitpassword.classList.add('fa-eye') */
-  }
 
-})
- Logout.addEventListener('click' , async  ()=> {
+ 
+Logout.addEventListener('click' , async  ()=> {
 
 const res = await axios.post(`${BACKEND_LOCAL_URL}Lougut` ,
   {},
@@ -276,7 +286,7 @@ GetPostsAll()
      ;containerAll.innerHTML = ""
     }   
     posts.forEach(element => { 
-      console.log("/posts")
+      console.log(element)
       const AvatarResponse   = element.userId.avatar 
       let   AvatarDefultOrNo = AvatarResponse === "default.png" || AvatarResponse === ""
       const AvatarORViody  = AvatarDefultOrNo ? `${BACKEND_LOCAL_URL}images/defulte.png` : `${BACKEND_LOCAL_URL}uploads/${element.userId?.avatar}`
@@ -1152,9 +1162,13 @@ fa_building_user.addEventListener('click'  , function(){
 window.location = `${BACKEND_LOCAL_URL}testProfile.html?userid=${id}` 
 
 })
-} function ProfileClicked(userId){
-  window.location = `${BACKEND_LOCAL_URL}testProfile.html?id=${userId}`
+} 
+function ProfileClicked(userId){
+  window.location = `http://localhost:3000/testProfile.html?id=${userId}`
+  console.log(userId);
+  
 }
+
  let  IntervalId2 = null 
    async function ChekingFhotoProfile2(){
   const GetFormationUSER = await GetUserdata2()
