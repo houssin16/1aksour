@@ -1,4 +1,5 @@
-console.log("Logi pom!yiom!io:m!ijolm:n");
+
+
 const token = localStorage.getItem('token');  
 const InputSearch   = document.querySelector('.InputSearch')
 const ResultSearchQ = document.querySelector('.ResultSearch')
@@ -82,7 +83,8 @@ async function nameLogin() {
 
 
 
-    console.log("LOGIN DATA:", respone.data);
+
+
     const res = respone.data.user;
     const Token = respone.data.token;
     localStorage.setItem("imge", JSON.stringify(res.avatar));
@@ -201,7 +203,8 @@ InputSearch.addEventListener('input' , ()=>{
        ResultSearch.classList.add('blockSearch')
       
        const responsestatus = res.data
-          console.log(responsestatus)
+          
+       
        
        const responeS =  responsestatus.map(e =>{  
         
@@ -279,7 +282,7 @@ GetPostsAll()
     }
      const Likes = Response.data
      const posts = Response.data
-     console.log(Likes);
+    
      
      const containerAll = document.querySelector('.SideBar');
      if (page === 1) {
@@ -736,7 +739,7 @@ loadReplies(id);
 }
 let DeleteMod = "Nothing"
 async function DeleteComments(id){
-  console.log(id);
+
   
     DeleteMod = "delete"
    const ContainerComnfirm = document.querySelector('.ContainerComnfirm')
@@ -832,7 +835,7 @@ document.addEventListener('click', (e) => {
 
  Profile()
 async  function Profile() {
- console.log("ergqzerg");
+
  
   const Window_The_Profile = document.querySelector('.Window_The_Profile')
    const Result        = await GetPostsOFone_User()
@@ -860,7 +863,12 @@ async  function Profile() {
 
 
 }
-console.log("terhgerthsrthsrth");
+
+function ProfileClicked(userId){
+  window.location = `${BACKEND_LOCAL_URL}testProfile.html?id=${userId}`
+  console.log(userId);
+  
+}
 async function GetPostsOFone_User(){
 
   const res = await axios.get(`${BACKEND_LOCAL_URL}Posts_one_user`, {
@@ -1163,11 +1171,8 @@ window.location = `${BACKEND_LOCAL_URL}testProfile.html?userid=${id}`
 
 })
 } 
-function ProfileClicked(userId){
-  window.location = `http://localhost:3000/testProfile.html?id=${userId}`
-  console.log(userId);
-  
-}
+
+
 
  let  IntervalId2 = null 
    async function ChekingFhotoProfile2(){
