@@ -386,6 +386,7 @@ GetPostsAll()
    containerAll.appendChild(container);  
     GetComments(element._id)
    
+   console.log(element);
    
    })  
 
